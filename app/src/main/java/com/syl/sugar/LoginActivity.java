@@ -5,16 +5,30 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity {
+
+    @Bind(R.id.edit_login_username)
+    EditText mEditLoginUsername;
+    @Bind(R.id.edit_login_password)
+    EditText mEditLoginPassword;
+    @Bind(R.id.button_login)
+    Button mButtonLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -48,5 +62,18 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick({R.id.edit_login_username, R.id.edit_login_password, R.id.button_login})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.edit_login_username:
+                break;
+            case R.id.edit_login_password:
+                break;
+            case R.id.button_login:
+                NavigationTool.gotoMainActivity(this);
+                break;
+        }
     }
 }
