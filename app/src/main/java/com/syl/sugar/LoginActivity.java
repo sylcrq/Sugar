@@ -1,6 +1,7 @@
 package com.syl.sugar;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,6 +26,10 @@ public class LoginActivity extends AppCompatActivity {
     EditText mEditLoginPassword;
     @Bind(R.id.button_login)
     Button mButtonLogin;
+    @Bind(R.id.loading_bar)
+    ProgressBar mLoadingBar;
+
+    private Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +79,35 @@ public class LoginActivity extends AppCompatActivity {
             case R.id.edit_login_password:
                 break;
             case R.id.button_login:
-                NavigationTool.gotoMainActivity(this);
+                if (StringUtil.isEmpty(mEditLoginUsername.getText().toString())) {
+                    Toast.makeText(this, "用户名不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (StringUtil.isEmpty(mEditLoginPassword.getText().toString())) {
+                    Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                showLoading();
+
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideLoading();
+                        NavigationTool.gotoMainActivity(LoginActivity.this);
+                    }
+                }, 2000);
+
                 break;
         }
+    }
+
+    private void showLoading() {
+        mLoadingBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideLoading() {
+        mLoadingBar.setVisibility(View.GONE);
     }
 }

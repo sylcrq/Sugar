@@ -44,4 +44,13 @@
         android:layout_marginTop="10dp"
         android:text="@string/login_button_text"
         android:textSize="15sp"/>
+
+    <ProgressBar
+        android:id="@+id/loading_bar"
+        style="@android:style/Widget.ProgressBar.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_login"
+        android:layout_marginTop="10dp"
+        android:visibility="gone" />
 </RelativeLayout>
