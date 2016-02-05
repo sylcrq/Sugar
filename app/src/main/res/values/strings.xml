@@ -7,4 +7,6 @@
     <string name="edit_hint_username">Please input username</string>
     <string name="edit_hint_password">Please input password</string>
     <string name="login_button_text">Login</string>
+    <string name="username_is_empty">用户名不能为空</string>
+    <string name="password_is_empty">密码不能为空</string>
 </resources>

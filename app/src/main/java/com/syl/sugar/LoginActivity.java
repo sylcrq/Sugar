@@ -1,7 +1,6 @@
 package com.syl.sugar;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,13 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Bind(R.id.edit_login_username)
     EditText mEditLoginUsername;
@@ -29,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.loading_bar)
     ProgressBar mLoadingBar;
 
-    private Handler mHandler = new Handler();
+    private LoginPresenter mLoginPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +44,8 @@ public class LoginActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        mLoginPresenter = new LoginPresenter(this);
     }
 
     @Override
@@ -79,35 +78,36 @@ public class LoginActivity extends AppCompatActivity {
             case R.id.edit_login_password:
                 break;
             case R.id.button_login:
-                if (StringUtil.isEmpty(mEditLoginUsername.getText().toString())) {
-                    Toast.makeText(this, "用户名不能为空", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                final String username = mEditLoginUsername.getText().toString();
+                final String password = mEditLoginPassword.getText().toString();
 
-                if (StringUtil.isEmpty(mEditLoginPassword.getText().toString())) {
-                    Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                showLoading();
-
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        hideLoading();
-                        NavigationTool.gotoMainActivity(LoginActivity.this);
-                    }
-                }, 2000);
-
+                mLoginPresenter.doLogin(username, password);
                 break;
         }
     }
 
-    private void showLoading() {
+    @Override
+    public void showLoading() {
         mLoadingBar.setVisibility(View.VISIBLE);
     }
 
-    private void hideLoading() {
+    @Override
+    public void hideLoading() {
         mLoadingBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onUserNameError() {
+        mEditLoginUsername.setError(getString(R.string.username_is_empty));
+    }
+
+    @Override
+    public void onPasswordError() {
+        mEditLoginPassword.setError(getString(R.string.password_is_empty));
+    }
+
+    @Override
+    public void jump2MainActivity() {
+        NavigationTool.gotoMainActivity(this);
     }
 }
