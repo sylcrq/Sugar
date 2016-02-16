@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,14 +15,16 @@ import java.util.List;
 public class UserListAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<String> mUserList;
+    private List<String> mUserList = new ArrayList<>();
 
     public UserListAdapter(Context context) {
         mContext = context;
     }
 
     public void setData(List<String> userList) {
-        mUserList = userList;
+        // copy data
+        mUserList.clear();
+        mUserList.addAll(userList);
     }
 
     @Override
@@ -58,6 +61,9 @@ public class UserListAdapter extends BaseAdapter {
         return convertView;
     }
 
+    /**
+     * ViewHolder
+     */
     public static class ViewHolder {
         public TextView mUserName;
     }

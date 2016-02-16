@@ -1,20 +1,20 @@
 package com.syl.sugar;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import java.util.ArrayList;
+import android.widget.Toast;
 import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainView, AdapterView.OnItemClickListener {
 
     @Bind(R.id.user_data_list)
     ListView mUserDataList;
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar mLoadingBar;
 
     private UserListAdapter mAdapter;
-    private Handler mHandler = new Handler();
+    private MainPresenter mMainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,40 +41,39 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        List<String> data = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            data.add("Hello " + i);
-        }
-
         mAdapter = new UserListAdapter(this);
-        mAdapter.setData(data);
         mUserDataList.setAdapter(mAdapter);
+        mUserDataList.setOnItemClickListener(this);
 
-        showLoading();
-        hideData();
-
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                hideLoading();
-                showData();
-            }
-        }, 2000);
+        mMainPresenter = new MainPresenter(this);
+        mMainPresenter.loadData();
     }
 
-    private void showLoading() {
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        onItemClick((String) mAdapter.getItem(position));
+    }
+
+    @Override
+    public void showLoading() {
         mLoadingBar.setVisibility(View.VISIBLE);
+        mUserDataList.setVisibility(View.GONE);
     }
 
-    private void hideLoading() {
+    @Override
+    public void hideLoading() {
         mLoadingBar.setVisibility(View.GONE);
-    }
-
-    private void showData() {
         mUserDataList.setVisibility(View.VISIBLE);
     }
 
-    private void hideData() {
-        mUserDataList.setVisibility(View.GONE);
+    @Override
+    public void onItemClick(String user) {
+        Toast.makeText(this, user + " clicked", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void bindData(List<String> users) {
+        mAdapter.setData(users);
+        mAdapter.notifyDataSetChanged();
     }
 }
