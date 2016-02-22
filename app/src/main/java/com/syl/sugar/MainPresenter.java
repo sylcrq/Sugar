@@ -1,6 +1,9 @@
 package com.syl.sugar;
 
 import android.os.Handler;
+
+import com.syl.aop.annotation.DebugTrace;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +40,7 @@ public class MainPresenter {
      *
      * @return
      */
+    @DebugTrace
     private List<String> getUserList() {
         List<String> data = new ArrayList<>();
         for(int i=0; i<50; i++) {

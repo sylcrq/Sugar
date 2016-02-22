@@ -10,6 +10,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.syl.aop.annotation.DebugTrace;
+
 import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
     private UserListAdapter mAdapter;
     private MainPresenter mMainPresenter;
 
+    @DebugTrace
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
