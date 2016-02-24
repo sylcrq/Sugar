@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -46,11 +47,17 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
         });
 
         mAdapter = new UserListAdapter(this);
+        mUserDataList.addHeaderView(initHeaderView());
         mUserDataList.setAdapter(mAdapter);
         mUserDataList.setOnItemClickListener(this);
 
         mMainPresenter = new MainPresenter(this);
         mMainPresenter.loadData();
+    }
+
+    private View initHeaderView() {
+        View view = LayoutInflater.from(this).inflate(R.layout.main_listview_header, null);
+        return view;
     }
 
     @Override
