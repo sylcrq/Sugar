@@ -1,7 +1,6 @@
 package com.syl.sugar.utils;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
 /**
  * Saving Key-Value Sets
@@ -10,16 +9,14 @@ import android.content.SharedPreferences;
  */
 public class SharedPreferencesFactory {
 
-    private static final String PREFERENCE_FILE_KEY = "com.syl.sugar.utils.PREFERENCE_FILE_KEY";
+    public static final String PREFERENCE_FILE_KEY = "com.syl.sugar.PREFERENCE_FILE_KEY";
 
     private Context mContext;
-    private SharedPreferences mSharedPref;
 
     private static SharedPreferencesFactory mInstance;  // 单例
 
     private SharedPreferencesFactory(Context context) {
         this.mContext = context;
-        this.mSharedPref = context.getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
     }
 
     public static SharedPreferencesFactory getInstance(Context context) {
@@ -30,13 +27,7 @@ public class SharedPreferencesFactory {
         return mInstance;
     }
 
-    public void setString(String key, String value) {
-        SharedPreferences.Editor editor = mSharedPref.edit();
-        editor.putString(key, value);
-        editor.apply();
-    }
-
-    public String getString(String key, String defValue) {
-        return mSharedPref.getString(key, defValue);
+    public SharedPreferencesWrapper build(String key) {
+        return new SharedPreferencesWrapper(mContext, key);
     }
 }

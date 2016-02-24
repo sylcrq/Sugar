@@ -3,6 +3,7 @@ package com.syl.sugar.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Saving Data in SQL Databases
@@ -10,6 +11,8 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by syl on 16/2/23.
  */
 public class SugarDbHelper extends SQLiteOpenHelper {
+
+    public static final String TAG = "SugarDbHelper";
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Sugar.db";
@@ -34,11 +37,15 @@ public class SugarDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d(TAG, "onCreate");
+
         db.execSQL(SQL_CREATE_ENTRIES);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.d(TAG, "onUpgrade # oldVersion=" + oldVersion + ", newVersion=" + newVersion);
+
         db.execSQL(SQL_DELETE_ENTRIES);
         onCreate(db);
     }
