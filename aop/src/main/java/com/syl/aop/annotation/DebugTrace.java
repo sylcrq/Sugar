@@ -11,6 +11,6 @@ import java.lang.annotation.Target;
  * Created by shenyunlong on 2/22/16.
  */
 @Retention(RetentionPolicy.CLASS)
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD, ElementType.CONSTRUCTOR})
 public @interface DebugTrace {
 }

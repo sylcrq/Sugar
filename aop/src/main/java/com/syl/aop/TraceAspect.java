@@ -1,11 +1,15 @@
 package com.syl.aop;
 
+import android.os.Build;
+import android.os.Trace;
 import android.util.Log;
-
+import com.syl.aop.utils.StopWatch;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.CodeSignature;
 import org.aspectj.lang.reflect.MethodSignature;
 
 /**
@@ -16,35 +20,94 @@ import org.aspectj.lang.reflect.MethodSignature;
 @Aspect
 public class TraceAspect {
 
-    public static final String TAG = "TraceAspect";
+    public static final String POINTCUT_METHOD_DEBUG_TRACE = "execution(@com.syl.aop.annotation.DebugTrace * *(..))";
+    public static final String POINTCUT_CONSTRUCTOR_DEBUG_TRACE = "execution(@com.syl.aop.annotation.DebugTrace *.new(..))";
 
-    public static final String POINTCUT_METHOD = "execution(@com.syl.aop.annotation.DebugTrace * *(..))";
+    @Pointcut(POINTCUT_METHOD_DEBUG_TRACE)
+    public void methodWithDebugTrace() {}
 
-    @Pointcut(POINTCUT_METHOD)
-    public void methodAnnotatedWithDebugTrace() {}
+    @Pointcut(POINTCUT_CONSTRUCTOR_DEBUG_TRACE)
+    public void constructorWithDebugTrace() {}
 
-    @Around("methodAnnotatedWithDebugTrace()")
+    @Around("methodWithDebugTrace() || constructorWithDebugTrace()")
     public Object weaveJoinPoint(ProceedingJoinPoint joinPoint) throws Throwable {
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-        String className = methodSignature.getDeclaringType().getSimpleName();
-        String methodName = methodSignature.getName();
+        enterMethod(joinPoint);
 
-        DebugTimer timer = new DebugTimer();
+        StopWatch timer = new StopWatch();
         timer.start();
         Object result = joinPoint.proceed();
         timer.stop();
+        timer.getElapsedTime();
 
-        Log.d(TAG, buildDebugLog(className, methodName, timer.getDuration()));
+        exitMethod(joinPoint, result, timer.getElapsedTime());
 
         return result;
     }
 
-    private String buildDebugLog(String className, String methodName, long duration) {
-        StringBuilder builder = new StringBuilder();
+    /**
+     * 进入函数时:
+     * 1. 打印调试Log(类名, 方法名, 传入的参数, 当前的线程名/ID)
+     * 2. 开始Systrace
+     *
+     * @param joinPoint
+     */
+    private void enterMethod(ProceedingJoinPoint joinPoint) {
+        CodeSignature codeSignature = (CodeSignature) joinPoint.getSignature();
 
-        builder.append(className).append("->").append(methodName).append(" ");
-        builder.append("[").append(duration).append(" ms").append("]");
+        Class<?> clazz =  codeSignature.getDeclaringType();
+        String methodName = codeSignature.getName();
+        String[] parameterNames = codeSignature.getParameterNames();
+        Object[] parameterValues = joinPoint.getArgs();
 
-        return builder.toString();
+        StringBuilder builder = new StringBuilder("====> ");
+        builder.append("Thread [").append(Thread.currentThread().getName()).append("/").append(Thread.currentThread().getId()).append("] # ");
+        builder.append(methodName).append(" (");
+        for (int i=0; i<parameterValues.length; i++) {
+            builder.append(parameterNames[i]).append("=").append(parameterValues[i]).append(", ");
+        }
+        builder.append(")");
+
+        String tag = clazz.getSimpleName();
+        Log.d(tag, builder.toString());
+
+        // Start Systrace
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            Trace.beginSection(tag);
+        }
+    }
+
+    /**
+     * 退出函数前:
+     * 1. 打印调试Log(类名, 方法名, 返回值, 当前的线程名/ID)
+     * 2. 结束Systrace
+     *
+     * @param joinPoint
+     * @param result
+     * @param elapsedTime
+     */
+    private void exitMethod(ProceedingJoinPoint joinPoint, Object result, long elapsedTime) {
+        // Stop Systrace
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            Trace.endSection();
+        }
+
+        Signature signature = joinPoint.getSignature();
+
+        Class<?> clazz = signature.getDeclaringType();
+        String methodName = signature.getName();
+        boolean hasReturnType = (signature instanceof MethodSignature) &&
+                ((MethodSignature) signature).getReturnType() != void.class;
+
+        StringBuilder builder = new StringBuilder("====> ");
+        builder.append("Thread [").append(Thread.currentThread().getName()).append("/").append(Thread.currentThread().getId()).append("] # ");
+        builder.append(methodName).append(" [");
+        builder.append(elapsedTime).append("ms] ");
+
+        if(hasReturnType) {
+            builder.append("Return=").append(result);
+        }
+
+        String tag = clazz.getSimpleName();
+        Log.d(tag, builder.toString());
     }
 }
