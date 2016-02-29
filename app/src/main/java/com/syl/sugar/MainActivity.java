@@ -11,9 +11,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.syl.aop.annotation.DebugTrace;
-
+import com.syl.sugar.task.TaskManager;
 import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -53,6 +52,11 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
 
         mMainPresenter = new MainPresenter(this);
         mMainPresenter.loadData();
+
+        TaskManager.getInstance().start(new DbTask());
+        TaskManager.getInstance().start(new DbTask());
+        TaskManager.getInstance().start(new DbTask());
+        TaskManager.getInstance().start(new DbTask());
     }
 
     private View initHeaderView() {
