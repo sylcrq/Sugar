@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
 
     @Override
     public void onItemClick(String user) {
-        Toast.makeText(this, user + " clicked", Toast.LENGTH_SHORT).show();
+        NavigationTool.gotoGankActivity(this);
     }
 
     @Override
