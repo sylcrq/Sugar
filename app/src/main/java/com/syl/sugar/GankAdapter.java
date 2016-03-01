@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.syl.sugar.model.Welfare;
+import com.syl.sugar.model.WelfareResp;
 import java.util.List;
 
 /**
@@ -16,13 +16,13 @@ import java.util.List;
 public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankViewHolder> {
 
     private Context mContext;
-    private List<Welfare> mData;
+    private List<WelfareResp.Welfare> mData;
 
     public GankAdapter(Context context) {
         mContext = context;
     }
 
-    public void setData(List<Welfare> data) {
+    public void setData(List<WelfareResp.Welfare> data) {
         mData = data;
     }
 

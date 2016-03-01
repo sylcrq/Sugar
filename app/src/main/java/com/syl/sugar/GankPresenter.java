@@ -4,13 +4,8 @@ import android.os.Handler;
 import android.os.Looper;
 import com.google.gson.Gson;
 import com.syl.aop.annotation.DebugTrace;
-import com.syl.sugar.model.Welfare;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.syl.sugar.model.WelfareResp;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -82,29 +77,12 @@ public class GankPresenter {
                     return;
                 }
 
-                final List<Welfare> data = new ArrayList<Welfare>();
-
-                try {
-                    JSONObject jsonObj = new JSONObject(response.body().string());
-
-                    JSONArray jsonArray = jsonObj.optJSONArray("results");
-                    if(jsonArray != null) {
-                        for(int i=0; i<jsonArray.length(); i++) {
-                            JSONObject obj = jsonArray.getJSONObject(i);
-
-                            Welfare welfare = new Welfare();
-                            welfare.setUrl(obj.getString("url"));
-                            data.add(welfare);
-                        }
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                final WelfareResp resp = mGson.fromJson(response.body().charStream(), WelfareResp.class);
 
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        mGankView.bindData(data);
+                        mGankView.bindData(resp.getResults());
                         showResultData();
                     }
                 });

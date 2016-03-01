@@ -2,12 +2,13 @@ package com.syl.sugar;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import com.syl.sugar.model.Welfare;
+import com.syl.sugar.model.WelfareResp;
 import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,6 +35,7 @@ public class GankActivity extends AppCompatActivity implements GankView {
 
         mGankAdapter = new GankAdapter(this);
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mGankAdapter);
     }
 
@@ -80,7 +82,7 @@ public class GankActivity extends AppCompatActivity implements GankView {
     }
 
     @Override
-    public void bindData(List<Welfare> welfares) {
+    public void bindData(List<WelfareResp.Welfare> welfares) {
         mGankAdapter.setData(welfares);
         mGankAdapter.notifyDataSetChanged();
     }
