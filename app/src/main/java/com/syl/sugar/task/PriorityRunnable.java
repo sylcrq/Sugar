@@ -5,15 +5,22 @@ package com.syl.sugar.task;
  *
  * Created by shenyunlong on 2/29/16.
  */
-/*package*/ abstract class PriorityRunnable implements Runnable {
+/*package*/ class PriorityRunnable implements Runnable {
 
-    private int mPriority = 0;  // 默认优先级为0
+    private TaskPriority mPriority;
+    private Runnable mRunnable;
 
-    public PriorityRunnable(int priority) {
+    public PriorityRunnable(Runnable runnable, TaskPriority priority) {
+        mRunnable = runnable;
         mPriority = priority;
     }
 
-    public int getPriority() {
+    public TaskPriority getPriority() {
         return mPriority;
+    }
+
+    @Override
+    public void run() {
+        mRunnable.run();
     }
 }

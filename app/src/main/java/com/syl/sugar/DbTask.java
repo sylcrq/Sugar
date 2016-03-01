@@ -2,21 +2,26 @@ package com.syl.sugar;
 
 import com.syl.aop.annotation.DebugTrace;
 import com.syl.sugar.task.AbsTask;
+import com.syl.sugar.task.PriorityExecutor;
+import com.syl.sugar.task.TaskPriority;
+import java.util.concurrent.Executor;
 
 /**
  * 模拟数据库任务
  *
  * Created by shenyunlong on 2/29/16.
  */
-public class DbTask extends AbsTask {
+public class DbTask<T> extends AbsTask<T> {
+
+    private static final Executor sExecutor = new PriorityExecutor();
 
     public DbTask() {
-        super(1);
+        super(TaskPriority.HIGH);
     }
 
     @DebugTrace
     @Override
-    public void doBackground() {
+    protected void doBackground() {
         // 进行耗时的异步操作
         try {
             Thread.sleep(1024);
@@ -25,28 +30,33 @@ public class DbTask extends AbsTask {
         }
     }
 
-    @DebugTrace
     @Override
-    public void onStart() {
+    protected Executor getExecutor() {
+        return sExecutor;
     }
 
     @DebugTrace
     @Override
-    public void onWaiting() {
+    protected void onStart() {
     }
 
     @DebugTrace
     @Override
-    public void onSuccess() {
+    protected void onWaiting() {
     }
 
     @DebugTrace
     @Override
-    public void onError() {
+    protected void onSuccess() {
     }
 
     @DebugTrace
     @Override
-    public void onCancelled() {
+    protected void onError() {
+    }
+
+    @DebugTrace
+    @Override
+    protected void onCancelled() {
     }
 }

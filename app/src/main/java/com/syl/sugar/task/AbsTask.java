@@ -7,57 +7,45 @@ import java.util.concurrent.Executor;
  *
  * Created by shenyunlong on 2/29/16.
  */
-public abstract class AbsTask {
+public abstract class AbsTask<T> {
 
-    private int mStatus = 0;    // 状态，默认为IDLE
-    private int mPriority = 0;  // 优先级，默认为0
-    private Executor mExecutor;
+    private TaskStatus mStatus;      // 状态，默认为IDLE
+    private TaskPriority mPriority;  // 优先级，默认为NORMAL
 
     public AbsTask() {
-        mStatus = 0;
-        mPriority = 0;
-        mExecutor = TaskManager.getInstance().getDefaultExecutor();
+        this(TaskPriority.NORMAL);
     }
 
-    public AbsTask(int priority) {
-        mStatus = 0;
+    public AbsTask(TaskPriority priority) {
+        mStatus = TaskStatus.IDLE;
         mPriority = priority;
-        mExecutor = TaskManager.getInstance().getDefaultExecutor();
     }
 
-    public AbsTask(Executor executor, int priority) {
-        mStatus = 0;
-        mPriority = priority;
-        mExecutor = executor;
-    }
+    protected abstract Executor getExecutor();
 
-    public Executor getExecutor() {
-        return mExecutor;
-    }
-
-    public int getPriority() {
+    public TaskPriority getPriority() {
         return mPriority;
     }
 
-    public void setStatus(int status) {
+    /*package*/ void setStatus(TaskStatus status) {
         mStatus = status;
     }
 
-    public int getStatus() {
+    /*package*/ TaskStatus getStatus() {
         return mStatus;
     }
 
     /**
      * 以下操作会在UI线程中执行
      */
-    public abstract void onStart();
-    public abstract void onWaiting();
-    public abstract void onSuccess();
-    public abstract void onError();
-    public abstract void onCancelled();
+    protected abstract void onStart();
+    protected abstract void onWaiting();
+    protected abstract void onSuccess();
+    protected abstract void onError();
+    protected abstract void onCancelled();
 
     /**
      * 在异步线程中执行耗时操作
      */
-    public abstract void doBackground();
+    protected abstract void doBackground();
 }

@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
         TaskManager.getInstance().start(new DbTask());
         TaskManager.getInstance().start(new DbTask());
         TaskManager.getInstance().start(new DbTask());
+        TaskManager.getInstance().start(new DbTask());
+        TaskManager.getInstance().start(new DbTask());
     }
 
     private View initHeaderView() {

@@ -10,7 +10,7 @@ import java.util.concurrent.Executor;
  *
  * Created by shenyunlong on 2/29/16.
  */
-/*package*/ class TaskProxy extends AbsTask {
+/*package*/ class TaskProxy<T> extends AbsTask<T> {
 
     private static final int MESSAGE_START = 1024;
     private static final int MESSAGE_WAITING = MESSAGE_START + 1;
@@ -18,24 +18,25 @@ import java.util.concurrent.Executor;
     private static final int MESSAGE_ERROR = MESSAGE_SUCCESS + 1;
     private static final int MESSAGE_CANCELLED = MESSAGE_ERROR + 1;
 
-    private AbsTask mTask;
+    private AbsTask<T> mTask;
     private Executor mExecutor;
 
     private static InternalHandler sHandler = new InternalHandler();
 
-    public TaskProxy(AbsTask task) {
+    public TaskProxy(AbsTask<T> task) {
         mTask = task;
         mExecutor = task.getExecutor();
     }
 
     @Override
-    public void doBackground() {
-        int priority = mTask.getPriority();
+    protected void doBackground() {
+        TaskPriority priority = mTask.getPriority();
 
-        Runnable runnable = new PriorityRunnable(priority) {
+        Runnable runnable = new PriorityRunnable(new Runnable() {
             @Override
             public void run() {
                 try {
+                    // TODO: 3/1/16
                     // Cancel ?
                     TaskProxy.this.onStart();
 
@@ -44,38 +45,48 @@ import java.util.concurrent.Executor;
 
                     // Cancel ?
                     TaskProxy.this.onSuccess();
-
                 } catch (Exception e) {
+                    e.printStackTrace();
                     TaskProxy.this.onError();
                 }
             }
-        };
+        }, priority);
 
         mExecutor.execute(runnable);
     }
 
     @Override
-    public void onStart() {
+    protected Executor getExecutor() {
+        return mExecutor;
+    }
+
+    @Override
+    protected void onStart() {
+        setStatus(TaskStatus.STARTED);
         sHandler.obtainMessage(MESSAGE_START, this).sendToTarget();
     }
 
     @Override
-    public void onWaiting() {
+    protected void onWaiting() {
+        setStatus(TaskStatus.WAITING);
         sHandler.obtainMessage(MESSAGE_WAITING, this).sendToTarget();
     }
 
     @Override
-    public void onSuccess() {
+    protected void onSuccess() {
+        setStatus(TaskStatus.SUCCESS);
         sHandler.obtainMessage(MESSAGE_SUCCESS, this).sendToTarget();
     }
 
     @Override
-    public void onError() {
+    protected void onError() {
+        setStatus(TaskStatus.ERROR);
         sHandler.obtainMessage(MESSAGE_ERROR, this).sendToTarget();
     }
 
     @Override
-    public void onCancelled() {
+    protected void onCancelled() {
+        setStatus(TaskStatus.CANCELLED);
         sHandler.obtainMessage(MESSAGE_CANCELLED, this).sendToTarget();
     }
 
