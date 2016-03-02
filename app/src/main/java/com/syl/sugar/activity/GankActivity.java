@@ -1,4 +1,4 @@
-package com.syl.sugar;
+package com.syl.sugar.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +8,10 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.syl.sugar.R;
+import com.syl.sugar.activity.adapter.GankAdapter;
+import com.syl.sugar.activity.presenter.GankPresenter;
 import com.syl.sugar.model.WelfareResp;
 import java.util.List;
 import butterknife.Bind;

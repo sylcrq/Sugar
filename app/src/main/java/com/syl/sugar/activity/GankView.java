@@ -1,4 +1,4 @@
-package com.syl.sugar;
+package com.syl.sugar.activity;
 
 import com.syl.sugar.model.WelfareResp;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.syl.sugar;
+package com.syl.sugar.activity.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.syl.sugar.R;
 import com.syl.sugar.model.WelfareResp;
 import java.util.List;
 

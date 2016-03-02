@@ -1,9 +1,10 @@
-package com.syl.sugar;
+package com.syl.sugar.activity.presenter;
 
 import android.os.Handler;
 import android.os.Looper;
 import com.google.gson.Gson;
 import com.syl.aop.annotation.DebugTrace;
+import com.syl.sugar.activity.GankView;
 import com.syl.sugar.model.WelfareResp;
 import java.io.IOException;
 import okhttp3.Call;

@@ -1,8 +1,9 @@
-package com.syl.sugar;
+package com.syl.sugar.activity.presenter;
 
 import android.os.Handler;
 
 import com.syl.aop.annotation.DebugTrace;
+import com.syl.sugar.activity.MainView;
 
 import java.util.ArrayList;
 import java.util.List;

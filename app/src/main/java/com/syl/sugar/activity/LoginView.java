@@ -1,4 +1,4 @@
-package com.syl.sugar;
+package com.syl.sugar.activity;
 
 /**
  * 登录页面UI相关操作

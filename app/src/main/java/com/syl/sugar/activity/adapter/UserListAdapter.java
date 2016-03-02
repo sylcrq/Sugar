@@ -1,4 +1,4 @@
-package com.syl.sugar;
+package com.syl.sugar.activity.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.syl.sugar.R;
+
 import java.util.ArrayList;
 import java.util.List;
 

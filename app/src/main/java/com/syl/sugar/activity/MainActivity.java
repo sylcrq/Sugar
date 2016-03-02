@@ -1,4 +1,4 @@
-package com.syl.sugar;
+package com.syl.sugar.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,8 +10,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+
 import com.syl.aop.annotation.DebugTrace;
+import com.syl.sugar.DbTask;
+import com.syl.sugar.NavigationTool;
+import com.syl.sugar.R;
+import com.syl.sugar.activity.adapter.UserListAdapter;
+import com.syl.sugar.activity.presenter.MainPresenter;
 import com.syl.sugar.task.TaskManager;
 import java.util.List;
 import butterknife.Bind;
