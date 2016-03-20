@@ -3,6 +3,7 @@ package com.syl.sugar;
 import android.content.Context;
 import android.content.Intent;
 
+import com.syl.sugar.activity.BlankActivity;
 import com.syl.sugar.activity.GankActivity;
 import com.syl.sugar.activity.LoginActivity;
 import com.syl.sugar.activity.MainActivity;
@@ -31,6 +32,13 @@ public class NavigationTool {
     public static void gotoGankActivity(Context context) {
         if(context != null) {
             Intent intent = new Intent(context, GankActivity.class);
+            context.startActivity(intent);
+        }
+    }
+
+    public static void gotoBlankActivity(Context context) {
+        if(context != null) {
+            Intent intent = new Intent(context, BlankActivity.class);
             context.startActivity(intent);
         }
     }
