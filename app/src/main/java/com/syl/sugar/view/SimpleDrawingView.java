@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class SimpleDrawingView extends View {
 
+    private int mPaintColor = Color.BLACK;
     private Paint mPaint;
 //    private List<Point> mPoints;
     private Path mPath = new Path();
@@ -63,8 +64,11 @@ public class SimpleDrawingView extends View {
         mPaint = new Paint();
 //        mPoints = new ArrayList<>();
 
-        mPaint.setColor(Color.BLACK);
+        mPaint.setAntiAlias(true);
+        mPaint.setColor(mPaintColor);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(10);
+        mPaint.setStrokeJoin(Paint.Join.ROUND);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
     }
 }
