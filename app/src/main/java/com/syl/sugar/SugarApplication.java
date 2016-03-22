@@ -22,6 +22,8 @@ public class SugarApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
+
         File cacheDir = StorageUtils.getCacheDirectory(this);
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
                 .memoryCacheExtraOptions(480, 800) // default = device screen dimensions
