@@ -1,6 +1,7 @@
 package com.syl.sugar;
 
 import android.app.Application;
+import com.facebook.stetho.Stetho;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
@@ -22,8 +23,11 @@ public class SugarApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        /* Custom Crash Handler  */
         Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
-
+        /* Stetho */
+        Stetho.initializeWithDefaults(this);
+        /* UIL */
         File cacheDir = StorageUtils.getCacheDirectory(this);
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
                 .memoryCacheExtraOptions(480, 800) // default = device screen dimensions
