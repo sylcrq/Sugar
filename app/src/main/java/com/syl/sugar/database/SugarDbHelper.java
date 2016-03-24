@@ -3,6 +3,7 @@ package com.syl.sugar.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
 import android.util.Log;
 
 /**
@@ -12,42 +13,48 @@ import android.util.Log;
  */
 public class SugarDbHelper extends SQLiteOpenHelper {
 
-    public static final String TAG = "SugarDbHelper";
+    public static final String TAG = SugarDbHelper.class.getSimpleName();
 
+    // Database Info
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Sugar.db";
-
-    private static final String TEXT_TYPE = " TEXT";
-    private static final String COMMA_SEP = ",";
-
-    private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + SugarContract.SugarEntry.TABLE_NAME + " (" +
-                    SugarContract.SugarEntry._ID + "INTEGER PRIMARY KEY," +
-                    SugarContract.SugarEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
-                    SugarContract.SugarEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
-                    SugarContract.SugarEntry.COLUMN_NAME_CONTENT + TEXT_TYPE + COMMA_SEP +
-            " )";
-
-    private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + SugarContract.SugarEntry.TABLE_NAME;
 
     public SugarDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    // Called when the database connection is being configured.
+    // Configure database settings for things like foreign key support, write-ahead logging, etc.
+    @Override
+    public void onConfigure(SQLiteDatabase db) {
+        super.onConfigure(db);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            db.setForeignKeyConstraintsEnabled(true);
+        }
+    }
+
+    // Called when the database is created for the FIRST time.
+    // If a database already exists on disk with the same DATABASE_NAME, this method will NOT be called.
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, "onCreate");
 
-        db.execSQL(SQL_CREATE_ENTRIES);
+        db.execSQL(TablePost.CREATE_TABLE_SQL);
+        db.execSQL(TableUser.CREATE_TABLE_SQL);
     }
 
+    // Called when the database needs to be upgraded.
+    // This method will only be called if a database already exists on disk with the same DATABASE_NAME,
+    // but the DATABASE_VERSION is different than the version of the database that exists on disk.
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(TAG, "onUpgrade # oldVersion=" + oldVersion + ", newVersion=" + newVersion);
 
-        db.execSQL(SQL_DELETE_ENTRIES);
-        onCreate(db);
-    }
+        if(oldVersion != newVersion) {
+            db.execSQL(TablePost.DELETE_TABLE_SQL);
+            db.execSQL(TableUser.DELETE_TABLE_SQL);
 
+            onCreate(db);
+        }
+    }
 }
