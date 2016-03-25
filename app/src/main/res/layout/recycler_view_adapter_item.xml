@@ -8,11 +8,11 @@
               android:paddingLeft="5dp"
               android:paddingRight="5dp">
 
-    <ImageView
+    <com.syl.sugar.view.DynamicHeightImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
+        android:layout_height="match_parent"
+        android:scaleType="center"
         android:src="@drawable/placeholder_image"/>
 
     <TextView
