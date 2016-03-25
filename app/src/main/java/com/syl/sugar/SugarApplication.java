@@ -17,7 +17,7 @@ import java.io.File;
 /**
  * Created by shenyunlong on 3/1/16.
  */
-public class SugarApplication extends Application {
+public class SugarApplication extends com.activeandroid.app.Application {
 
     @Override
     public void onCreate() {
