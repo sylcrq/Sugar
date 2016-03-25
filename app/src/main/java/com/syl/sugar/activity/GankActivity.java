@@ -38,9 +38,9 @@ public class GankActivity extends AppCompatActivity implements GankView {
         mGankPresenter = new GankPresenter(this);
 
         mGankAdapter = new GankAdapter(this);
+        mRecyclerView.setAdapter(mGankAdapter);
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setAdapter(mGankAdapter);
     }
 
     @Override

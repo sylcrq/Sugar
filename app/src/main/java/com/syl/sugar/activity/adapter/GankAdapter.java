@@ -29,13 +29,14 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankViewHolder
 
     @Override
     public GankViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.recycler_view_adapter_item, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.recycler_view_adapter_item, parent, false);
 
         return new GankViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(GankViewHolder holder, int position) {
+        holder.mImageView.setImageResource(R.drawable.placeholder_image);
         ImageLoader.getInstance().displayImage(mData.get(position).getUrl(), holder.mImageView);
     }
 

@@ -90,8 +90,8 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
 
     @Override
     public void onItemClick(String user) {
-//        NavigationTool.gotoGankActivity(this);
-        NavigationTool.gotoBlankActivity(this);
+        NavigationTool.gotoGankActivity(this);
+//        NavigationTool.gotoBlankActivity(this);
     }
 
     @Override
