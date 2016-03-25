@@ -12,9 +12,13 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.squareup.leakcanary.LeakCanary;
+
 import java.io.File;
 
 /**
+ * Custom Application
+ *
  * Created by shenyunlong on 3/1/16.
  */
 public class SugarApplication extends com.activeandroid.app.Application {
@@ -23,6 +27,8 @@ public class SugarApplication extends com.activeandroid.app.Application {
     public void onCreate() {
         super.onCreate();
 
+        /* LeakCanary */
+        LeakCanary.install(this);
         /* Custom Crash Handler  */
         Thread.setDefaultUncaughtExceptionHandler(new MyUncaughtExceptionHandler(this));
         /* Stetho */
