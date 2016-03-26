@@ -7,12 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import com.nostra13.universalimageloader.core.ImageLoader;
+
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.syl.sugar.R;
-import com.syl.sugar.model.WelfareResp;
+import com.syl.sugar.model.WelfareResponse;
 import com.syl.sugar.view.DynamicHeightImageView;
 
 import java.util.List;
@@ -23,13 +22,13 @@ import java.util.List;
 public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankViewHolder> {
 
     private Context mContext;
-    private List<WelfareResp.Welfare> mData;
+    private List<WelfareResponse.Welfare> mData;
 
     public GankAdapter(Context context) {
         mContext = context;
     }
 
-    public void setData(List<WelfareResp.Welfare> data) {
+    public void setData(List<WelfareResponse.Welfare> data) {
         mData = data;
     }
 
@@ -44,7 +43,7 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankViewHolder
     public void onBindViewHolder(GankViewHolder holder, int position) {
 //        holder.mImageView.setImageResource(R.drawable.placeholder_image);
 //        ImageLoader.getInstance().displayImage(mData.get(position).getUrl(), holder.mImageView);
-        WelfareResp.Welfare welfare = mData.get(position);
+        WelfareResponse.Welfare welfare = mData.get(position);
         Picasso.with(mContext).load(welfare.getUrl())
                 .placeholder(R.drawable.placeholder_image)
                 .into(holder.mImageView);

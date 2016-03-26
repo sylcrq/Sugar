@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.syl.sugar.R;
 import com.syl.sugar.activity.adapter.GankAdapter;
 import com.syl.sugar.activity.presenter.GankPresenter;
-import com.syl.sugar.model.WelfareResp;
+import com.syl.sugar.model.WelfareResponse;
 import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -86,7 +86,7 @@ public class GankActivity extends AppCompatActivity implements GankView {
     }
 
     @Override
-    public void bindData(List<WelfareResp.Welfare> welfares) {
+    public void bindData(List<WelfareResponse.Welfare> welfares) {
         mGankAdapter.setData(welfares);
         mGankAdapter.notifyDataSetChanged();
     }

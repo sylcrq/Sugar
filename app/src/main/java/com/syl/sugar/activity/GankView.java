@@ -1,6 +1,6 @@
 package com.syl.sugar.activity;
 
-import com.syl.sugar.model.WelfareResp;
+import com.syl.sugar.model.WelfareResponse;
 import java.util.List;
 
 /**
@@ -17,5 +17,5 @@ public interface GankView {
     void showContentPage();
     void hideContentPage();
 
-    void bindData(List<WelfareResp.Welfare> welfares);
+    void bindData(List<WelfareResponse.Welfare> welfares);
 }

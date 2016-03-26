@@ -1,16 +1,13 @@
 package com.syl.sugar.activity.presenter;
 
-import android.os.Handler;
-import android.os.Looper;
-import com.google.gson.Gson;
-import com.syl.aop.annotation.DebugTrace;
 import com.syl.sugar.activity.GankView;
-import com.syl.sugar.model.WelfareResp;
+import com.syl.sugar.http.HttpCallback;
+import com.syl.sugar.http.HttpUtil;
+import com.syl.sugar.model.WelfareResponse;
+import com.syl.sugar.utils.GsonUtil;
 import java.io.IOException;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
+import java.io.Reader;
+
 import okhttp3.Response;
 
 /**
@@ -19,9 +16,6 @@ import okhttp3.Response;
 public class GankPresenter {
 
     private GankView mGankView;
-
-    private static final OkHttpClient sClient = new OkHttpClient();
-    private static final Gson mGson = new Gson();
 
     public GankPresenter(GankView gankView) {
         mGankView = gankView;
@@ -49,44 +43,22 @@ public class GankPresenter {
         startLoading();
 
         final String url = "http://gank.io/api/data/福利/10/1";
-        final Request request = new Request.Builder().url(url).build();
 
-        final Handler handler = new Handler(Looper.getMainLooper());
-
-        sClient.newCall(request).enqueue(new Callback() {
-            @DebugTrace
+        HttpUtil.getInstance().get(url, new HttpCallback<WelfareResponse>(WelfareResponse.class) {
             @Override
-            public void onFailure(Call call, IOException e) {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        showErrorPage();
-                    }
-                });
+            public void onFailure(Response response, IOException e) {
+                showErrorPage();
             }
 
-            @DebugTrace
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if(!response.isSuccessful()) {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            showErrorPage();
-                        }
-                    });
-                    return;
-                }
+            public void onSuccess(WelfareResponse response) {
+                mGankView.bindData(response.getResults());
+                showResultData();
+            }
 
-                final WelfareResp resp = mGson.fromJson(response.body().charStream(), WelfareResp.class);
-
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mGankView.bindData(resp.getResults());
-                        showResultData();
-                    }
-                });
+            @Override
+            public WelfareResponse parse(Reader json, Class<WelfareResponse> classOfT) {
+                return GsonUtil.getGson().fromJson(json, classOfT);
             }
         });
     }
