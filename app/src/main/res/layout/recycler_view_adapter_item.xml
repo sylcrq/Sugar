@@ -8,6 +8,12 @@
               android:paddingLeft="5dp"
               android:paddingRight="5dp">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="@drawable/ripple"
+        android:clickable="true">
+
     <com.syl.sugar.view.DynamicHeightImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
@@ -15,11 +21,15 @@
         android:scaleType="center"
         android:src="@drawable/placeholder_image"/>
 
+    </FrameLayout>
+
     <TextView
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textSize="20sp"
-        android:text="Hello"/>
+        android:text="Hello"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"/>
 </LinearLayout>
