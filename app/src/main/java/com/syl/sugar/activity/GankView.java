@@ -17,5 +17,10 @@ public interface GankView {
     void showContentPage();
     void hideContentPage();
 
-    void bindData(List<WelfareResponse.Welfare> welfares);
+    void resetData(List<WelfareResponse.Welfare> data);
+    void appendData(List<WelfareResponse.Welfare> data);
+
+    void stopRefresh();
+
+    void showToast(String content);
 }

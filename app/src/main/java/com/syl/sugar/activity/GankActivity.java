@@ -1,5 +1,6 @@
 package com.syl.sugar.activity;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -8,7 +9,8 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
+import android.widget.Toast;
+import com.syl.sugar.EndlessRecyclerViewScrollListener;
 import com.syl.sugar.R;
 import com.syl.sugar.activity.adapter.GankAdapter;
 import com.syl.sugar.activity.presenter.GankPresenter;
@@ -19,6 +21,8 @@ import butterknife.ButterKnife;
 
 public class GankActivity extends AppCompatActivity implements GankView {
 
+    @Bind(R.id.swipe_refresh)
+    SwipeRefreshLayout mSwipeRefreshLayout;
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
     @Bind(R.id.loading_bar)
@@ -28,6 +32,7 @@ public class GankActivity extends AppCompatActivity implements GankView {
 
     private GankPresenter mGankPresenter;
     private GankAdapter mGankAdapter;
+    private StaggeredGridLayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +40,32 @@ public class GankActivity extends AppCompatActivity implements GankView {
         setContentView(R.layout.activity_gank);
 
         ButterKnife.bind(this);
-        mGankPresenter = new GankPresenter(this);
 
+        // 下拉刷新
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mGankPresenter.loadData(1, true);
+            }
+        });
+        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+        mGankPresenter = new GankPresenter(this);
         mGankAdapter = new GankAdapter(this);
+        mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+
+        // RecyclerView
+        mRecyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(5, 1, mLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                mGankPresenter.loadData(page, false);
+            }
+        });
         mRecyclerView.setAdapter(mGankAdapter);
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
@@ -47,7 +73,7 @@ public class GankActivity extends AppCompatActivity implements GankView {
     protected void onResume() {
         super.onResume();
 
-        mGankPresenter.loadData();
+        mGankPresenter.loadData(1, false);
     }
 
     @Override
@@ -86,8 +112,23 @@ public class GankActivity extends AppCompatActivity implements GankView {
     }
 
     @Override
-    public void bindData(List<WelfareResponse.Welfare> welfares) {
-        mGankAdapter.setData(welfares);
-        mGankAdapter.notifyDataSetChanged();
+    public void stopRefresh() {
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void showToast(String content) {
+        Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void appendData(List<WelfareResponse.Welfare> data) {
+        mGankAdapter.append(data);
+    }
+
+    @Override
+    public void resetData(List<WelfareResponse.Welfare> data) {
+        mGankAdapter.clear();
+        mGankAdapter.addAll(data);
     }
 }

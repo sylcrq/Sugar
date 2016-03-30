@@ -7,13 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.syl.sugar.R;
 import com.syl.sugar.model.WelfareResponse;
 import com.syl.sugar.view.DynamicHeightImageView;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,14 +21,26 @@ import java.util.List;
 public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankViewHolder> {
 
     private Context mContext;
-    private List<WelfareResponse.Welfare> mData;
+    private List<WelfareResponse.Welfare> mData = new ArrayList<>();
 
     public GankAdapter(Context context) {
         mContext = context;
     }
 
-    public void setData(List<WelfareResponse.Welfare> data) {
-        mData = data;
+    public void clear() {
+        mData.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<WelfareResponse.Welfare> data) {
+        mData.addAll(data);
+        notifyDataSetChanged();
+    }
+
+    public void append(List<WelfareResponse.Welfare> data) {
+        int size = getItemCount();
+        mData.addAll(data);
+        notifyItemRangeInserted(size, getItemCount() - 1);
     }
 
     @Override
@@ -46,7 +57,7 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankViewHolder
         WelfareResponse.Welfare welfare = mData.get(position);
         Picasso.with(mContext).load(welfare.getUrl())
                 .placeholder(R.drawable.placeholder_image)
-                .into(holder.mImageView);
+                .into(holder);
     }
 
     @Override
@@ -55,7 +66,7 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankViewHolder
     }
 
     /**
-     *
+     * ViewHolder
      */
     public static class GankViewHolder extends RecyclerView.ViewHolder implements Target {
         DynamicHeightImageView mImageView;
@@ -83,7 +94,7 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankViewHolder
 
         @Override
         public void onPrepareLoad(Drawable placeHolderDrawable) {
-
+            mImageView.setImageDrawable(placeHolderDrawable);
         }
     }
 }

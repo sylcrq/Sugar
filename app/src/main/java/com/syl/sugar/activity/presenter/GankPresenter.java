@@ -1,5 +1,6 @@
 package com.syl.sugar.activity.presenter;
 
+
 import com.syl.sugar.activity.GankView;
 import com.syl.sugar.http.HttpCallback;
 import com.syl.sugar.http.HttpUtil;
@@ -7,7 +8,6 @@ import com.syl.sugar.model.WelfareResponse;
 import com.syl.sugar.utils.GsonUtil;
 import java.io.IOException;
 import java.io.Reader;
-
 import okhttp3.Response;
 
 /**
@@ -39,20 +39,41 @@ public class GankPresenter {
         mGankView.showEmptyPage();
     }
 
-    public void loadData() {
-        startLoading();
+    public void loadData(final int page, final boolean refresh) {
+        if(!refresh && page == 1) {
+            // 首次进入页面
+            startLoading();
+        }
 
-        final String url = "http://gank.io/api/data/福利/10/1";
+        final String url = "http://gank.io/api/data/福利/10/" + page;
 
         HttpUtil.getInstance().get(url, new HttpCallback<WelfareResponse>(WelfareResponse.class) {
             @Override
             public void onFailure(Response response, IOException e) {
-                showErrorPage();
+                if(refresh) {
+                    // 下拉刷新失败
+                    mGankView.stopRefresh();
+                    mGankView.showToast("Refresh Error");
+                } else if(page > 1) {
+                    // 加载下一页失败
+                    mGankView.showToast("LoadMore Error");
+                } else {
+                    showErrorPage();
+                }
             }
 
             @Override
             public void onSuccess(WelfareResponse response) {
-                mGankView.bindData(response.getResults());
+                if(refresh) {
+                    // 下拉刷新成功
+                    mGankView.stopRefresh();
+                    mGankView.resetData(response.getResults());
+                } else if(page > 1) {
+                    // 加载下一页成功
+                    mGankView.appendData(response.getResults());
+                } else {
+                    mGankView.resetData(response.getResults());
+                }
                 showResultData();
             }
 
