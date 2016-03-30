@@ -2,10 +2,14 @@ package com.syl.sugar.activity.presenter;
 
 
 import com.syl.sugar.activity.GankView;
+import com.syl.sugar.event.MessageEvent;
 import com.syl.sugar.http.HttpCallback;
 import com.syl.sugar.http.HttpUtil;
 import com.syl.sugar.model.WelfareResponse;
 import com.syl.sugar.utils.GsonUtil;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.IOException;
 import java.io.Reader;
 import okhttp3.Response;
@@ -60,6 +64,8 @@ public class GankPresenter {
                 } else {
                     showErrorPage();
                 }
+
+                EventBus.getDefault().post(new MessageEvent("Error From EventBus"));
             }
 
             @Override
@@ -75,6 +81,8 @@ public class GankPresenter {
                     mGankView.resetData(response.getResults());
                 }
                 showResultData();
+
+                EventBus.getDefault().post(new MessageEvent("OK From EventBus"));
             }
 
             @Override

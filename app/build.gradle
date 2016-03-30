@@ -60,6 +60,8 @@ dependencies {
     // OkHttp
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     testCompile 'com.squareup.okhttp3:mockwebserver:3.2.0'
+    // EventBus
+    compile 'org.greenrobot:eventbus:3.0.0'
 
     // --> Test <--
     testCompile 'junit:junit:4.12'
