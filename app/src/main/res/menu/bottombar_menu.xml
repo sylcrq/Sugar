@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_bar_item_recents"
+        android:icon="@drawable/ic_home_cyan_a100_24dp"
+        android:title="Recents" />
+
+    <item
+        android:id="@+id/bottom_bar_item_favorite"
+        android:icon="@drawable/ic_favorite_light_green_a100_24dp"
+        android:title="Favorite" />
+
+    <item
+        android:id="@+id/bottom_bar_item_nearby"
+        android:icon="@drawable/ic_room_blue_grey_100_24dp"
+        android:title="Nearby" />
+</menu>

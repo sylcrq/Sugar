@@ -16,4 +16,6 @@ public interface MainView {
     void onItemClick(String user);
 
     void bindData(List<String> users);
+
+    void showToast(String content);
 }
