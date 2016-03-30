@@ -19,12 +19,12 @@ import com.syl.sugar.model.WelfareResponse;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
-public class GankActivity extends AppCompatActivity implements GankView {
+public class GankActivity extends SwipeBackActivity implements GankView {
 
     @Bind(R.id.swipe_refresh)
     SwipeRefreshLayout mSwipeRefreshLayout;
