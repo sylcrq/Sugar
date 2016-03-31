@@ -1,4 +1,4 @@
-package com.syl.sugar.activity.adapter;
+package com.syl.sugar.fragment.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

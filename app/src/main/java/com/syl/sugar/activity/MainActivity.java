@@ -1,39 +1,28 @@
 package com.syl.sugar.activity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
 import com.syl.aop.annotation.DebugTrace;
-import com.syl.sugar.DbTask;
-import com.syl.sugar.NavigationTool;
 import com.syl.sugar.R;
-import com.syl.sugar.activity.adapter.UserListAdapter;
-import com.syl.sugar.activity.presenter.MainPresenter;
-import com.syl.sugar.task.TaskManager;
-import java.util.List;
-import butterknife.Bind;
+import com.syl.sugar.fragment.FavoriteFragment;
+import com.syl.sugar.fragment.HomeFragment;
+import com.syl.sugar.fragment.NearbyFragment;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements MainView, AdapterView.OnItemClickListener {
+/**
+ * MainActivity
+ */
+public class MainActivity extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener {
 
-    @Bind(R.id.user_data_list)
-    ListView mUserDataList;
-    @Bind(R.id.loading_bar)
-    ProgressBar mLoadingBar;
-
-    private UserListAdapter mAdapter;
-    private MainPresenter mMainPresenter;
     private BottomBar mBottomBar;
 
     @DebugTrace
@@ -42,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -60,13 +50,13 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
             public void onMenuTabSelected(@IdRes int menuItemId) {
                 switch (menuItemId) {
                     case R.id.bottom_bar_item_recents:
-                        showToast("Select Recents");
+                        switchToFragment(0);
                         break;
                     case R.id.bottom_bar_item_favorite:
-                        showToast("Select Favorite");
+                        switchToFragment(1);
                         break;
                     case R.id.bottom_bar_item_nearby:
-                        showToast("Select Nearby");
+                        switchToFragment(2);
                         break;
                 }
             }
@@ -75,13 +65,13 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
             public void onMenuTabReSelected(@IdRes int menuItemId) {
                 switch (menuItemId) {
                     case R.id.bottom_bar_item_recents:
-                        showToast("ReSelect Recents");
+//                        showToast("ReSelect Recents");
                         break;
                     case R.id.bottom_bar_item_favorite:
-                        showToast("ReSelect Favorite");
+//                        showToast("ReSelect Favorite");
                         break;
                     case R.id.bottom_bar_item_nearby:
-                        showToast("ReSelect Nearby");
+//                        showToast("ReSelect Nearby");
                         break;
                 }
             }
@@ -90,20 +80,32 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
 //        mBottomBar.mapColorForTab(1, 0xFF5D4037);
 //        mBottomBar.mapColorForTab(2, "#7B1FA2");
 
-        mAdapter = new UserListAdapter(this);
-//        mUserDataList.addHeaderView(initHeaderView());
-        mUserDataList.setAdapter(mAdapter);
-        mUserDataList.setOnItemClickListener(this);
+        switchToFragment(0);
 
-        mMainPresenter = new MainPresenter(this);
-        mMainPresenter.loadData();
+//        TaskManager.getInstance().start(new DbTask());
+//        TaskManager.getInstance().start(new DbTask());
+//        TaskManager.getInstance().start(new DbTask());
+//        TaskManager.getInstance().start(new DbTask());
+//        TaskManager.getInstance().start(new DbTask());
+//        TaskManager.getInstance().start(new DbTask());
+    }
 
-        TaskManager.getInstance().start(new DbTask());
-        TaskManager.getInstance().start(new DbTask());
-        TaskManager.getInstance().start(new DbTask());
-        TaskManager.getInstance().start(new DbTask());
-        TaskManager.getInstance().start(new DbTask());
-        TaskManager.getInstance().start(new DbTask());
+    private void switchToFragment(int id) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        switch (id) {
+            case 0:
+                transaction.replace(R.id.container, new HomeFragment(), "Home");
+                break;
+            case 1:
+                transaction.replace(R.id.container, new FavoriteFragment(), "Favorite");
+                break;
+            case 2:
+                transaction.replace(R.id.container, new NearbyFragment(), "Nearby");
+                break;
+        }
+
+        transaction.commit();
     }
 
     @Override
@@ -113,42 +115,8 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
         mBottomBar.onSaveInstanceState(outState);
     }
 
-    private View initHeaderView() {
-        View view = LayoutInflater.from(this).inflate(R.layout.main_listview_header, null);
-        return view;
-    }
-
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        onItemClick((String) mAdapter.getItem(position));
-    }
-
-    @Override
-    public void showLoading() {
-        mLoadingBar.setVisibility(View.VISIBLE);
-        mUserDataList.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void hideLoading() {
-        mLoadingBar.setVisibility(View.GONE);
-        mUserDataList.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void onItemClick(String user) {
-        NavigationTool.gotoGankActivity(this);
-//        NavigationTool.gotoBlankActivity(this);
-    }
-
-    @Override
-    public void bindData(List<String> users) {
-        mAdapter.setData(users);
-        mAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void showToast(String content) {
-        Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
+    public void onFragmentInteraction(Uri uri) {
+        // TODO: 3/31/16
     }
 }

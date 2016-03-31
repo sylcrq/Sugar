@@ -37,3 +37,8 @@
 - [Android-AOPExample](https://github.com/android10/Android-AOPExample)
 - [Travis CI](https://github.com/travis-ci/travis-ci)
 
+
+## 知乎
+
+- [Android开发时你遇到过什么相见恨晚的工具或网站？](https://www.zhihu.com/question/27140400)
+- [Android Studio有哪些非常好用的插件？](https://www.zhihu.com/question/28527388)

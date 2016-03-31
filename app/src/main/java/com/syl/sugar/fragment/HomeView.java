@@ -1,4 +1,4 @@
-package com.syl.sugar.activity;
+package com.syl.sugar.fragment;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import java.util.List;
  *
  * Created by shenyunlong on 2/5/16.
  */
-public interface MainView {
+public interface HomeView {
 
     void showLoading();
 

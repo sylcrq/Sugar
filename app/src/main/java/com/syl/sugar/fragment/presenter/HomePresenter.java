@@ -1,10 +1,8 @@
-package com.syl.sugar.activity.presenter;
+package com.syl.sugar.fragment.presenter;
 
 import android.os.Handler;
-
 import com.syl.aop.annotation.DebugTrace;
-import com.syl.sugar.activity.MainView;
-
+import com.syl.sugar.fragment.HomeView;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,25 +11,25 @@ import java.util.List;
  *
  * Created by shenyunlong on 2/5/16.
  */
-public class MainPresenter {
+public class HomePresenter {
 
-    private MainView mMainView;
+    private HomeView mHomeView;
 
-    public MainPresenter(MainView mainView) {
-        mMainView = mainView;
+    public HomePresenter(HomeView homeView) {
+        mHomeView = homeView;
     }
 
     /**
      * 加载数据
      */
     public void loadData() {
-        mMainView.showLoading();
+        mHomeView.showLoading();
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                mMainView.hideLoading();
-                mMainView.bindData(getUserList());
+                mHomeView.hideLoading();
+                mHomeView.bindData(getUserList());
             }
         }, 2000);
     }
