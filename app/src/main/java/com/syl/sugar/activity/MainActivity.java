@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
 import com.syl.aop.annotation.DebugTrace;
@@ -93,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
 //        mBottomBar.mapColorForTab(2, "#7B1FA2");
 
         mAdapter = new UserListAdapter(this);
-        mUserDataList.addHeaderView(initHeaderView());
+//        mUserDataList.addHeaderView(initHeaderView());
         mUserDataList.setAdapter(mAdapter);
         mUserDataList.setOnItemClickListener(this);
 

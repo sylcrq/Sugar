@@ -7,6 +7,7 @@ import com.syl.sugar.activity.BlankActivity;
 import com.syl.sugar.activity.GankActivity;
 import com.syl.sugar.activity.LoginActivity;
 import com.syl.sugar.activity.MainActivity;
+import com.syl.sugar.activity.MeiziActivity;
 
 /**
  * 统一管理Activity间跳转逻辑
@@ -14,6 +15,8 @@ import com.syl.sugar.activity.MainActivity;
  * Created by syl on 16/2/4.
  */
 public class NavigationTool {
+
+    public static final String START_MEIZI_KEY_IMAGE_URL = "START_MEIZI_KEY_IMAGE_URL";
 
     public static void gotoMainActivity(Context context) {
         if(context != null) {
@@ -39,6 +42,14 @@ public class NavigationTool {
     public static void gotoBlankActivity(Context context) {
         if(context != null) {
             Intent intent = new Intent(context, BlankActivity.class);
+            context.startActivity(intent);
+        }
+    }
+
+    public static void gotoMeiziActivity(Context context, String url) {
+        if(context != null) {
+            Intent intent = new Intent(context, MeiziActivity.class);
+            intent.putExtra(START_MEIZI_KEY_IMAGE_URL, url);
             context.startActivity(intent);
         }
     }

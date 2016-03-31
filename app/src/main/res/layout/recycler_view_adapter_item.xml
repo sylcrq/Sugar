@@ -3,14 +3,17 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:paddingTop="5dp"
-              android:paddingBottom="5dp"
-              android:paddingLeft="5dp"
-              android:paddingRight="5dp">
+              android:layout_marginTop="5dp"
+              android:layout_marginBottom="5dp"
+              android:layout_marginLeft="5dp"
+              android:layout_marginRight="5dp"
+              android:background="@android:color/white">
 
     <FrameLayout
+        android:id="@+id/image_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:foreground="@drawable/ripple"
         android:clickable="true">
 
@@ -27,9 +30,10 @@
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:textSize="20sp"
         android:text="Hello"
+        android:gravity="center"
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true"/>
 </LinearLayout>

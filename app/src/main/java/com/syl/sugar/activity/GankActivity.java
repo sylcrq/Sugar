@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.syl.sugar.EndlessRecyclerViewScrollListener;
+import com.syl.sugar.NavigationTool;
 import com.syl.sugar.R;
 import com.syl.sugar.activity.adapter.GankAdapter;
 import com.syl.sugar.activity.presenter.GankPresenter;
@@ -60,6 +61,13 @@ public class GankActivity extends SwipeBackActivity implements GankView {
 
         mGankPresenter = new GankPresenter(this);
         mGankAdapter = new GankAdapter(this);
+        mGankAdapter.setOnItemClickListener(new GankAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(View view, int position) {
+                WelfareResponse.Welfare welfare = mGankAdapter.getData().get(position);
+                NavigationTool.gotoMeiziActivity(GankActivity.this, welfare.getUrl());
+            }
+        });
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
         // RecyclerView

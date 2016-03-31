@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.syl.sugar.R;
@@ -22,6 +23,8 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankViewHolder
 
     private Context mContext;
     private List<WelfareResponse.Welfare> mData = new ArrayList<>();
+
+    private static OnItemClickListener mOnItemClickListener;
 
     public GankAdapter(Context context) {
         mContext = context;
@@ -43,11 +46,15 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankViewHolder
         notifyItemRangeInserted(size, getItemCount() - 1);
     }
 
+    public List<WelfareResponse.Welfare> getData() {
+        return mData;
+    }
+
     @Override
     public GankViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.recycler_view_adapter_item, parent, false);
 
-        return new GankViewHolder(view);
+        return new GankViewHolder(mContext, view);
     }
 
     @Override
@@ -66,15 +73,41 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankViewHolder
     }
 
     /**
+     * OnItemClickListener Interface
+     */
+    public interface OnItemClickListener {
+        void OnItemClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mOnItemClickListener = listener;
+    }
+
+    /**
      * ViewHolder
      */
-    public static class GankViewHolder extends RecyclerView.ViewHolder implements Target {
+    public static class GankViewHolder extends RecyclerView.ViewHolder implements Target, View.OnClickListener {
+        Context mContext;
         DynamicHeightImageView mImageView;
+        FrameLayout mImageLayout;
 
-        public GankViewHolder(View itemView) {
+        public GankViewHolder(Context context, View itemView) {
             super(itemView);
+            this.mContext = context;
+            this.mImageView = (DynamicHeightImageView) itemView.findViewById(R.id.image);
+            this.mImageLayout = (FrameLayout) itemView.findViewById(R.id.image_layout);
 
-            mImageView = (DynamicHeightImageView) itemView.findViewById(R.id.image);
+//            mImageView.setOnClickListener(this);
+            mImageLayout.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getLayoutPosition();
+
+            if(mOnItemClickListener != null) {
+                mOnItemClickListener.OnItemClick(v, position);
+            }
         }
 
         @Override
