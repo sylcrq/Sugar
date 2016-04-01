@@ -25,7 +25,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
-public class GankActivity extends SwipeBackActivity implements GankView {
+public class GankActivity extends SwipeBackAppCompatActivity implements GankView {
 
     @Bind(R.id.swipe_refresh)
     SwipeRefreshLayout mSwipeRefreshLayout;

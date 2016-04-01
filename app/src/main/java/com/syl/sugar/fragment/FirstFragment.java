@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import com.syl.sugar.R;
 import butterknife.Bind;
@@ -24,6 +25,8 @@ public class FirstFragment extends Fragment {
 
     @Bind(R.id.page_content)
     TextView mContent;
+    @Bind(R.id.page_layout)
+    FrameLayout mPageLayout;
 
     private int mPage;
     private String mTitle;
@@ -73,5 +76,17 @@ public class FirstFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mContent.setText(mTitle);
+
+        switch (mPage) {
+            case 0:
+                mPageLayout.setBackgroundColor(getResources().getColor(R.color.LightBlue));
+                break;
+            case 1:
+                mPageLayout.setBackgroundColor(getResources().getColor(R.color.Gold));
+                break;
+            case 2:
+                mPageLayout.setBackgroundColor(getResources().getColor(R.color.SpringGreen));
+                break;
+        }
     }
 }

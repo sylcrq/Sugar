@@ -8,7 +8,7 @@ import com.syl.sugar.fragment.FirstFragment;
 /**
  * Created by shenyunlong on 4/1/16.
  */
-public class MyPagerAdapter extends FragmentPagerAdapter {
+public class MyPagerAdapter extends SmartFragmentStatePagerAdapter {
 
     public static final int TOTAL_PAGE_NUM = 3;
 

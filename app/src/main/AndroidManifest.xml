@@ -37,13 +37,13 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activity.GankActivity"
-            android:theme="@style/AppTheme.TranslucentNoActionBar">
+            android:theme="@style/AppTheme.Translucent">
         </activity>
         <activity android:name=".activity.BlankActivity">
         </activity>
         <activity
             android:name=".activity.MeiziActivity"
-            android:theme="@style/AppTheme.TranslucentNoActionBar">
+            android:theme="@style/AppTheme.Translucent">
         </activity>
     </application>
 

@@ -11,7 +11,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
-public class MeiziActivity extends SwipeBackActivity {
+public class MeiziActivity extends SwipeBackAppCompatActivity {
 
     @Bind(R.id.meizi)
     ImageView mMeizi;
