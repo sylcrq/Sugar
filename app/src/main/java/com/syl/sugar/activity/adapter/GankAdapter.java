@@ -14,6 +14,7 @@ import com.syl.sugar.R;
 import com.syl.sugar.model.WelfareResponse;
 import com.syl.sugar.view.DynamicHeightImageView;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -47,7 +48,8 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankViewHolder
     }
 
     public List<WelfareResponse.Welfare> getData() {
-        return mData;
+        /* Read Only */
+        return Collections.unmodifiableList(mData);
     }
 
     @Override

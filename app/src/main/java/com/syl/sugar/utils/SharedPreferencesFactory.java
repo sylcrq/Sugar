@@ -21,7 +21,7 @@ public class SharedPreferencesFactory {
 
     public static SharedPreferencesFactory getInstance(Context context) {
         if(mInstance == null) {
-            mInstance = new SharedPreferencesFactory(context);
+            mInstance = new SharedPreferencesFactory(context.getApplicationContext());
         }
 
         return mInstance;
