@@ -1,6 +1,8 @@
 package com.syl.sugar;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 import com.facebook.stetho.Stetho;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
@@ -13,7 +15,6 @@ import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.squareup.leakcanary.LeakCanary;
-
 import java.io.File;
 
 /**
@@ -22,6 +23,12 @@ import java.io.File;
  * Created by shenyunlong on 3/1/16.
  */
 public class SugarApplication extends com.activeandroid.app.Application {
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     @Override
     public void onCreate() {
