@@ -12,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.syl.model.User;
 import com.syl.sugar.NavigationTool;
 import com.syl.sugar.R;
 import com.syl.sugar.fragment.adapter.UserListAdapter;
@@ -149,7 +151,7 @@ public class HomeFragment extends Fragment implements HomeView, AdapterView.OnIt
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        onItemClick((String) mAdapter.getItem(position));
+        onItemClick(((User) mAdapter.getItem(position)).getUserId());
     }
 
     @Override
@@ -165,15 +167,14 @@ public class HomeFragment extends Fragment implements HomeView, AdapterView.OnIt
     }
 
     @Override
-    public void onItemClick(String user) {
-        NavigationTool.gotoGankActivity(getActivity());
-//        NavigationTool.gotoBlankActivity(this);
+    public void bindData(List<User> users) {
+        mAdapter.setData(users);
+        mAdapter.notifyDataSetInvalidated();
     }
 
     @Override
-    public void bindData(List<String> users) {
-        mAdapter.setData(users);
-        mAdapter.notifyDataSetChanged();
+    public void onItemClick(int userId) {
+        NavigationTool.gotoGankActivity(getActivity());
     }
 
     @Override

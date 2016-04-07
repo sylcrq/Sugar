@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.syl.model.User;
 import com.syl.sugar.R;
 
 import java.util.ArrayList;
@@ -18,13 +19,13 @@ import java.util.List;
 public class UserListAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<String> mUserList = new ArrayList<>();
+    private List<User> mUserList = new ArrayList<>();
 
     public UserListAdapter(Context context) {
         mContext = context;
     }
 
-    public void setData(List<String> userList) {
+    public void setData(List<User> userList) {
         // copy data
         mUserList.clear();
         mUserList.addAll(userList);
@@ -59,7 +60,7 @@ public class UserListAdapter extends BaseAdapter {
 
         viewHolder.mUserName = (TextView) convertView.findViewById(R.id.username);
 
-        viewHolder.mUserName.setText((String) getItem(position));
+        viewHolder.mUserName.setText(((User) getItem(position)).getFullName());
 
         return convertView;
     }

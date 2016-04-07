@@ -1,9 +1,12 @@
 package com.syl.sugar.fragment.presenter;
 
 import android.os.Handler;
+import android.os.Looper;
 import com.syl.aop.annotation.DebugTrace;
+import com.syl.data.repository.UserDataRepository;
+import com.syl.interactor.GetUserListUseCase;
+import com.syl.model.User;
 import com.syl.sugar.fragment.HomeView;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,27 +28,25 @@ public class HomePresenter {
     public void loadData() {
         mHomeView.showLoading();
 
-        new Handler().postDelayed(new Runnable() {
+        GetUserListUseCase useCase = new GetUserListUseCase(new UserDataRepository());
+        useCase.getUserList(new GetUserListUseCase.GetUserListCallback() {
+            @DebugTrace
             @Override
-            public void run() {
-                mHomeView.hideLoading();
-                mHomeView.bindData(getUserList());
+            public void onSuccess(final List<User> users) {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mHomeView.hideLoading();
+                        mHomeView.bindData(users);
+                    }
+                });
             }
-        }, 2000);
-    }
 
-    /**
-     * 生成测试数据
-     *
-     * @return
-     */
-    @DebugTrace
-    private List<String> getUserList() {
-        List<String> data = new ArrayList<>();
-        for(int i=0; i<50; i++) {
-            data.add("hello " + i);
-        }
-
-        return data;
+            @DebugTrace
+            @Override
+            public void onError() {
+                // TODO: 4/7/16
+            }
+        });
     }
 }

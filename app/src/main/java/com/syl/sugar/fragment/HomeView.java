@@ -1,5 +1,7 @@
 package com.syl.sugar.fragment;
 
+import com.syl.model.User;
+
 import java.util.List;
 
 /**
@@ -13,9 +15,9 @@ public interface HomeView {
 
     void hideLoading();
 
-    void onItemClick(String user);
+    void onItemClick(int userId);
 
-    void bindData(List<String> users);
+    void bindData(List<User> users);
 
     void showToast(String content);
 }
