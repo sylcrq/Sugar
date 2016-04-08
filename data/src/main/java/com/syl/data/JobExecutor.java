@@ -1,6 +1,6 @@
 package com.syl.data;
 
-import com.syl.executor.ThreadExecutor;
+import com.syl.domain.executor.ThreadExecutor;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;

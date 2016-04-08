@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.syl.model.User;
+import com.syl.domain.model.User;
 import com.syl.sugar.R;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package com.syl.sugar.fragment;
 
-import com.syl.model.User;
+import com.syl.domain.model.User;
 
 import java.util.List;
 

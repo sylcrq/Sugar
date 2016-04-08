@@ -1,4 +1,4 @@
-package com.syl.model;
+package com.syl.domain.model;
 
 /**
  * 业务逻辑层User Model

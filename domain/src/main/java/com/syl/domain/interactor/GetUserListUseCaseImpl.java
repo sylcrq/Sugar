@@ -1,9 +1,9 @@
-package com.syl.interactor;
+package com.syl.domain.interactor;
 
-import com.syl.executor.PostExecutionThread;
-import com.syl.executor.ThreadExecutor;
-import com.syl.model.User;
-import com.syl.repository.UserRepository;
+import com.syl.domain.executor.PostExecutionThread;
+import com.syl.domain.executor.ThreadExecutor;
+import com.syl.domain.model.User;
+import com.syl.domain.repository.UserRepository;
 import java.util.List;
 
 /**

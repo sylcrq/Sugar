@@ -1,4 +1,4 @@
-package com.syl.executor;
+package com.syl.domain.executor;
 
 /**
  * 执行异步任务

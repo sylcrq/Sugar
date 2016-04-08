@@ -1,6 +1,6 @@
 package com.syl.data.model;
 
-import com.syl.model.User;
+import com.syl.domain.model.User;
 import java.util.ArrayList;
 import java.util.List;
 

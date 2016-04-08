@@ -1,4 +1,4 @@
-package com.syl.executor;
+package com.syl.domain.executor;
 
 /**
  * 从异步线程切换到主线程执行

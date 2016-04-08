@@ -2,9 +2,9 @@ package com.syl.sugar.fragment.presenter;
 
 import com.syl.data.JobExecutor;
 import com.syl.data.repository.UserDataRepository;
-import com.syl.interactor.GetUserListUseCase;
-import com.syl.interactor.GetUserListUseCaseImpl;
-import com.syl.model.User;
+import com.syl.domain.interactor.GetUserListUseCase;
+import com.syl.domain.interactor.GetUserListUseCaseImpl;
+import com.syl.domain.model.User;
 import com.syl.sugar.UIThread;
 import com.syl.sugar.fragment.HomeView;
 import java.util.List;

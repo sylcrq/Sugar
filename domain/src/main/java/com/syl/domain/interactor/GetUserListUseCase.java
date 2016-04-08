@@ -1,6 +1,6 @@
-package com.syl.interactor;
+package com.syl.domain.interactor;
 
-import com.syl.model.User;
+import com.syl.domain.model.User;
 import java.util.List;
 
 /**

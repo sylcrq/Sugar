@@ -1,4 +1,4 @@
-package com.syl.interactor;
+package com.syl.domain.interactor;
 
 /**
  * 业务逻辑执行单元

@@ -2,7 +2,7 @@ package com.syl.data.repository;
 
 import com.syl.data.model.UserEntity;
 import com.syl.data.model.UserEntityMapper;
-import com.syl.repository.UserRepository;
+import com.syl.domain.repository.UserRepository;
 import java.util.List;
 
 /**

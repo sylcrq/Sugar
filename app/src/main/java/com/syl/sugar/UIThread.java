@@ -3,7 +3,7 @@ package com.syl.sugar;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.syl.executor.PostExecutionThread;
+import com.syl.domain.executor.PostExecutionThread;
 
 /**
  * Created by shenyunlong on 4/8/16.

@@ -1,6 +1,6 @@
-package com.syl.repository;
+package com.syl.domain.repository;
 
-import com.syl.model.User;
+import com.syl.domain.model.User;
 import java.util.List;
 
 /**

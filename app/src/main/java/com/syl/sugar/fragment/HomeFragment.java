@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.syl.model.User;
+import com.syl.domain.model.User;
 import com.syl.sugar.NavigationTool;
 import com.syl.sugar.R;
 import com.syl.sugar.fragment.adapter.UserListAdapter;
