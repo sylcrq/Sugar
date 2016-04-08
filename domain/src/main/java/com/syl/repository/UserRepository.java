@@ -4,14 +4,25 @@ import com.syl.model.User;
 import java.util.List;
 
 /**
- * 获取用户相关信息接口
+ * data层实现该接口
  *
  * Created by shenyunlong on 4/7/16.
  */
 public interface UserRepository {
 
+    /**
+     * 获取用户列表
+     *
+     * @param callback
+     */
     void getUserList(GetUserListCallback callback);
 
+    /**
+     * 获取用户详细信息
+     *
+     * @param userId
+     * @param callback
+     */
     void getUserDetail(int userId, GetUserDetailCallback callback);
 
     interface GetUserListCallback {

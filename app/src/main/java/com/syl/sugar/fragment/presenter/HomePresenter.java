@@ -1,11 +1,11 @@
 package com.syl.sugar.fragment.presenter;
 
-import android.os.Handler;
-import android.os.Looper;
-import com.syl.aop.annotation.DebugTrace;
+import com.syl.data.JobExecutor;
 import com.syl.data.repository.UserDataRepository;
 import com.syl.interactor.GetUserListUseCase;
+import com.syl.interactor.GetUserListUseCaseImpl;
 import com.syl.model.User;
+import com.syl.sugar.UIThread;
 import com.syl.sugar.fragment.HomeView;
 import java.util.List;
 
@@ -28,24 +28,20 @@ public class HomePresenter {
     public void loadData() {
         mHomeView.showLoading();
 
-        GetUserListUseCase useCase = new GetUserListUseCase(new UserDataRepository());
-        useCase.getUserList(new GetUserListUseCase.GetUserListCallback() {
-            @DebugTrace
+        GetUserListUseCase useCase = new GetUserListUseCaseImpl(UserDataRepository.getInstance(),
+                JobExecutor.getInstance(),
+                UIThread.getInstance());
+
+        useCase.execute(new GetUserListUseCase.Callback() {
             @Override
-            public void onSuccess(final List<User> users) {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mHomeView.hideLoading();
-                        mHomeView.bindData(users);
-                    }
-                });
+            public void onSuccess(List<User> users) {
+                mHomeView.hideLoading();
+                mHomeView.bindData(users);
             }
 
-            @DebugTrace
             @Override
             public void onError() {
-                // TODO: 4/7/16
+                // TODO: 4/8/16
             }
         });
     }

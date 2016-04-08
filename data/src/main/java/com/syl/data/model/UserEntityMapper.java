@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 将data层{@link UserEntity}转换为domain层{@link User}
+ *
  * Created by shenyunlong on 4/7/16.
  */
 public class UserEntityMapper {

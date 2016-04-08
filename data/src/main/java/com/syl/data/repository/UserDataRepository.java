@@ -10,11 +10,24 @@ import java.util.List;
  */
 public class UserDataRepository implements UserRepository {
 
-    private UserDataStore mDataStore = new CloudUserDataStore();
+    /* 单例 */
+    private static UserDataRepository mInstance;
+
+    private UserDataRepository() {
+    }
+
+    public synchronized static UserDataRepository getInstance() {
+        if(mInstance == null) {
+            mInstance = new UserDataRepository();
+        }
+
+        return mInstance;
+    }
 
     @Override
     public void getUserDetail(int userId, final GetUserDetailCallback callback) {
-        mDataStore.getUserDetail(userId, new UserDataStore.GetUserDetailCallback() {
+        UserDataStore dataStore = new CloudUserDataStore();
+        dataStore.getUserDetail(userId, new UserDataStore.GetUserDetailCallback() {
             @Override
             public void onSuccess(UserEntity user) {
                 callback.onSuccess(UserEntityMapper.transform(user));
@@ -29,7 +42,8 @@ public class UserDataRepository implements UserRepository {
 
     @Override
     public void getUserList(final GetUserListCallback callback) {
-        mDataStore.getUserList(new UserDataStore.GetUserListCallback() {
+        UserDataStore dataStore = new CloudUserDataStore();
+        dataStore.getUserList(new UserDataStore.GetUserListCallback() {
             @Override
             public void onSuccess(List<UserEntity> users) {
                 callback.onSuccess(UserEntityMapper.transform(users));
