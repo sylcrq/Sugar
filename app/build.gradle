@@ -67,6 +67,8 @@ dependencies {
     testCompile 'com.squareup.okhttp3:mockwebserver:3.2.0'
     // EventBus
     compile 'org.greenrobot:eventbus:3.0.0'
+    // RxJava
+    compile 'io.reactivex:rxjava:1.0.10'
 
     // --> Test <--
     testCompile 'junit:junit:4.12'
