@@ -13,58 +13,41 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.syl.domain.model.Events;
 import com.syl.domain.model.User;
 import com.syl.sugar.NavigationTool;
 import com.syl.sugar.R;
-import com.syl.sugar.fragment.adapter.UserListAdapter;
-import com.syl.sugar.fragment.presenter.HomePresenter;
+import com.syl.sugar.fragment.adapter.EventListAdapter;
+import com.syl.sugar.fragment.presenter.EventsPresenter;
+
 import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HomeFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class HomeFragment extends Fragment implements HomeView, AdapterView.OnItemClickListener {
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
+public class EventsFragment extends Fragment implements EventsView, AdapterView.OnItemClickListener {
 
-//    private String mParam1;
-//    private String mParam2;
+    private static final String ARG_USER_NAME = "ARG_USER_NAME";
+
+    private String mUserName;
 
     @Bind(R.id.user_data_list)
     ListView mUserDataList;
     @Bind(R.id.loading_bar)
     ProgressBar mLoadingBar;
 
-    private UserListAdapter mAdapter;
-    private HomePresenter mHomePresenter;
+    private EventListAdapter mAdapter;
+    private EventsPresenter mEventsPresenter;
 
     private OnFragmentInteractionListener mListener;
 
-    public HomeFragment() {
-        // Required empty public constructor
+    public EventsFragment() {
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+    public static EventsFragment newInstance(String userName) {
+        EventsFragment fragment = new EventsFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_USER_NAME, userName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -84,18 +67,16 @@ public class HomeFragment extends Fragment implements HomeView, AdapterView.OnIt
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
+            mUserName = getArguments().getString(ARG_USER_NAME);
         }
 
-        mAdapter = new UserListAdapter(getActivity());
+        mAdapter = new EventListAdapter(getActivity());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_events, container, false);
         ButterKnife.bind(this, view);
 
         return view;
@@ -109,8 +90,8 @@ public class HomeFragment extends Fragment implements HomeView, AdapterView.OnIt
         mUserDataList.setAdapter(mAdapter);
         mUserDataList.setOnItemClickListener(this);
 
-        mHomePresenter = new HomePresenter(this);
-        mHomePresenter.loadData();
+        mEventsPresenter = new EventsPresenter(this);
+        mEventsPresenter.loadData(mUserName);
     }
 
     @Override
@@ -130,16 +111,6 @@ public class HomeFragment extends Fragment implements HomeView, AdapterView.OnIt
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
@@ -151,7 +122,7 @@ public class HomeFragment extends Fragment implements HomeView, AdapterView.OnIt
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        onItemClick(((User) mAdapter.getItem(position)).getUserId());
+//        onItemClick(((User) mAdapter.getItem(position)).getUserId());
     }
 
     @Override
@@ -167,9 +138,9 @@ public class HomeFragment extends Fragment implements HomeView, AdapterView.OnIt
     }
 
     @Override
-    public void bindData(List<User> users) {
-        mAdapter.setData(users);
-        mAdapter.notifyDataSetInvalidated();
+    public void bindData(List<Events> eventList) {
+        mAdapter.setData(eventList);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

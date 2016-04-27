@@ -9,19 +9,21 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
 import com.syl.aop.annotation.DebugTrace;
 import com.syl.sugar.R;
 import com.syl.sugar.fragment.FavoriteFragment;
-import com.syl.sugar.fragment.HomeFragment;
+import com.syl.sugar.fragment.EventsFragment;
 import com.syl.sugar.fragment.NearbyFragment;
+
 import butterknife.ButterKnife;
 
 /**
  * MainActivity
  */
-public class MainActivity extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements EventsFragment.OnFragmentInteractionListener {
 
     private BottomBar mBottomBar;
 
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFr
 
         switch (id) {
             case 0:
-                transaction.replace(R.id.container, new HomeFragment(), "Home");
+                transaction.replace(R.id.container, EventsFragment.newInstance("sylcrq"), "Home");
                 break;
             case 1:
                 transaction.replace(R.id.container, new FavoriteFragment(), "Favorite");
