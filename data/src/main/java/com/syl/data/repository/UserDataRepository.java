@@ -2,7 +2,10 @@ package com.syl.data.repository;
 
 import com.syl.data.model.UserEntity;
 import com.syl.data.model.UserEntityMapper;
+import com.syl.data.repository.datastore.CloudUserDataStore;
+import com.syl.data.repository.datastore.UserDataStore;
 import com.syl.domain.repository.UserRepository;
+
 import java.util.List;
 
 /**
@@ -17,7 +20,7 @@ public class UserDataRepository implements UserRepository {
     }
 
     public synchronized static UserDataRepository getInstance() {
-        if(mInstance == null) {
+        if (mInstance == null) {
             mInstance = new UserDataRepository();
         }
 

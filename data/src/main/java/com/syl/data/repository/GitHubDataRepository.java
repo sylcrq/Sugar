@@ -2,6 +2,8 @@ package com.syl.data.repository;
 
 import com.syl.data.mapper.EventsMapper;
 import com.syl.data.model.EventsEntity;
+import com.syl.data.repository.datastore.CloudEventsDataStore;
+import com.syl.data.repository.datastore.GitHubDataFactory;
 import com.syl.domain.repository.GitHubRepository;
 
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
  * 实现Domain层接口
  *
  * @see GitHubRepository
- * <p/>
+ * <p>
  * Created by shenyunlong on 16/4/27.
  */
 public class GitHubDataRepository implements GitHubRepository {

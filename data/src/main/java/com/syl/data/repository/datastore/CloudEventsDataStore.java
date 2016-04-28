@@ -1,4 +1,4 @@
-package com.syl.data.repository;
+package com.syl.data.repository.datastore;
 
 import android.text.TextUtils;
 
@@ -70,7 +70,7 @@ public class CloudEventsDataStore {
         });
     }
 
-    interface Callback {
+    public interface Callback {
         void onSuccess(List<EventsEntity> t);
 
         void onError(Exception e);

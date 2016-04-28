@@ -1,4 +1,4 @@
-package com.syl.data.repository;
+package com.syl.data.repository.datastore;
 
 import com.syl.data.model.UserEntity;
 
