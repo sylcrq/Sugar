@@ -13,6 +13,9 @@
     <!--Gank Page-->
     <string name="gank_page_empty_hint">数据加载出错啦~</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="bottom_bar_item_name_1">Events</string>
+    <string name="bottom_bar_item_name_2">Repositories</string>
+    <string name="bottom_bar_item_name_3">Notifications</string>
 </resources>

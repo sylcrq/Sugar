@@ -9,4 +9,9 @@ public class GitHubDataFactory {
         CloudEventsDataStore dataStore = new CloudEventsDataStore();
         return dataStore;
     }
+
+    public static CloudUserDataStore createUserDataStore() {
+        CloudUserDataStore dataStore = new CloudUserDataStore();
+        return dataStore;
+    }
 }

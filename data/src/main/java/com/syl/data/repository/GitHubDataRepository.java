@@ -1,8 +1,11 @@
 package com.syl.data.repository;
 
 import com.syl.data.mapper.EventsMapper;
+import com.syl.data.mapper.UserMapper;
 import com.syl.data.model.EventsEntity;
+import com.syl.data.model.UserEntity;
 import com.syl.data.repository.datastore.CloudEventsDataStore;
+import com.syl.data.repository.datastore.CloudUserDataStore;
 import com.syl.data.repository.datastore.GitHubDataFactory;
 import com.syl.domain.repository.GitHubRepository;
 
@@ -50,5 +53,26 @@ public class GitHubDataRepository implements GitHubRepository {
                 }
             }
         });
+    }
+
+    @Override
+    public void getSingleUser(String userName, final GetCallback callback) {
+        CloudUserDataStore dataStore = GitHubDataFactory.createUserDataStore();
+        dataStore.getSingleUser(userName, new CloudUserDataStore.Callback() {
+            @Override
+            public void onSuccess(UserEntity entity) {
+                if(callback != null) {
+                    callback.onSuccess(UserMapper.transform(entity));
+                }
+            }
+
+            @Override
+            public void onError(Exception e) {
+                if(callback != null) {
+                    callback.onError(e);
+                }
+            }
+        });
+
     }
 }

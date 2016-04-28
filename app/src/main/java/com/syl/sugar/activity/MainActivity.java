@@ -51,13 +51,13 @@ public class MainActivity extends AppCompatActivity implements EventsFragment.On
             @Override
             public void onMenuTabSelected(@IdRes int menuItemId) {
                 switch (menuItemId) {
-                    case R.id.bottom_bar_item_recents:
+                    case R.id.bottom_bar_item_1:
                         switchToFragment(0);
                         break;
-                    case R.id.bottom_bar_item_favorite:
+                    case R.id.bottom_bar_item_2:
                         switchToFragment(1);
                         break;
-                    case R.id.bottom_bar_item_nearby:
+                    case R.id.bottom_bar_item_3:
                         switchToFragment(2);
                         break;
                 }
@@ -66,13 +66,13 @@ public class MainActivity extends AppCompatActivity implements EventsFragment.On
             @Override
             public void onMenuTabReSelected(@IdRes int menuItemId) {
                 switch (menuItemId) {
-                    case R.id.bottom_bar_item_recents:
+                    case R.id.bottom_bar_item_1:
 //                        showToast("ReSelect Recents");
                         break;
-                    case R.id.bottom_bar_item_favorite:
+                    case R.id.bottom_bar_item_2:
 //                        showToast("ReSelect Favorite");
                         break;
-                    case R.id.bottom_bar_item_nearby:
+                    case R.id.bottom_bar_item_3:
 //                        showToast("ReSelect Nearby");
                         break;
                 }

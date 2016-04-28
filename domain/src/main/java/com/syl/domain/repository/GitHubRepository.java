@@ -11,8 +11,16 @@ public interface GitHubRepository {
 
     void getUserEvents(String userName, Callback callback);
 
+    void getSingleUser(String userName, GetCallback callback);
+
     interface Callback<T> {
         void onSuccess(List<T> listOfT);
+
+        void onError(Exception e);
+    }
+
+    interface GetCallback<T> {
+        void onSuccess(T t);
 
         void onError(Exception e);
     }
