@@ -15,7 +15,7 @@ public interface EventsView {
 
     void hideLoading();
 
-    void onItemClick(int userId);
+    void onItemClick(String userName);
 
     void bindData(List<Events> eventList);
 

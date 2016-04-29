@@ -44,6 +44,7 @@ public class EventsPresenter {
             @Override
             public void onError(Exception e) {
                 mEventsView.hideLoading();
+                mEventsView.showToast(e.toString());
             }
         });
     }

@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.syl.domain.model.Events;
+import com.syl.domain.model.User;
 import com.syl.sugar.NavigationTool;
 import com.syl.sugar.R;
 import com.syl.sugar.view.EventsView;
@@ -122,7 +123,8 @@ public class EventsFragment extends Fragment implements EventsView, AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        onItemClick(((User) mAdapter.getItem(position)).getUserId());
+        Events event = (Events) mAdapter.getItem(position);
+        onItemClick(event.getActor().getLogin());
     }
 
     @Override
@@ -144,8 +146,8 @@ public class EventsFragment extends Fragment implements EventsView, AdapterView.
     }
 
     @Override
-    public void onItemClick(int userId) {
-        NavigationTool.gotoGankActivity(getActivity());
+    public void onItemClick(String userName) {
+        NavigationTool.gotoSingleUserActivity(getActivity(), userName);
     }
 
     @Override

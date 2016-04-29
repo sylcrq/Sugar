@@ -24,9 +24,9 @@ public class User {
     private boolean site_admin;
     private String name;
     private String company;
-    private Object blog;
+    private String blog;
     private String location;
-    private Object email;
+    private String email;
     private Object hireable;
     private Object bio;
     private int public_repos;
@@ -188,11 +188,11 @@ public class User {
         this.company = company;
     }
 
-    public Object getBlog() {
+    public String getBlog() {
         return blog;
     }
 
-    public void setBlog(Object blog) {
+    public void setBlog(String blog) {
         this.blog = blog;
     }
 
@@ -204,11 +204,11 @@ public class User {
         this.location = location;
     }
 
-    public Object getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(Object email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 

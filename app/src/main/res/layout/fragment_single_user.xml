@@ -1,0 +1,189 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#E0E0E0"
+              android:orientation="vertical"
+              tools:context="com.syl.sugar.view.fragment.SingleUserFragment">
+
+    <RelativeLayout
+        android:id="@+id/user_info_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF">
+
+        <ImageView
+            android:id="@+id/user_avatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:src="@drawable/github_mark_64px"/>
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_avatar"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:text="N/A"
+            android:textColor="#666666"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/user_login_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_name"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:text="N/A"
+            android:textColor="#666666"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/user_follow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#FFFFFF"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/user_followers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Followers"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="#F0F0F0"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/user_following"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Following"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/user_company_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#FFFFFF"
+        android:drawableLeft="@drawable/ic_group_black_24dp"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="N/A"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#F0F0F0"/>
+
+    <TextView
+        android:id="@+id/user_location_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#FFFFFF"
+        android:drawableLeft="@drawable/ic_location_on_black_24dp"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="N/A"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#F0F0F0"/>
+
+    <TextView
+        android:id="@+id/user_email_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#FFFFFF"
+        android:drawableLeft="@drawable/ic_mail_black_24dp"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="N/A"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#F0F0F0"/>
+
+    <TextView
+        android:id="@+id/user_blog_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#FFFFFF"
+        android:drawableLeft="@drawable/ic_link_black_24dp"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="N/A"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#F0F0F0"/>
+
+    <TextView
+        android:id="@+id/user_joined_date_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#FFFFFF"
+        android:drawableLeft="@drawable/ic_schedule_black_24dp"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="N/A"/>
+
+</LinearLayout>
