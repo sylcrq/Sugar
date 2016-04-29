@@ -1,4 +1,4 @@
-package com.syl.sugar.activity.adapter;
+package com.syl.sugar.view.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.syl.sugar.R;
 import com.syl.sugar.model.WelfareResponse;
-import com.syl.sugar.view.DynamicHeightImageView;
+import com.syl.sugar.view.custom.DynamicHeightImageView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

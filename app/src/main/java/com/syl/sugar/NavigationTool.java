@@ -3,11 +3,11 @@ package com.syl.sugar;
 import android.content.Context;
 import android.content.Intent;
 
-import com.syl.sugar.activity.BlankActivity;
-import com.syl.sugar.activity.GankActivity;
-import com.syl.sugar.activity.LoginActivity;
-import com.syl.sugar.activity.MainActivity;
-import com.syl.sugar.activity.MeiziActivity;
+import com.syl.sugar.view.activity.BlankActivity;
+import com.syl.sugar.view.activity.GankActivity;
+import com.syl.sugar.view.activity.LoginActivity;
+import com.syl.sugar.view.activity.MainActivity;
+import com.syl.sugar.view.activity.MeiziActivity;
 
 /**
  * 统一管理Activity间跳转逻辑

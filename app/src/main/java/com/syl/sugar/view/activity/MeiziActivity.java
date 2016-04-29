@@ -1,6 +1,5 @@
-package com.syl.sugar.activity;
+package com.syl.sugar.view.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.ImageView;
@@ -9,7 +8,6 @@ import com.syl.sugar.NavigationTool;
 import com.syl.sugar.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 public class MeiziActivity extends SwipeBackAppCompatActivity {
 

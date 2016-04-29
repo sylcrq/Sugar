@@ -1,9 +1,9 @@
-package com.syl.sugar.fragment.adapter;
+package com.syl.sugar.view.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import com.syl.sugar.fragment.FirstFragment;
+
+import com.syl.sugar.view.fragment.FirstFragment;
 
 /**
  * Created by shenyunlong on 4/1/16.

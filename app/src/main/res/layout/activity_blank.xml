@@ -9,9 +9,9 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.syl.sugar.activity.BlankActivity">
+    tools:context=".view.activity.BlankActivity">
 
-    <!--<com.syl.sugar.view.SimpleDrawingView-->
+    <!--<com.syl.sugar.view.custom.SimpleDrawingView-->
         <!--android:id="@+id/simple_drawing_view"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
@@ -22,7 +22,7 @@
         <!--android:layout_alignParentRight="true"-->
         <!--android:layout_alignParentEnd="true"/>-->
 
-    <com.syl.sugar.view.ShapeSelectorView
+    <com.syl.sugar.view.custom.ShapeSelectorView
         android:id="@+id/shape_selector_view"
         app:shapeColor="#7f0000"
         app:displayShapeName="true"

@@ -1,4 +1,4 @@
-package com.syl.sugar.view;
+package com.syl.sugar.view.custom;
 
 import android.content.Context;
 import android.content.res.TypedArray;

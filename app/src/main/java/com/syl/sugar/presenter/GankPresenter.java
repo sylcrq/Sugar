@@ -1,7 +1,7 @@
-package com.syl.sugar.activity.presenter;
+package com.syl.sugar.presenter;
 
 
-import com.syl.sugar.activity.GankView;
+import com.syl.sugar.view.GankView;
 import com.syl.sugar.event.MessageEvent;
 import com.syl.sugar.http.HttpCallback;
 import com.syl.sugar.http.HttpUtil;

@@ -1,4 +1,4 @@
-package com.syl.sugar.fragment;
+package com.syl.sugar.view.fragment;
 
 
 import android.content.Context;
@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.syl.sugar.R;
-import com.syl.sugar.fragment.adapter.MyPagerAdapter;
+import com.syl.sugar.view.adapter.MyPagerAdapter;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 

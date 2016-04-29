@@ -1,7 +1,6 @@
-package com.syl.sugar.fragment;
+package com.syl.sugar.view;
 
 import com.syl.domain.model.Events;
-import com.syl.domain.model.User;
 
 import java.util.List;
 

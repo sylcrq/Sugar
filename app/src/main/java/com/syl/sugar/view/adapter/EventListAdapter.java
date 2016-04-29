@@ -1,4 +1,4 @@
-package com.syl.sugar.fragment.adapter;
+package com.syl.sugar.view.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @see com.syl.sugar.fragment.EventsFragment
+ * @see com.syl.sugar.view.fragment.EventsFragment
  * <p/>
  * Created by shenyunlong on 2/5/16.
  */

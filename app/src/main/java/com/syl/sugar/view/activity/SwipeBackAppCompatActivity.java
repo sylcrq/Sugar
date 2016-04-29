@@ -1,4 +1,4 @@
-package com.syl.sugar.activity;
+package com.syl.sugar.view.activity;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;

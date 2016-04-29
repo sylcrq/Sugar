@@ -1,9 +1,9 @@
-package com.syl.sugar.activity.presenter;
+package com.syl.sugar.presenter;
 
 import android.os.Handler;
 import android.text.TextUtils;
 
-import com.syl.sugar.activity.LoginView;
+import com.syl.sugar.view.LoginView;
 
 /**
  * 处理登录页面相关业务逻辑

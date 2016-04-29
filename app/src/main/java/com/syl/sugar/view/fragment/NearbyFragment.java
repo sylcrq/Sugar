@@ -1,4 +1,4 @@
-package com.syl.sugar.fragment;
+package com.syl.sugar.view.fragment;
 
 
 import android.graphics.Bitmap;

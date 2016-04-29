@@ -1,4 +1,4 @@
-package com.syl.sugar.activity;
+package com.syl.sugar.view.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,7 +14,8 @@ import android.widget.ProgressBar;
 
 import com.syl.sugar.NavigationTool;
 import com.syl.sugar.R;
-import com.syl.sugar.activity.presenter.LoginPresenter;
+import com.syl.sugar.presenter.LoginPresenter;
+import com.syl.sugar.view.LoginView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

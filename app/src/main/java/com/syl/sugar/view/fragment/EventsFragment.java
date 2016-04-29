@@ -1,4 +1,4 @@
-package com.syl.sugar.fragment;
+package com.syl.sugar.view.fragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -14,11 +14,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.syl.domain.model.Events;
-import com.syl.domain.model.User;
 import com.syl.sugar.NavigationTool;
 import com.syl.sugar.R;
-import com.syl.sugar.fragment.adapter.EventListAdapter;
-import com.syl.sugar.fragment.presenter.EventsPresenter;
+import com.syl.sugar.view.EventsView;
+import com.syl.sugar.view.adapter.EventListAdapter;
+import com.syl.sugar.presenter.EventsPresenter;
 
 import java.util.List;
 

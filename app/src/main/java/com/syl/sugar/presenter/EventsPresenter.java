@@ -1,4 +1,4 @@
-package com.syl.sugar.fragment.presenter;
+package com.syl.sugar.presenter;
 
 import com.syl.data.JobExecutor;
 import com.syl.data.repository.GitHubDataRepository;
@@ -6,7 +6,7 @@ import com.syl.domain.interactor.GetEventsUseCase;
 import com.syl.domain.interactor.GetEventsUseCaseImpl;
 import com.syl.domain.model.Events;
 import com.syl.sugar.UIThread;
-import com.syl.sugar.fragment.EventsView;
+import com.syl.sugar.view.EventsView;
 
 import java.util.List;
 

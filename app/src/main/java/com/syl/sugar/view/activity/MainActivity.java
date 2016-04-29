@@ -1,4 +1,4 @@
-package com.syl.sugar.activity;
+package com.syl.sugar.view.activity;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,9 +14,9 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
 import com.syl.aop.annotation.DebugTrace;
 import com.syl.sugar.R;
-import com.syl.sugar.fragment.FavoriteFragment;
-import com.syl.sugar.fragment.EventsFragment;
-import com.syl.sugar.fragment.NearbyFragment;
+import com.syl.sugar.view.fragment.FavoriteFragment;
+import com.syl.sugar.view.fragment.EventsFragment;
+import com.syl.sugar.view.fragment.NearbyFragment;
 
 import butterknife.ButterKnife;
 

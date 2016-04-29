@@ -1,7 +1,6 @@
-package com.syl.sugar.activity;
+package com.syl.sugar.view.activity;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
@@ -13,8 +12,9 @@ import android.widget.Toast;
 import com.syl.sugar.EndlessRecyclerViewScrollListener;
 import com.syl.sugar.NavigationTool;
 import com.syl.sugar.R;
-import com.syl.sugar.activity.adapter.GankAdapter;
-import com.syl.sugar.activity.presenter.GankPresenter;
+import com.syl.sugar.view.GankView;
+import com.syl.sugar.view.adapter.GankAdapter;
+import com.syl.sugar.presenter.GankPresenter;
 import com.syl.sugar.event.MessageEvent;
 import com.syl.sugar.model.WelfareResponse;
 import org.greenrobot.eventbus.EventBus;
@@ -23,7 +23,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 public class GankActivity extends SwipeBackAppCompatActivity implements GankView {
 
