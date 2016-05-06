@@ -18,4 +18,11 @@
     <string name="bottom_bar_item_name_1">Events</string>
     <string name="bottom_bar_item_name_2">Repositories</string>
     <string name="bottom_bar_item_name_3">Notifications</string>
+
+    <!--用户信息页面-->
+    <string name="user_info_unknown">N/A</string>
+    <string name="user_info_zero">0</string>
+    <string name="user_followers">Followers</string>
+    <string name="user_following">Following</string>
+    <string name="user_joined_on">Joined on %1$s</string>
 </resources>

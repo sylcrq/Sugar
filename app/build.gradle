@@ -72,6 +72,7 @@ dependencies {
 
     compile 'com.roughike:bottom-bar:1.2.4'
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+    compile 'de.hdodenhof:circleimageview:2.0.0'
 }
 
 final def log = project.logger

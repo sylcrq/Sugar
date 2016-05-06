@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -18,6 +17,7 @@ import com.syl.sugar.view.SingleUserView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * 用户信息页面Fragment
@@ -34,7 +34,7 @@ public class SingleUserFragment extends Fragment implements SingleUserView {
     private SingleUserPresenter mPresenter;
 
     @Bind(R.id.user_avatar)
-    ImageView mUserAvatar;
+    CircleImageView mUserAvatar;
     @Bind(R.id.user_name)
     TextView mUserName;
     @Bind(R.id.user_login_name)
@@ -110,13 +110,13 @@ public class SingleUserFragment extends Fragment implements SingleUserView {
     @Override
     public void onLoadSuccess(User user) {
         Picasso.with(mContext).load(user.getAvatar_url())
-                .placeholder(R.drawable.github_mark_64px)
+                .placeholder(R.drawable.github_mark_120px_plus)
                 .into(mUserAvatar);
 
         mUserName.setText(user.getName());
         mUserLoginName.setText(user.getLogin());
-        mUserFollowers.setText("" + user.getFollowers());
-        mUserFollowing.setText("" + user.getFollowing());
+        mUserFollowers.setText(String.valueOf(user.getFollowers()));
+        mUserFollowing.setText(String.valueOf(user.getFollowing()));
 
         if (user.getCompany() != null) {
             mUserCompany.setText(user.getCompany());
@@ -143,7 +143,8 @@ public class SingleUserFragment extends Fragment implements SingleUserView {
         }
 
         if (user.getCreated_at() != null) {
-            mUserJoinedDate.setText(user.getCreated_at());
+            mUserJoinedDate.setText(String.format(mContext.getString(R.string.user_joined_on),
+                    user.getCreated_at().substring(0, 10)));
         } else {
             mUserJoinedDate.setVisibility(View.GONE);
         }

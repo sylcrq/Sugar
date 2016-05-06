@@ -2,7 +2,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="#E0E0E0"
+              android:background="@color/page_bg_color"
               android:orientation="vertical"
               tools:context="com.syl.sugar.view.fragment.SingleUserFragment">
 
@@ -10,15 +10,18 @@
         android:id="@+id/user_info_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF">
+        android:background="@color/White"
+        android:paddingTop="20dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/user_avatar"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
-            android:padding="10dp"
-            android:src="@drawable/github_mark_64px"/>
+            android:src="@drawable/github_mark_120px_plus"
+            app:civ_border_color="@color/text_color_blue"
+            app:civ_border_width="2dp"/>
 
         <TextView
             android:id="@+id/user_name"
@@ -27,8 +30,8 @@
             android:layout_below="@+id/user_avatar"
             android:layout_centerHorizontal="true"
             android:padding="10dp"
-            android:text="N/A"
-            android:textColor="#666666"
+            android:text="@string/user_info_unknown"
+            android:textColor="@color/text_color"
             android:textStyle="bold"/>
 
         <TextView
@@ -38,8 +41,8 @@
             android:layout_below="@+id/user_name"
             android:layout_centerHorizontal="true"
             android:padding="10dp"
-            android:text="N/A"
-            android:textColor="#666666"
+            android:text="@string/user_info_unknown"
+            android:textColor="@color/text_color"
             android:textStyle="bold"/>
     </RelativeLayout>
 
@@ -49,7 +52,7 @@
         android:layout_height="80dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:background="#FFFFFF"
+        android:background="@color/White"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -65,7 +68,8 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="0"
+                android:text="@string/user_info_zero"
+                android:textColor="@color/text_color_blue"
                 android:textSize="20sp"/>
 
             <TextView
@@ -74,14 +78,14 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="Followers"/>
+                android:text="@string/user_followers"/>
 
         </LinearLayout>
 
         <View
             android:layout_width="1px"
             android:layout_height="match_parent"
-            android:background="#F0F0F0"/>
+            android:background="@color/page_split_line_color"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -96,7 +100,8 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="0"
+                android:text="@string/user_info_zero"
+                android:textColor="@color/text_color_blue"
                 android:textSize="20sp"/>
 
             <TextView
@@ -105,7 +110,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="Following"/>
+                android:text="@string/user_following"/>
 
         </LinearLayout>
 
@@ -115,75 +120,80 @@
         android:id="@+id/user_company_layout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#FFFFFF"
+        android:background="@color/White"
         android:drawableLeft="@drawable/ic_group_black_24dp"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:text="N/A"/>
+        android:text="@string/user_info_unknown"
+        android:textColor="@color/text_color"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="#F0F0F0"/>
+        android:background="@color/page_split_line_color"/>
 
     <TextView
         android:id="@+id/user_location_layout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#FFFFFF"
+        android:background="@color/White"
         android:drawableLeft="@drawable/ic_location_on_black_24dp"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:text="N/A"/>
+        android:text="@string/user_info_unknown"
+        android:textColor="@color/text_color"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="#F0F0F0"/>
+        android:background="@color/page_split_line_color"/>
 
     <TextView
         android:id="@+id/user_email_layout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#FFFFFF"
+        android:background="@color/White"
         android:drawableLeft="@drawable/ic_mail_black_24dp"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:text="N/A"/>
+        android:text="@string/user_info_unknown"
+        android:textColor="@color/text_color_blue"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="#F0F0F0"/>
+        android:background="@color/page_split_line_color"/>
 
     <TextView
         android:id="@+id/user_blog_layout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#FFFFFF"
+        android:background="@color/White"
         android:drawableLeft="@drawable/ic_link_black_24dp"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:text="N/A"/>
+        android:text="@string/user_info_unknown"
+        android:textColor="@color/text_color_blue"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="#F0F0F0"/>
+        android:background="@color/page_split_line_color"/>
 
     <TextView
         android:id="@+id/user_joined_date_layout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#FFFFFF"
+        android:background="@color/White"
         android:drawableLeft="@drawable/ic_schedule_black_24dp"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:text="N/A"/>
+        android:text="@string/user_info_unknown"
+        android:textColor="@color/text_color"/>
 
 </LinearLayout>
