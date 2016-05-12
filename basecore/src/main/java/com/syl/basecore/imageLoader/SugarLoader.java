@@ -13,7 +13,15 @@ import com.squareup.picasso.Picasso;
 public class SugarLoader {
 
     public static void loadImage(Context context, String path, ImageView target) {
-        Picasso.with(context).load(path).into(target);
+        Picasso.with(context)
+                .load(path)
+                .into(target);
     }
 
+    public static void loadImage(Context context, String path, ImageView target, int placeholder) {
+        Picasso.with(context)
+                .load(path)
+                .placeholder(placeholder)
+                .into(target);
+    }
 }

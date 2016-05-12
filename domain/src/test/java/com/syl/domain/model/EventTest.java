@@ -9,18 +9,18 @@ import static org.junit.Assert.assertThat;
 /**
  * JUnit
  * <p>
- * Created by shenyunlong on 16/4/28.
+ * Created by Shen YunLong on 2016/04/28.
  */
-public class EventsTest {
+public class EventTest {
 
     private static final String FAKE_EVENTS_ID = "123456789";
 
-    private Events events;
+    private Event events;
 
     @Before
     public void setUp() {
-        events = new Events();
-        events.setId(FAKE_EVENTS_ID);
+//        events = new Event();
+//        events.setId(FAKE_EVENTS_ID);
     }
 
     @Test

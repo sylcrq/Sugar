@@ -1,13 +1,14 @@
 package com.syl.basecore.json;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 
 import java.io.Reader;
 import java.lang.reflect.Type;
 
 /**
  * 封装JSON和Java对象转换接口
- * <p/>
+ * <p>
  * Created by Shen YunLong on 2016/05/12.
  */
 public class SugarJson {
@@ -35,6 +36,14 @@ public class SugarJson {
     }
 
     public static <T> T fromJson(Reader json, Type typeOfT) {
+        return mGson.fromJson(json, typeOfT);
+    }
+
+    public static <T> T fromJson(JsonElement json, Class<T> classOfT) {
+        return mGson.fromJson(json, classOfT);
+    }
+
+    public static <T> T fromJson(JsonElement json, Type typeOfT) {
         return mGson.fromJson(json, typeOfT);
     }
 

@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
  * <p>
  * Created by shenyunlong on 16/4/28.
  */
-public class GetEventsUseCaseTest {
+public class GetEventUseCaseTest {
 
 
     @Before

@@ -13,8 +13,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.syl.domain.model.Events;
-import com.syl.domain.model.User;
+import com.syl.domain.model.Event;
 import com.syl.sugar.NavigationTool;
 import com.syl.sugar.R;
 import com.syl.sugar.view.EventsView;
@@ -26,6 +25,11 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**
+ * 首页Fragment
+ * <p/>
+ * Created by Shen YunLong on 2016/05/05
+ */
 public class EventsFragment extends Fragment implements EventsView, AdapterView.OnItemClickListener {
 
     private static final String ARG_USER_NAME = "ARG_USER_NAME";
@@ -116,14 +120,14 @@ public class EventsFragment extends Fragment implements EventsView, AdapterView.
         void onFragmentInteraction(Uri uri);
     }
 
-    private View initHeaderView() {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.main_listview_header, null);
-        return view;
-    }
+//    private View initHeaderView() {
+//        View view = LayoutInflater.from(getActivity()).inflate(R.layout.main_listview_header, null);
+//        return view;
+//    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Events event = (Events) mAdapter.getItem(position);
+        Event event = (Event) mAdapter.getItem(position);
         onItemClick(event.getActor().getLogin());
     }
 
@@ -140,7 +144,7 @@ public class EventsFragment extends Fragment implements EventsView, AdapterView.
     }
 
     @Override
-    public void bindData(List<Events> eventList) {
+    public void bindData(List<Event> eventList) {
         mAdapter.setData(eventList);
         mAdapter.notifyDataSetChanged();
     }

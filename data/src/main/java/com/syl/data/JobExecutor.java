@@ -1,6 +1,7 @@
 package com.syl.data;
 
 import com.syl.domain.executor.ThreadExecutor;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -30,7 +31,7 @@ public class JobExecutor implements ThreadExecutor {
     }
 
     public synchronized static JobExecutor getInstance() {
-        if(mInstance == null) {
+        if (mInstance == null) {
             mInstance = new JobExecutor();
         }
 

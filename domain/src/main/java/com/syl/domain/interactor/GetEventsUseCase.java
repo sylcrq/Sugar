@@ -1,6 +1,6 @@
 package com.syl.domain.interactor;
 
-import com.syl.domain.model.Events;
+import com.syl.domain.model.Event;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
 public interface GetEventsUseCase extends Interactor {
 
     interface Callback {
-        void onSuccess(List<Events> list);
+        void onSuccess(List<Event> list);
 
         void onError(Exception e);
     }

@@ -1,8 +1,8 @@
 package com.syl.data.repository;
 
-import com.syl.data.mapper.EventsMapper;
+import com.syl.data.mapper.EventMapper;
 import com.syl.data.mapper.UserMapper;
-import com.syl.data.model.EventsEntity;
+import com.syl.data.model.EventEntity;
 import com.syl.data.model.UserEntity;
 import com.syl.data.repository.datastore.CloudEventsDataStore;
 import com.syl.data.repository.datastore.CloudUserDataStore;
@@ -15,7 +15,7 @@ import java.util.List;
  * 实现Domain层接口
  *
  * @see GitHubRepository
- * <p>
+ * <p/>
  * Created by shenyunlong on 16/4/27.
  */
 public class GitHubDataRepository implements GitHubRepository {
@@ -39,10 +39,10 @@ public class GitHubDataRepository implements GitHubRepository {
         dataStore.getUserEvents(userName, new CloudEventsDataStore.Callback() {
 
             @Override
-            public void onSuccess(List<EventsEntity> list) {
+            public void onSuccess(List<EventEntity> list) {
                 if (callback != null) {
                     // 转换成Data层对象
-                    callback.onSuccess(EventsMapper.transform(list));
+                    callback.onSuccess(EventMapper.transform(list));
                 }
             }
 
@@ -61,14 +61,14 @@ public class GitHubDataRepository implements GitHubRepository {
         dataStore.getSingleUser(userName, new CloudUserDataStore.Callback() {
             @Override
             public void onSuccess(UserEntity entity) {
-                if(callback != null) {
+                if (callback != null) {
                     callback.onSuccess(UserMapper.transform(entity));
                 }
             }
 
             @Override
             public void onError(Exception e) {
-                if(callback != null) {
+                if (callback != null) {
                     callback.onError(e);
                 }
             }

@@ -1,6 +1,6 @@
 package com.syl.sugar.view;
 
-import com.syl.domain.model.Events;
+import com.syl.domain.model.Event;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public interface EventsView {
 
     void onItemClick(String userName);
 
-    void bindData(List<Events> eventList);
+    void bindData(List<Event> eventList);
 
     void showToast(String content);
 }

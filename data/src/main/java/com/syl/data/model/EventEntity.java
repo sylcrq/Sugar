@@ -1,21 +1,21 @@
 package com.syl.data.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.syl.domain.model.Event;
 
 /**
- * Data层Events对象
+ * Event Base Class
  *
- * @see com.syl.domain.model.Events
- * <p>
- * Created by shenyunlong on 16/4/27.
+ * @see Event
+ * <p/>
+ * Created by Shen YunLong on 2016/04/27.
  */
-public class EventsEntity {
+public abstract class EventEntity {
 
     private String id;
     private String type;
     private ActorBean actor;
     private RepoBean repo;
-    private PayloadBean payload;
     @SerializedName("public")
     private boolean publicX;
     private String created_at;
@@ -51,14 +51,6 @@ public class EventsEntity {
 
     public void setRepo(RepoBean repo) {
         this.repo = repo;
-    }
-
-    public PayloadBean getPayload() {
-        return payload;
-    }
-
-    public void setPayload(PayloadBean payload) {
-        this.payload = payload;
     }
 
     public boolean isPublicX() {
@@ -163,18 +155,6 @@ public class EventsEntity {
         }
     }
 
-    public static class PayloadBean {
-        private String action;
-
-        public String getAction() {
-            return action;
-        }
-
-        public void setAction(String action) {
-            this.action = action;
-        }
-    }
-
     public static class OrgBean {
         private int id;
         private String login;
@@ -220,6 +200,41 @@ public class EventsEntity {
 
         public void setAvatar_url(String avatar_url) {
             this.avatar_url = avatar_url;
+        }
+    }
+
+    public void transform(EventEntity entity, Event event) {
+        event.setId(entity.getId());
+        event.setType(entity.getType());
+        event.setPublicX(entity.isPublicX());
+        event.setCreated_at(entity.getCreated_at());
+
+        if (entity.getActor() != null) {
+            Event.ActorBean actorBean = new Event.ActorBean();
+            actorBean.setId(entity.getActor().getId());
+            actorBean.setLogin(entity.getActor().getLogin());
+            actorBean.setGravatar_id(entity.getActor().getGravatar_id());
+            actorBean.setUrl(entity.getActor().getUrl());
+            actorBean.setAvatar_url(entity.getActor().getAvatar_url());
+            event.setActor(actorBean);
+        }
+
+        if (entity.getRepo() != null) {
+            Event.RepoBean repoBean = new Event.RepoBean();
+            repoBean.setId(entity.getRepo().getId());
+            repoBean.setName(entity.getRepo().getName());
+            repoBean.setUrl(entity.getRepo().getUrl());
+            event.setRepo(repoBean);
+        }
+
+        if (entity.getOrg() != null) {
+            Event.OrgBean orgBean = new Event.OrgBean();
+            orgBean.setId(entity.getOrg().getId());
+            orgBean.setLogin(entity.getOrg().getLogin());
+            orgBean.setGravatar_id(entity.getOrg().getGravatar_id());
+            orgBean.setAvatar_url(entity.getOrg().getAvatar_url());
+            orgBean.setUrl(entity.getOrg().getUrl());
+            event.setOrg(orgBean);
         }
     }
 }

@@ -5,10 +5,14 @@ import com.orhanobut.logger.Logger;
 
 /**
  * 封装Log接口
- * <p/>
+ * <p>
  * Created by Shen YunLong on 2016/05/12.
  */
 public class SugarLogger {
+
+    public static void init() {
+        Logger.init();
+    }
 
     public static void v(String tag, String msg) {
         Logger.t(tag).v(msg);

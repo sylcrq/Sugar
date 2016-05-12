@@ -2,15 +2,14 @@ package com.syl.domain.model;
 
 /**
  * Domain层Events对象
- *
- * Created by shenyunlong on 16/4/27.
+ * <p>
+ * Created by Shen YunLong on 2016/04/27.
  */
-public class Events {
+public abstract class Event {
     private String id;
     private String type;
     private ActorBean actor;
     private RepoBean repo;
-    private PayloadBean payload;
     private boolean publicX;
     private String created_at;
     private OrgBean org;
@@ -45,14 +44,6 @@ public class Events {
 
     public void setRepo(RepoBean repo) {
         this.repo = repo;
-    }
-
-    public PayloadBean getPayload() {
-        return payload;
-    }
-
-    public void setPayload(PayloadBean payload) {
-        this.payload = payload;
     }
 
     public boolean isPublicX() {
@@ -154,18 +145,6 @@ public class Events {
 
         public void setUrl(String url) {
             this.url = url;
-        }
-    }
-
-    public static class PayloadBean {
-        private String action;
-
-        public String getAction() {
-            return action;
-        }
-
-        public void setAction(String action) {
-            this.action = action;
         }
     }
 
