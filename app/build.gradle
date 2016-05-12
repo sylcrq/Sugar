@@ -40,29 +40,29 @@ repositories {
 }
 
 dependencies {
+    def aopLayer = project(':aop')
+    def domainLayer = project(':domain')
+    def dataLayer = project(':data')
+
+    compile aopLayer
+    compile domainLayer
+    compile dataLayer
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(":aop")
-    compile project(":domain")
-    compile project(":data")
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.1.1'
 
     compile 'com.android.support:multidex:1.0.0'
-    compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:support-v4:23.1.1'
 
     compile 'org.aspectj:aspectjrt:1.8.8'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
-    compile 'com.google.code.gson:gson:2.6.2'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    testCompile 'com.squareup.okhttp3:mockwebserver:3.2.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'io.reactivex:rxjava:1.1.3'
     compile 'io.reactivex:rxandroid:1.1.0'
 
-    testCompile 'junit:junit:4.12'
     testCompile "org.robolectric:robolectric:3.0"
 
     compile 'com.facebook.stetho:stetho:1.3.1'

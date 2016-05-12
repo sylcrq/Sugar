@@ -2,10 +2,10 @@ package com.syl.data.repository.datastore;
 
 import android.text.TextUtils;
 
+import com.syl.basecore.json.SugarJson;
 import com.syl.data.GitHubApi;
 import com.syl.data.http.HttpClient;
 import com.syl.data.model.UserEntity;
-import com.syl.data.utils.JsonUtils;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ import okhttp3.Response;
 
 /**
  * https://developer.github.com/v3/users/
- * <p>
+ * <p/>
  * Created by shenyunlong on 4/7/16.
  */
 public class CloudUserDataStore {
@@ -51,7 +51,7 @@ public class CloudUserDataStore {
                 }
 
                 if (callback != null) {
-                    UserEntity entity = JsonUtils.fromJson(response.body().charStream(), UserEntity.class);
+                    UserEntity entity = SugarJson.fromJson(response.body().charStream(), UserEntity.class);
 
                     callback.onSuccess(entity);
                 }

@@ -3,10 +3,9 @@ package com.syl.data.repository.datastore;
 import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
+import com.syl.basecore.json.SugarJson;
 import com.syl.data.model.EventsEntity;
-import com.syl.data.utils.DebugLog;
 import com.syl.data.GitHubApi;
-import com.syl.data.utils.JsonUtils;
 import com.syl.data.http.HttpClient;
 
 import java.io.IOException;
@@ -18,9 +17,9 @@ import okhttp3.Response;
 
 /**
  * GitHub Developer API -> Activity -> Events
- * <p>
+ * <p/>
  * https://developer.github.com/v3/activity/events/
- * <p>
+ * <p/>
  * Created by shenyunlong on 16/4/27.
  */
 public class CloudEventsDataStore {
@@ -40,7 +39,7 @@ public class CloudEventsDataStore {
         final String url = GitHubApi.GITHUB_HOST + String.format(EVENTS_URL, userName);
         Request request = new Request.Builder().url(url).build();
 
-        DebugLog.d(TAG, "HTTP Request URL = " + url);
+//        DebugLog.d(TAG, "HTTP Request URL = " + url);
 
         HttpClient.getInstance().newCall(request).enqueue(new okhttp3.Callback() {
             @Override
@@ -60,7 +59,7 @@ public class CloudEventsDataStore {
                 }
 
                 if (callback != null) {
-                    List<EventsEntity> events = JsonUtils.fromJson(response.body().charStream(),
+                    List<EventsEntity> events = SugarJson.fromJson(response.body().charStream(),
                             new TypeToken<List<EventsEntity>>() {
                             }.getType());
 
