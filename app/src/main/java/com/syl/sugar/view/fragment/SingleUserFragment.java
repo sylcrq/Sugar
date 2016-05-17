@@ -110,7 +110,7 @@ public class SingleUserFragment extends Fragment implements SingleUserView {
     @Override
     public void onLoadSuccess(User user) {
         Picasso.with(mContext).load(user.getAvatar_url())
-                .placeholder(R.drawable.github_mark_120px_plus)
+                .placeholder(R.drawable.github_mark_120px)
                 .into(mUserAvatar);
 
         mUserName.setText(user.getName());

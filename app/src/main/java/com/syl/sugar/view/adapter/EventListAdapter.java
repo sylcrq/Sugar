@@ -85,7 +85,7 @@ public class EventListAdapter extends BaseAdapter {
     public void bindData(ViewHolder viewHolder, int position) {
         Event event = (Event) getItem(position);
 
-        SugarLoader.loadImage(mContext, event.getActor().getAvatar_url(), viewHolder.mAvatar, R.drawable.github_mark_120px_plus);
+        SugarLoader.loadImage(mContext, event.getActor().getAvatar_url(), viewHolder.mAvatar, R.drawable.github_mark_120px);
         viewHolder.mTime.setText(SugarTime.convertTimeAgo(event.getCreated_at()));
         viewHolder.mContent.setText(setUpContent(event));
     }
