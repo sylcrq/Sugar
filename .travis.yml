@@ -1,7 +1,6 @@
 language: android
 jdk: oraclejdk7
 env:
-  - GRADLE_OPTS="-Xmx512m -XX:MaxPermSize=512m"
   global:
     - ADB_INSTALL_TIMEOUT=8 # minutes (2 minutes by default)
   matrix:

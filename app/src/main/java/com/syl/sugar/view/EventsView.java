@@ -5,19 +5,25 @@ import com.syl.domain.model.Event;
 import java.util.List;
 
 /**
- * 用户列表页面UI相关操作
+ * 首页Timeline MVP
  * <p/>
- * Created by shenyunlong on 2/5/16.
+ * Created by Shen YunLong on 2016/02/05.
  */
 public interface EventsView {
 
-    void showLoading();
+    void showLoadingView(boolean show);
 
-    void hideLoading();
+    void showErrorView(boolean show);
 
-    void onItemClick(String userName);
+    void showEmptyView(boolean show);
 
-    void bindData(List<Event> eventList);
+    void showDataView(boolean show);
 
-    void showToast(String content);
+//    void autoRefresh();
+
+    void refreshComplete();
+
+    void bindData(List<Event> events, boolean isLoadMore);
+
+    void showToast(String message);
 }

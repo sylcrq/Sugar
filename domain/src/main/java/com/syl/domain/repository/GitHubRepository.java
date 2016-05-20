@@ -4,12 +4,14 @@ import java.util.List;
 
 /**
  * Repository模式, Data层实现该接口
- * <p>
+ * <p/>
  * Created by shenyunlong on 16/4/27.
  */
 public interface GitHubRepository {
 
     void getUserEvents(String userName, Callback callback);
+
+    void getUserEvents(String userName, int page, Callback callback);
 
     void getSingleUser(String userName, GetCallback callback);
 

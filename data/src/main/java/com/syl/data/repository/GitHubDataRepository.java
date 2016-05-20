@@ -56,6 +56,26 @@ public class GitHubDataRepository implements GitHubRepository {
     }
 
     @Override
+    public void getUserEvents(String userName, int page, final Callback callback) {
+        CloudEventsDataStore dataStore = GitHubDataFactory.createEventsDataStore();
+        dataStore.getUserEvents(userName, page, new CloudEventsDataStore.Callback() {
+            @Override
+            public void onSuccess(List<EventEntity> list) {
+                if (callback != null) {
+                    callback.onSuccess(EventMapper.transform(list));
+                }
+            }
+
+            @Override
+            public void onError(Exception e) {
+                if (callback != null) {
+                    callback.onError(e);
+                }
+            }
+        });
+    }
+
+    @Override
     public void getSingleUser(String userName, final GetCallback callback) {
         CloudUserDataStore dataStore = GitHubDataFactory.createUserDataStore();
         dataStore.getSingleUser(userName, new CloudUserDataStore.Callback() {

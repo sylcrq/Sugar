@@ -1,17 +1,18 @@
 package com.syl.sugar.presenter;
 
 
+import com.syl.basecore.json.SugarJson;
 import com.syl.sugar.view.GankView;
 import com.syl.sugar.event.MessageEvent;
 import com.syl.sugar.http.HttpCallback;
 import com.syl.sugar.http.HttpUtil;
 import com.syl.sugar.model.WelfareResponse;
-import com.syl.sugar.utils.GsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.io.Reader;
+
 import okhttp3.Response;
 
 /**
@@ -44,7 +45,7 @@ public class GankPresenter {
     }
 
     public void loadData(final int page, final boolean refresh) {
-        if(!refresh && page == 1) {
+        if (!refresh && page == 1) {
             // 首次进入页面
             startLoading();
         }
@@ -54,11 +55,11 @@ public class GankPresenter {
         HttpUtil.getInstance().get(url, new HttpCallback<WelfareResponse>(WelfareResponse.class) {
             @Override
             public void onFailure(Response response, IOException e) {
-                if(refresh) {
+                if (refresh) {
                     // 下拉刷新失败
                     mGankView.stopRefresh();
                     mGankView.showToast("Refresh Error");
-                } else if(page > 1) {
+                } else if (page > 1) {
                     // 加载下一页失败
                     mGankView.showToast("LoadMore Error");
                 } else {
@@ -70,11 +71,11 @@ public class GankPresenter {
 
             @Override
             public void onSuccess(WelfareResponse response) {
-                if(refresh) {
+                if (refresh) {
                     // 下拉刷新成功
                     mGankView.stopRefresh();
                     mGankView.resetData(response.getResults());
-                } else if(page > 1) {
+                } else if (page > 1) {
                     // 加载下一页成功
                     mGankView.appendData(response.getResults());
                 } else {
@@ -87,7 +88,7 @@ public class GankPresenter {
 
             @Override
             public WelfareResponse parse(Reader json, Class<WelfareResponse> classOfT) {
-                return GsonUtil.getGson().fromJson(json, classOfT);
+                return SugarJson.fromJson(json, classOfT);
             }
         });
     }

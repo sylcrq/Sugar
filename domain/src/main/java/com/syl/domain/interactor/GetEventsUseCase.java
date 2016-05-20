@@ -15,5 +15,5 @@ public interface GetEventsUseCase extends Interactor {
         void onError(Exception e);
     }
 
-    void execute(String userName, Callback callback);
+    void execute(String userName, int page, Callback callback);
 }

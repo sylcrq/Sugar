@@ -1,20 +1,56 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.fragment.EventsFragment">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".view.fragment.EventsFragment">
 
-    <ListView
-        android:id="@+id/user_data_list"
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/event_list_view_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none" />
+        android:background="@color/White"
+        ptr:ptr_duration_to_close="200"
+        ptr:ptr_duration_to_close_header="1000"
+        ptr:ptr_keep_header_when_refresh="true"
+        ptr:ptr_pull_to_fresh="false"
+        ptr:ptr_ratio_of_header_height_to_refresh="1.2"
+        ptr:ptr_resistance="1.7">
 
-    <ProgressBar
-        android:id="@+id/loading_bar"
-        style="@android:style/Widget.ProgressBar.Inverse"
-        android:layout_width="match_parent"
+        <ListView
+            android:id="@+id/event_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"/>
+
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+
+    <com.wang.avi.AVLoadingIndicatorView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/loading_view"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:visibility="gone" />
+        android:layout_centerInParent="true"
+        app:indicator="BallSpinFadeLoader"
+        app:indicator_color="@color/loading_indicator_color"/>
+
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Empty"
+        android:textColor="@color/text_color"
+        android:textSize="20sp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/error_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Error"
+        android:textColor="@color/text_color"
+        android:textSize="20sp"
+        android:visibility="gone"/>
 </RelativeLayout>

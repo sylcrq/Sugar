@@ -27,7 +27,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * @see com.syl.sugar.view.fragment.EventsFragment
- * <p>
+ * <p/>
  * Created by Shen YunLong on 2016/05/02.
  */
 public class EventListAdapter extends BaseAdapter {
@@ -41,9 +41,23 @@ public class EventListAdapter extends BaseAdapter {
         mContext = context;
     }
 
-    public void setData(List<Event> userList) {
+    /**
+     * 追加数据
+     *
+     * @param list
+     */
+    public void addData(List<Event> list) {
+        mEventList.addAll(list);
+    }
+
+    /**
+     * 重置数据
+     *
+     * @param list
+     */
+    public void setData(List<Event> list) {
         mEventList.clear();
-        mEventList.addAll(userList);
+        mEventList.addAll(list);
     }
 
     @Override
