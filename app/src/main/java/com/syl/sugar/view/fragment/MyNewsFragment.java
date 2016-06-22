@@ -1,7 +1,6 @@
 package com.syl.sugar.view.fragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -32,11 +31,9 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 
 /**
- * 首页Timeline MVP
- * <p/>
- * Created by Shen YunLong on 2016/05/05.
+ * 首页News页面
  */
-public class EventsFragment extends Fragment implements EventsView, AdapterView.OnItemClickListener {
+public class MyNewsFragment extends Fragment implements EventsView, AdapterView.OnItemClickListener {
 
     private static final String ARG_USER_NAME = "ARG_USER_NAME";
 
@@ -55,13 +52,13 @@ public class EventsFragment extends Fragment implements EventsView, AdapterView.
     private Context mContext;
     private EventListAdapter mAdapter;
     private EventsPresenter mEventsPresenter;
-    private OnFragmentInteractionListener mListener;
+//    private OnFragmentInteractionListener mListener;
 
-    public EventsFragment() {
+    public MyNewsFragment() {
     }
 
-    public static EventsFragment newInstance(String userName) {
-        EventsFragment fragment = new EventsFragment();
+    public static MyNewsFragment newInstance(String userName) {
+        MyNewsFragment fragment = new MyNewsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_USER_NAME, userName);
         fragment.setArguments(args);
@@ -73,12 +70,12 @@ public class EventsFragment extends Fragment implements EventsView, AdapterView.
         super.onAttach(context);
         mContext = context;
 
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
     }
 
     @Override
@@ -94,7 +91,7 @@ public class EventsFragment extends Fragment implements EventsView, AdapterView.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_events, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_news, container, false);
         ButterKnife.bind(this, view);
 
         return view;
@@ -140,7 +137,7 @@ public class EventsFragment extends Fragment implements EventsView, AdapterView.
     public void onDetach() {
         super.onDetach();
         mContext = null;
-        mListener = null;
+//        mListener = null;
     }
 
     @Override
@@ -223,7 +220,7 @@ public class EventsFragment extends Fragment implements EventsView, AdapterView.
         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
     }
 
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
-    }
+//    public interface OnFragmentInteractionListener {
+//        void onFragmentInteraction(Uri uri);
+//    }
 }

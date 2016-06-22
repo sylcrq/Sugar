@@ -28,24 +28,34 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class NearbyFragment extends Fragment {
 
-    public static final String TAG = NearbyFragment.class.getSimpleName();
+/**
+ * 首页Issues页面
+ */
+public class MyIssueFragment extends Fragment {
+
+    private static final String ARG_PARAM1 = "param1";
+
+    public static final String TAG = MyIssueFragment.class.getSimpleName();
 
     @Bind(R.id.button)
     Button mRxButton;
 
-    public NearbyFragment() {
-        // Required empty public constructor
+    public MyIssueFragment() {
+    }
+
+    public static MyIssueFragment newInstance(String param1) {
+        MyIssueFragment fragment = new MyIssueFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_nearby, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_issue, container, false);
         ButterKnife.bind(this, view);
 
         return view;

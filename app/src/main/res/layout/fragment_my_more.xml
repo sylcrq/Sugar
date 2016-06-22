@@ -1,16 +1,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
-             android:id="@+id/page_layout"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".view.fragment.FirstFragment">
+             tools:context="com.syl.sugar.view.fragment.MyMoreFragment">
 
+    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/page_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="20sp"
         android:text="@string/hello_blank_fragment"/>
 
 </FrameLayout>

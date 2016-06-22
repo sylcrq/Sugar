@@ -31,17 +31,21 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity
             android:name=".view.activity.MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:label="@string/title_activity_main"/>
+
         <activity
             android:name=".view.activity.GankActivity"
-            android:theme="@style/AppTheme.Translucent"></activity>
-        <activity android:name=".view.activity.BlankActivity"></activity>
+            android:theme="@style/AppTheme.Translucent"/>
+
+        <activity android:name=".view.activity.BlankActivity"/>
+
         <activity
             android:name=".view.activity.MeiziActivity"
-            android:theme="@style/AppTheme.Translucent"></activity>
+            android:theme="@style/AppTheme.Translucent"/>
+
         <activity
             android:name=".view.activity.SingleUserActivity"
             android:label="@string/title_activity_main"/>

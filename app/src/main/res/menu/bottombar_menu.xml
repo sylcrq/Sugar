@@ -2,16 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/bottom_bar_item_1"
-        android:icon="@drawable/ic_home_cyan_a100_24dp"
-        android:title="@string/bottom_bar_item_name_1" />
+        android:icon="@drawable/ic_rss_feed_black_24dp"
+        android:title="@string/bottom_bar_item_name_1"/>
 
     <item
         android:id="@+id/bottom_bar_item_2"
-        android:icon="@drawable/ic_favorite_light_green_a100_24dp"
-        android:title="@string/bottom_bar_item_name_2" />
+        android:icon="@drawable/ic_local_library_black_24dp"
+        android:title="@string/bottom_bar_item_name_2"/>
 
     <item
         android:id="@+id/bottom_bar_item_3"
-        android:icon="@drawable/ic_room_blue_grey_100_24dp"
-        android:title="@string/bottom_bar_item_name_3" />
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/bottom_bar_item_name_3"/>
+
+    <item
+        android:id="@+id/bottom_bar_item_4"
+        android:icon="@drawable/ic_error_outline_black_24dp"
+        android:title="@string/bottom_bar_item_name_4"/>
+
+    <item
+        android:id="@+id/bottom_bar_item_5"
+        android:icon="@drawable/ic_more_horiz_black_24dp"
+        android:title="@string/bottom_bar_item_name_5"/>
 </menu>

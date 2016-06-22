@@ -1,9 +1,11 @@
 package com.syl.data.model;
 
 /**
- * Data层User对象
+ * User Model
  *
- * Created by shenyunlong on 4/7/16.
+ * @see com.syl.data.repository.datastore.CloudUserDataStore
+ * <p/>
+ * Created by Shen YunLong on 2016/04/07.
  */
 public class UserEntity {
 
