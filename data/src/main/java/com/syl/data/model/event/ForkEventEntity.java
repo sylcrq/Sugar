@@ -1,12 +1,13 @@
-package com.syl.data.model;
+package com.syl.data.model.event;
 
 import com.google.gson.annotations.SerializedName;
-import com.syl.domain.model.Event;
-import com.syl.domain.model.ForkEvent;
+import com.syl.data.model.EventEntity;
+import com.syl.data.model.RepositoryEntity;
+import com.syl.data.model.UserEntity;
 
 /**
- * Triggered when a user forks a repository.
- * <p/>
+ * Model ForkEvent
+ * <p>
  * Created by Shen YunLong on 2016/05/12.
  */
 public class ForkEventEntity extends EventEntity {
@@ -26,6 +27,8 @@ public class ForkEventEntity extends EventEntity {
     public static class PayloadBean {
 
         private ForkeeBean forkee;
+        private RepositoryEntity repository;
+        private UserEntity sender;
 
         public ForkeeBean getForkee() {
             return forkee;
@@ -35,12 +38,27 @@ public class ForkEventEntity extends EventEntity {
             this.forkee = forkee;
         }
 
+        public RepositoryEntity getRepository() {
+            return repository;
+        }
+
+        public void setRepository(RepositoryEntity repository) {
+            this.repository = repository;
+        }
+
+        public UserEntity getSender() {
+            return sender;
+        }
+
+        public void setSender(UserEntity sender) {
+            this.sender = sender;
+        }
+
         public static class ForkeeBean {
             private int id;
             private String name;
             private String full_name;
-
-            private OwnerBean owner;
+            private UserEntity owner;
             @SerializedName("private")
             private boolean privateX;
             private String html_url;
@@ -82,7 +100,6 @@ public class ForkEventEntity extends EventEntity {
             private String notifications_url;
             private String labels_url;
             private String releases_url;
-            private String deployments_url;
             private String created_at;
             private String updated_at;
             private String pushed_at;
@@ -94,13 +111,13 @@ public class ForkEventEntity extends EventEntity {
             private int size;
             private int stargazers_count;
             private int watchers_count;
-            private Object language;
+            private String language;
             private boolean has_issues;
             private boolean has_downloads;
             private boolean has_wiki;
             private boolean has_pages;
             private int forks_count;
-            private Object mirror_url;
+            private String mirror_url;
             private int open_issues_count;
             private int forks;
             private int open_issues;
@@ -131,14 +148,6 @@ public class ForkEventEntity extends EventEntity {
 
             public void setFull_name(String full_name) {
                 this.full_name = full_name;
-            }
-
-            public OwnerBean getOwner() {
-                return owner;
-            }
-
-            public void setOwner(OwnerBean owner) {
-                this.owner = owner;
             }
 
             public boolean isPrivateX() {
@@ -461,14 +470,6 @@ public class ForkEventEntity extends EventEntity {
                 this.releases_url = releases_url;
             }
 
-            public String getDeployments_url() {
-                return deployments_url;
-            }
-
-            public void setDeployments_url(String deployments_url) {
-                this.deployments_url = deployments_url;
-            }
-
             public String getCreated_at() {
                 return created_at;
             }
@@ -557,11 +558,11 @@ public class ForkEventEntity extends EventEntity {
                 this.watchers_count = watchers_count;
             }
 
-            public Object getLanguage() {
+            public String getLanguage() {
                 return language;
             }
 
-            public void setLanguage(Object language) {
+            public void setLanguage(String language) {
                 this.language = language;
             }
 
@@ -605,11 +606,11 @@ public class ForkEventEntity extends EventEntity {
                 this.forks_count = forks_count;
             }
 
-            public Object getMirror_url() {
+            public String getMirror_url() {
                 return mirror_url;
             }
 
-            public void setMirror_url(Object mirror_url) {
+            public void setMirror_url(String mirror_url) {
                 this.mirror_url = mirror_url;
             }
 
@@ -661,268 +662,120 @@ public class ForkEventEntity extends EventEntity {
                 this.publicX = publicX;
             }
 
-            public static class OwnerBean {
-                private String login;
-                private int id;
-                private String avatar_url;
-                private String gravatar_id;
-                private String url;
-                private String html_url;
-                private String followers_url;
-                private String following_url;
-                private String gists_url;
-                private String starred_url;
-                private String subscriptions_url;
-                private String organizations_url;
-                private String repos_url;
-                private String events_url;
-                private String received_events_url;
-                private String type;
-                private boolean site_admin;
+            public UserEntity getOwner() {
+                return owner;
+            }
 
-                public String getLogin() {
-                    return login;
-                }
-
-                public void setLogin(String login) {
-                    this.login = login;
-                }
-
-                public int getId() {
-                    return id;
-                }
-
-                public void setId(int id) {
-                    this.id = id;
-                }
-
-                public String getAvatar_url() {
-                    return avatar_url;
-                }
-
-                public void setAvatar_url(String avatar_url) {
-                    this.avatar_url = avatar_url;
-                }
-
-                public String getGravatar_id() {
-                    return gravatar_id;
-                }
-
-                public void setGravatar_id(String gravatar_id) {
-                    this.gravatar_id = gravatar_id;
-                }
-
-                public String getUrl() {
-                    return url;
-                }
-
-                public void setUrl(String url) {
-                    this.url = url;
-                }
-
-                public String getHtml_url() {
-                    return html_url;
-                }
-
-                public void setHtml_url(String html_url) {
-                    this.html_url = html_url;
-                }
-
-                public String getFollowers_url() {
-                    return followers_url;
-                }
-
-                public void setFollowers_url(String followers_url) {
-                    this.followers_url = followers_url;
-                }
-
-                public String getFollowing_url() {
-                    return following_url;
-                }
-
-                public void setFollowing_url(String following_url) {
-                    this.following_url = following_url;
-                }
-
-                public String getGists_url() {
-                    return gists_url;
-                }
-
-                public void setGists_url(String gists_url) {
-                    this.gists_url = gists_url;
-                }
-
-                public String getStarred_url() {
-                    return starred_url;
-                }
-
-                public void setStarred_url(String starred_url) {
-                    this.starred_url = starred_url;
-                }
-
-                public String getSubscriptions_url() {
-                    return subscriptions_url;
-                }
-
-                public void setSubscriptions_url(String subscriptions_url) {
-                    this.subscriptions_url = subscriptions_url;
-                }
-
-                public String getOrganizations_url() {
-                    return organizations_url;
-                }
-
-                public void setOrganizations_url(String organizations_url) {
-                    this.organizations_url = organizations_url;
-                }
-
-                public String getRepos_url() {
-                    return repos_url;
-                }
-
-                public void setRepos_url(String repos_url) {
-                    this.repos_url = repos_url;
-                }
-
-                public String getEvents_url() {
-                    return events_url;
-                }
-
-                public void setEvents_url(String events_url) {
-                    this.events_url = events_url;
-                }
-
-                public String getReceived_events_url() {
-                    return received_events_url;
-                }
-
-                public void setReceived_events_url(String received_events_url) {
-                    this.received_events_url = received_events_url;
-                }
-
-                public String getType() {
-                    return type;
-                }
-
-                public void setType(String type) {
-                    this.type = type;
-                }
-
-                public boolean isSite_admin() {
-                    return site_admin;
-                }
-
-                public void setSite_admin(boolean site_admin) {
-                    this.site_admin = site_admin;
-                }
+            public void setOwner(UserEntity owner) {
+                this.owner = owner;
             }
         }
     }
 
-    @Override
-    public void transform(EventEntity entity, Event event) {
-        super.transform(entity, event);
-
-        if (entity instanceof ForkEventEntity && event instanceof ForkEvent) {
-            if (((ForkEventEntity) entity).getPayload() != null) {
-                ForkEvent.PayloadBean payloadBean = new ForkEvent.PayloadBean();
-
-                if (((ForkEventEntity) entity).getPayload().getForkee() != null) {
-                    ForkEvent.PayloadBean.ForkeeBean forkeeBean = new ForkEvent.PayloadBean.ForkeeBean();
-                    forkeeBean.setId(((ForkEventEntity) entity).getPayload().getForkee().getId());
-                    forkeeBean.setName(((ForkEventEntity) entity).getPayload().getForkee().getName());
-                    forkeeBean.setFull_name(((ForkEventEntity) entity).getPayload().getForkee().getFull_name());
-                    forkeeBean.setPrivateX(((ForkEventEntity) entity).getPayload().getForkee().isPrivateX());
-                    forkeeBean.setHtml_url(((ForkEventEntity) entity).getPayload().getForkee().getHtml_url());
-                    forkeeBean.setDescription(((ForkEventEntity) entity).getPayload().getForkee().getDescription());
-                    forkeeBean.setFork(((ForkEventEntity) entity).getPayload().getForkee().isFork());
-                    forkeeBean.setUrl(((ForkEventEntity) entity).getPayload().getForkee().getUrl());
-                    forkeeBean.setForks_url(((ForkEventEntity) entity).getPayload().getForkee().getForks_url());
-                    forkeeBean.setKeys_url(((ForkEventEntity) entity).getPayload().getForkee().getKeys_url());
-                    forkeeBean.setCollaborators_url(((ForkEventEntity) entity).getPayload().getForkee().getCollaborators_url());
-                    forkeeBean.setTeams_url(((ForkEventEntity) entity).getPayload().getForkee().getTeams_url());
-                    forkeeBean.setHooks_url(((ForkEventEntity) entity).getPayload().getForkee().getHooks_url());
-                    forkeeBean.setIssue_events_url(((ForkEventEntity) entity).getPayload().getForkee().getIssue_events_url());
-                    forkeeBean.setEvents_url(((ForkEventEntity) entity).getPayload().getForkee().getEvents_url());
-                    forkeeBean.setAssignees_url(((ForkEventEntity) entity).getPayload().getForkee().getAssignees_url());
-                    forkeeBean.setBranches_url(((ForkEventEntity) entity).getPayload().getForkee().getBranches_url());
-                    forkeeBean.setTags_url(((ForkEventEntity) entity).getPayload().getForkee().getTags_url());
-                    forkeeBean.setBlobs_url(((ForkEventEntity) entity).getPayload().getForkee().getBlobs_url());
-                    forkeeBean.setGit_tags_url(((ForkEventEntity) entity).getPayload().getForkee().getGit_tags_url());
-                    forkeeBean.setGit_refs_url(((ForkEventEntity) entity).getPayload().getForkee().getGit_refs_url());
-                    forkeeBean.setTrees_url(((ForkEventEntity) entity).getPayload().getForkee().getTrees_url());
-                    forkeeBean.setStatuses_url(((ForkEventEntity) entity).getPayload().getForkee().getStatuses_url());
-                    forkeeBean.setLanguages_url(((ForkEventEntity) entity).getPayload().getForkee().getLanguages_url());
-                    forkeeBean.setStargazers_url(((ForkEventEntity) entity).getPayload().getForkee().getStargazers_url());
-                    forkeeBean.setContributors_url(((ForkEventEntity) entity).getPayload().getForkee().getContributors_url());
-                    forkeeBean.setSubscribers_url(((ForkEventEntity) entity).getPayload().getForkee().getSubscribers_url());
-                    forkeeBean.setSubscription_url(((ForkEventEntity) entity).getPayload().getForkee().getSubscription_url());
-                    forkeeBean.setCommits_url(((ForkEventEntity) entity).getPayload().getForkee().getCommits_url());
-                    forkeeBean.setGit_commits_url(((ForkEventEntity) entity).getPayload().getForkee().getGit_commits_url());
-                    forkeeBean.setComments_url(((ForkEventEntity) entity).getPayload().getForkee().getComments_url());
-                    forkeeBean.setIssue_comment_url(((ForkEventEntity) entity).getPayload().getForkee().getIssue_comment_url());
-                    forkeeBean.setContents_url(((ForkEventEntity) entity).getPayload().getForkee().getContents_url());
-                    forkeeBean.setCompare_url(((ForkEventEntity) entity).getPayload().getForkee().getCompare_url());
-                    forkeeBean.setMerges_url(((ForkEventEntity) entity).getPayload().getForkee().getMerges_url());
-                    forkeeBean.setArchive_url(((ForkEventEntity) entity).getPayload().getForkee().getArchive_url());
-                    forkeeBean.setDownloads_url(((ForkEventEntity) entity).getPayload().getForkee().getDownloads_url());
-                    forkeeBean.setIssues_url(((ForkEventEntity) entity).getPayload().getForkee().getIssues_url());
-                    forkeeBean.setPulls_url(((ForkEventEntity) entity).getPayload().getForkee().getPulls_url());
-                    forkeeBean.setMilestones_url(((ForkEventEntity) entity).getPayload().getForkee().getMilestones_url());
-                    forkeeBean.setNotifications_url(((ForkEventEntity) entity).getPayload().getForkee().getNotifications_url());
-                    forkeeBean.setLabels_url(((ForkEventEntity) entity).getPayload().getForkee().getLabels_url());
-                    forkeeBean.setReleases_url(((ForkEventEntity) entity).getPayload().getForkee().getReleases_url());
-                    forkeeBean.setDeployments_url(((ForkEventEntity) entity).getPayload().getForkee().getDeployments_url());
-                    forkeeBean.setCreated_at(((ForkEventEntity) entity).getPayload().getForkee().getCreated_at());
-                    forkeeBean.setUpdated_at(((ForkEventEntity) entity).getPayload().getForkee().getUpdated_at());
-                    forkeeBean.setPushed_at(((ForkEventEntity) entity).getPayload().getForkee().getPushed_at());
-                    forkeeBean.setGit_url(((ForkEventEntity) entity).getPayload().getForkee().getGit_url());
-                    forkeeBean.setSsh_url(((ForkEventEntity) entity).getPayload().getForkee().getSsh_url());
-                    forkeeBean.setClone_url(((ForkEventEntity) entity).getPayload().getForkee().getClone_url());
-                    forkeeBean.setSvn_url(((ForkEventEntity) entity).getPayload().getForkee().getSvn_url());
-                    forkeeBean.setHomepage(((ForkEventEntity) entity).getPayload().getForkee().getHomepage());
-                    forkeeBean.setSize(((ForkEventEntity) entity).getPayload().getForkee().getSize());
-                    forkeeBean.setStargazers_count(((ForkEventEntity) entity).getPayload().getForkee().getStargazers_count());
-                    forkeeBean.setWatchers_count(((ForkEventEntity) entity).getPayload().getForkee().getWatchers_count());
-                    forkeeBean.setLanguage(((ForkEventEntity) entity).getPayload().getForkee().getLanguage());
-                    forkeeBean.setHas_issues(((ForkEventEntity) entity).getPayload().getForkee().isHas_issues());
-                    forkeeBean.setHas_downloads(((ForkEventEntity) entity).getPayload().getForkee().isHas_downloads());
-                    forkeeBean.setHas_wiki(((ForkEventEntity) entity).getPayload().getForkee().isHas_wiki());
-                    forkeeBean.setHas_pages(((ForkEventEntity) entity).getPayload().getForkee().isHas_pages());
-                    forkeeBean.setForks_count(((ForkEventEntity) entity).getPayload().getForkee().getForks_count());
-                    forkeeBean.setMirror_url(((ForkEventEntity) entity).getPayload().getForkee().getMirror_url());
-                    forkeeBean.setOpen_issues_count(((ForkEventEntity) entity).getPayload().getForkee().getOpen_issues_count());
-                    forkeeBean.setForks(((ForkEventEntity) entity).getPayload().getForkee().getForks());
-                    forkeeBean.setOpen_issues(((ForkEventEntity) entity).getPayload().getForkee().getOpen_issues());
-                    forkeeBean.setWatchers(((ForkEventEntity) entity).getPayload().getForkee().getWatchers());
-                    forkeeBean.setDefault_branch(((ForkEventEntity) entity).getPayload().getForkee().getDefault_branch());
-                    forkeeBean.setPublicX(((ForkEventEntity) entity).getPayload().getForkee().isPublicX());
-
-                    if (((ForkEventEntity) entity).getPayload().getForkee().getOwner() != null) {
-                        ForkEvent.PayloadBean.ForkeeBean.OwnerBean ownerBean = new ForkEvent.PayloadBean.ForkeeBean.OwnerBean();
-                        ownerBean.setId(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getId());
-                        ownerBean.setLogin(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getLogin());
-                        ownerBean.setAvatar_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getAvatar_url());
-                        ownerBean.setGravatar_id(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getGravatar_id());
-                        ownerBean.setUrl(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getUrl());
-                        ownerBean.setHtml_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getHtml_url());
-                        ownerBean.setFollowers_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getFollowers_url());
-                        ownerBean.setFollowing_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getFollowing_url());
-                        ownerBean.setGists_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getGists_url());
-                        ownerBean.setStarred_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getStarred_url());
-                        ownerBean.setSubscriptions_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getSubscriptions_url());
-                        ownerBean.setOrganizations_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getOrganizations_url());
-                        ownerBean.setRepos_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getRepos_url());
-                        ownerBean.setEvents_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getEvents_url());
-                        ownerBean.setReceived_events_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getReceived_events_url());
-                        ownerBean.setType(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getType());
-                        ownerBean.setSite_admin(((ForkEventEntity) entity).getPayload().getForkee().getOwner().isSite_admin());
-                        forkeeBean.setOwner(ownerBean);
-                    }
-                    payloadBean.setForkee(forkeeBean);
-                }
-                ((ForkEvent) event).setPayload(payloadBean);
-            }
-        }
-    }
+//    @Override
+//    public void transform(EventEntity entity, Event event) {
+//        super.transform(entity, event);
+//
+//        if (entity instanceof ForkEventEntity && event instanceof ForkEvent) {
+//            if (((ForkEventEntity) entity).getPayload() != null) {
+//                ForkEvent.PayloadBean payloadBean = new ForkEvent.PayloadBean();
+//
+//                if (((ForkEventEntity) entity).getPayload().getForkee() != null) {
+//                    ForkEvent.PayloadBean.ForkeeBean forkeeBean = new ForkEvent.PayloadBean.ForkeeBean();
+//                    forkeeBean.setId(((ForkEventEntity) entity).getPayload().getForkee().getId());
+//                    forkeeBean.setName(((ForkEventEntity) entity).getPayload().getForkee().getName());
+//                    forkeeBean.setFull_name(((ForkEventEntity) entity).getPayload().getForkee().getFull_name());
+//                    forkeeBean.setPrivateX(((ForkEventEntity) entity).getPayload().getForkee().isPrivateX());
+//                    forkeeBean.setHtml_url(((ForkEventEntity) entity).getPayload().getForkee().getHtml_url());
+//                    forkeeBean.setDescription(((ForkEventEntity) entity).getPayload().getForkee().getDescription());
+//                    forkeeBean.setFork(((ForkEventEntity) entity).getPayload().getForkee().isFork());
+//                    forkeeBean.setUrl(((ForkEventEntity) entity).getPayload().getForkee().getUrl());
+//                    forkeeBean.setForks_url(((ForkEventEntity) entity).getPayload().getForkee().getForks_url());
+//                    forkeeBean.setKeys_url(((ForkEventEntity) entity).getPayload().getForkee().getKeys_url());
+//                    forkeeBean.setCollaborators_url(((ForkEventEntity) entity).getPayload().getForkee().getCollaborators_url());
+//                    forkeeBean.setTeams_url(((ForkEventEntity) entity).getPayload().getForkee().getTeams_url());
+//                    forkeeBean.setHooks_url(((ForkEventEntity) entity).getPayload().getForkee().getHooks_url());
+//                    forkeeBean.setIssue_events_url(((ForkEventEntity) entity).getPayload().getForkee().getIssue_events_url());
+//                    forkeeBean.setEvents_url(((ForkEventEntity) entity).getPayload().getForkee().getEvents_url());
+//                    forkeeBean.setAssignees_url(((ForkEventEntity) entity).getPayload().getForkee().getAssignees_url());
+//                    forkeeBean.setBranches_url(((ForkEventEntity) entity).getPayload().getForkee().getBranches_url());
+//                    forkeeBean.setTags_url(((ForkEventEntity) entity).getPayload().getForkee().getTags_url());
+//                    forkeeBean.setBlobs_url(((ForkEventEntity) entity).getPayload().getForkee().getBlobs_url());
+//                    forkeeBean.setGit_tags_url(((ForkEventEntity) entity).getPayload().getForkee().getGit_tags_url());
+//                    forkeeBean.setGit_refs_url(((ForkEventEntity) entity).getPayload().getForkee().getGit_refs_url());
+//                    forkeeBean.setTrees_url(((ForkEventEntity) entity).getPayload().getForkee().getTrees_url());
+//                    forkeeBean.setStatuses_url(((ForkEventEntity) entity).getPayload().getForkee().getStatuses_url());
+//                    forkeeBean.setLanguages_url(((ForkEventEntity) entity).getPayload().getForkee().getLanguages_url());
+//                    forkeeBean.setStargazers_url(((ForkEventEntity) entity).getPayload().getForkee().getStargazers_url());
+//                    forkeeBean.setContributors_url(((ForkEventEntity) entity).getPayload().getForkee().getContributors_url());
+//                    forkeeBean.setSubscribers_url(((ForkEventEntity) entity).getPayload().getForkee().getSubscribers_url());
+//                    forkeeBean.setSubscription_url(((ForkEventEntity) entity).getPayload().getForkee().getSubscription_url());
+//                    forkeeBean.setCommits_url(((ForkEventEntity) entity).getPayload().getForkee().getCommits_url());
+//                    forkeeBean.setGit_commits_url(((ForkEventEntity) entity).getPayload().getForkee().getGit_commits_url());
+//                    forkeeBean.setComments_url(((ForkEventEntity) entity).getPayload().getForkee().getComments_url());
+//                    forkeeBean.setIssue_comment_url(((ForkEventEntity) entity).getPayload().getForkee().getIssue_comment_url());
+//                    forkeeBean.setContents_url(((ForkEventEntity) entity).getPayload().getForkee().getContents_url());
+//                    forkeeBean.setCompare_url(((ForkEventEntity) entity).getPayload().getForkee().getCompare_url());
+//                    forkeeBean.setMerges_url(((ForkEventEntity) entity).getPayload().getForkee().getMerges_url());
+//                    forkeeBean.setArchive_url(((ForkEventEntity) entity).getPayload().getForkee().getArchive_url());
+//                    forkeeBean.setDownloads_url(((ForkEventEntity) entity).getPayload().getForkee().getDownloads_url());
+//                    forkeeBean.setIssues_url(((ForkEventEntity) entity).getPayload().getForkee().getIssues_url());
+//                    forkeeBean.setPulls_url(((ForkEventEntity) entity).getPayload().getForkee().getPulls_url());
+//                    forkeeBean.setMilestones_url(((ForkEventEntity) entity).getPayload().getForkee().getMilestones_url());
+//                    forkeeBean.setNotifications_url(((ForkEventEntity) entity).getPayload().getForkee().getNotifications_url());
+//                    forkeeBean.setLabels_url(((ForkEventEntity) entity).getPayload().getForkee().getLabels_url());
+//                    forkeeBean.setReleases_url(((ForkEventEntity) entity).getPayload().getForkee().getReleases_url());
+//                    forkeeBean.setDeployments_url(((ForkEventEntity) entity).getPayload().getForkee().getDeployments_url());
+//                    forkeeBean.setCreated_at(((ForkEventEntity) entity).getPayload().getForkee().getCreated_at());
+//                    forkeeBean.setUpdated_at(((ForkEventEntity) entity).getPayload().getForkee().getUpdated_at());
+//                    forkeeBean.setPushed_at(((ForkEventEntity) entity).getPayload().getForkee().getPushed_at());
+//                    forkeeBean.setGit_url(((ForkEventEntity) entity).getPayload().getForkee().getGit_url());
+//                    forkeeBean.setSsh_url(((ForkEventEntity) entity).getPayload().getForkee().getSsh_url());
+//                    forkeeBean.setClone_url(((ForkEventEntity) entity).getPayload().getForkee().getClone_url());
+//                    forkeeBean.setSvn_url(((ForkEventEntity) entity).getPayload().getForkee().getSvn_url());
+//                    forkeeBean.setHomepage(((ForkEventEntity) entity).getPayload().getForkee().getHomepage());
+//                    forkeeBean.setSize(((ForkEventEntity) entity).getPayload().getForkee().getSize());
+//                    forkeeBean.setStargazers_count(((ForkEventEntity) entity).getPayload().getForkee().getStargazers_count());
+//                    forkeeBean.setWatchers_count(((ForkEventEntity) entity).getPayload().getForkee().getWatchers_count());
+//                    forkeeBean.setLanguage(((ForkEventEntity) entity).getPayload().getForkee().getLanguage());
+//                    forkeeBean.setHas_issues(((ForkEventEntity) entity).getPayload().getForkee().isHas_issues());
+//                    forkeeBean.setHas_downloads(((ForkEventEntity) entity).getPayload().getForkee().isHas_downloads());
+//                    forkeeBean.setHas_wiki(((ForkEventEntity) entity).getPayload().getForkee().isHas_wiki());
+//                    forkeeBean.setHas_pages(((ForkEventEntity) entity).getPayload().getForkee().isHas_pages());
+//                    forkeeBean.setForks_count(((ForkEventEntity) entity).getPayload().getForkee().getForks_count());
+//                    forkeeBean.setMirror_url(((ForkEventEntity) entity).getPayload().getForkee().getMirror_url());
+//                    forkeeBean.setOpen_issues_count(((ForkEventEntity) entity).getPayload().getForkee().getOpen_issues_count());
+//                    forkeeBean.setForks(((ForkEventEntity) entity).getPayload().getForkee().getForks());
+//                    forkeeBean.setOpen_issues(((ForkEventEntity) entity).getPayload().getForkee().getOpen_issues());
+//                    forkeeBean.setWatchers(((ForkEventEntity) entity).getPayload().getForkee().getWatchers());
+//                    forkeeBean.setDefault_branch(((ForkEventEntity) entity).getPayload().getForkee().getDefault_branch());
+//                    forkeeBean.setPublicX(((ForkEventEntity) entity).getPayload().getForkee().isPublicX());
+//
+//                    if (((ForkEventEntity) entity).getPayload().getForkee().getOwner() != null) {
+//                        ForkEvent.PayloadBean.ForkeeBean.OwnerBean ownerBean = new ForkEvent.PayloadBean.ForkeeBean.OwnerBean();
+//                        ownerBean.setId(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getId());
+//                        ownerBean.setLogin(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getLogin());
+//                        ownerBean.setAvatar_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getAvatar_url());
+//                        ownerBean.setGravatar_id(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getGravatar_id());
+//                        ownerBean.setUrl(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getUrl());
+//                        ownerBean.setHtml_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getHtml_url());
+//                        ownerBean.setFollowers_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getFollowers_url());
+//                        ownerBean.setFollowing_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getFollowing_url());
+//                        ownerBean.setGists_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getGists_url());
+//                        ownerBean.setStarred_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getStarred_url());
+//                        ownerBean.setSubscriptions_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getSubscriptions_url());
+//                        ownerBean.setOrganizations_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getOrganizations_url());
+//                        ownerBean.setRepos_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getRepos_url());
+//                        ownerBean.setEvents_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getEvents_url());
+//                        ownerBean.setReceived_events_url(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getReceived_events_url());
+//                        ownerBean.setType(((ForkEventEntity) entity).getPayload().getForkee().getOwner().getType());
+//                        ownerBean.setSite_admin(((ForkEventEntity) entity).getPayload().getForkee().getOwner().isSite_admin());
+//                        forkeeBean.setOwner(ownerBean);
+//                    }
+//                    payloadBean.setForkee(forkeeBean);
+//                }
+//                ((ForkEvent) event).setPayload(payloadBean);
+//            }
+//        }
+//    }
 }

@@ -1,12 +1,26 @@
 package com.syl.data.repository;
 
 import com.syl.data.mapper.EventMapper;
+import com.syl.data.mapper.IssueMapper;
+import com.syl.data.mapper.NotificationMapper;
+import com.syl.data.mapper.RepositoryMapper;
 import com.syl.data.mapper.UserMapper;
 import com.syl.data.model.EventEntity;
+import com.syl.data.model.IssueEntity;
+import com.syl.data.model.NotificationEntity;
+import com.syl.data.model.RepositoryEntity;
 import com.syl.data.model.UserEntity;
-import com.syl.data.repository.datastore.CloudEventsDataStore;
-import com.syl.data.repository.datastore.CloudUserDataStore;
+import com.syl.data.repository.datastore.EventsDataStore;
 import com.syl.data.repository.datastore.GitHubDataFactory;
+import com.syl.data.repository.datastore.IssuesDataStore;
+import com.syl.data.repository.datastore.NotificationsDataStore;
+import com.syl.data.repository.datastore.RepositoriesDataStore;
+import com.syl.data.repository.datastore.UserDataStore;
+import com.syl.domain.model.Event;
+import com.syl.domain.model.Issue;
+import com.syl.domain.model.Notification;
+import com.syl.domain.model.Repository;
+import com.syl.domain.model.User;
 import com.syl.domain.repository.GitHubRepository;
 
 import java.util.List;
@@ -16,7 +30,7 @@ import java.util.List;
  *
  * @see GitHubRepository
  * <p/>
- * Created by shenyunlong on 16/4/27.
+ * Created by Shen YunLong on 2016/4/27.
  */
 public class GitHubDataRepository implements GitHubRepository {
 
@@ -25,6 +39,7 @@ public class GitHubDataRepository implements GitHubRepository {
     private GitHubDataRepository() {
     }
 
+    // 单例
     public static GitHubDataRepository getInstance() {
         if (mInstance == null) {
             mInstance = new GitHubDataRepository();
@@ -34,31 +49,9 @@ public class GitHubDataRepository implements GitHubRepository {
     }
 
     @Override
-    public void getUserEvents(String userName, final Callback callback) {
-        CloudEventsDataStore dataStore = GitHubDataFactory.createEventsDataStore();
-        dataStore.getUserEvents(userName, new CloudEventsDataStore.Callback() {
-
-            @Override
-            public void onSuccess(List<EventEntity> list) {
-                if (callback != null) {
-                    // 转换成Data层对象
-                    callback.onSuccess(EventMapper.transform(list));
-                }
-            }
-
-            @Override
-            public void onError(Exception e) {
-                if (callback != null) {
-                    callback.onError(e);
-                }
-            }
-        });
-    }
-
-    @Override
-    public void getUserEvents(String userName, int page, final Callback callback) {
-        CloudEventsDataStore dataStore = GitHubDataFactory.createEventsDataStore();
-        dataStore.getUserEvents(userName, page, new CloudEventsDataStore.Callback() {
+    public void getUserReceivedEvents(String username, final GetDataListCallback<Event> callback) {
+        EventsDataStore dataStore = GitHubDataFactory.createEventsDataStore();
+        dataStore.getUserReceivedEvents(username, new EventsDataStore.GetEventsCallback() {
             @Override
             public void onSuccess(List<EventEntity> list) {
                 if (callback != null) {
@@ -76,13 +69,13 @@ public class GitHubDataRepository implements GitHubRepository {
     }
 
     @Override
-    public void getSingleUser(String userName, final GetCallback callback) {
-        CloudUserDataStore dataStore = GitHubDataFactory.createUserDataStore();
-        dataStore.getSingleUser(userName, new CloudUserDataStore.Callback() {
+    public void getUser(String username, final GetDataCallback<User> callback) {
+        UserDataStore dataStore = GitHubDataFactory.createUserDataStore();
+        dataStore.getUser(username, new UserDataStore.GetUserCallback() {
             @Override
-            public void onSuccess(UserEntity entity) {
+            public void onSuccess(UserEntity user) {
                 if (callback != null) {
-                    callback.onSuccess(UserMapper.transform(entity));
+                    callback.onSuccess(UserMapper.transform(user));
                 }
             }
 
@@ -93,6 +86,85 @@ public class GitHubDataRepository implements GitHubRepository {
                 }
             }
         });
+    }
 
+    @Override
+    public void getCurrentUser(final GetDataCallback<User> callback) {
+        UserDataStore dataStore = GitHubDataFactory.createUserDataStore();
+        dataStore.getCurrentUser(new UserDataStore.GetUserCallback() {
+            @Override
+            public void onSuccess(UserEntity user) {
+                if (callback != null) {
+                    callback.onSuccess(UserMapper.transform(user));
+                }
+            }
+
+            @Override
+            public void onError(Exception e) {
+                if (callback != null) {
+                    callback.onError(e);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getUserIssues(final GetDataListCallback<Issue> callback) {
+        IssuesDataStore dataStore = GitHubDataFactory.createIssuesDataStore();
+        dataStore.getUserIssues(new IssuesDataStore.GetIssuesCallback() {
+            @Override
+            public void onSuccess(List<IssueEntity> list) {
+                if (callback != null) {
+                    callback.onSuccess(IssueMapper.transform(list));
+                }
+            }
+
+            @Override
+            public void onError(Exception e) {
+                if (callback != null) {
+                    callback.onError(e);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getNotifications(final GetDataListCallback<Notification> callback) {
+        NotificationsDataStore dataStore = GitHubDataFactory.createNotificationsDataStore();
+        dataStore.getNotifications(new NotificationsDataStore.GetNotificationsCallback() {
+            @Override
+            public void onSuccess(List<NotificationEntity> list) {
+                if (callback != null) {
+                    callback.onSuccess(NotificationMapper.transform(list));
+                }
+            }
+
+            @Override
+            public void onError(Exception e) {
+                if (callback != null) {
+                    callback.onError(e);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getMyRepos(final GetDataListCallback<Repository> callback) {
+        RepositoriesDataStore dataStore = GitHubDataFactory.createRepositoriesDataStore();
+        dataStore.getMyRepos(new RepositoriesDataStore.GetReposCallback() {
+            @Override
+            public void onSuccess(List<RepositoryEntity> list) {
+                if (callback != null) {
+                    callback.onSuccess(RepositoryMapper.transform(list));
+                }
+            }
+
+            @Override
+            public void onError(Exception e) {
+                if (callback != null) {
+                    callback.onError(e);
+                }
+            }
+        });
     }
 }

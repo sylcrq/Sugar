@@ -33,14 +33,14 @@ public class GetSingleUserUseCaseImpl implements GetSingleUserUseCase {
 
     @Override
     public void run() {
-        repository.getSingleUser(userName, new GitHubRepository.GetCallback() {
+        repository.getUser(userName, new GitHubRepository.GetDataCallback<User>() {
             @Override
-            public void onSuccess(final Object o) {
+            public void onSuccess(final User user) {
                 postExecutionThread.post(new Runnable() {
                     @Override
                     public void run() {
                         if (callback != null) {
-                            callback.onSuccess((User) o);
+                            callback.onSuccess(user);
                         }
                     }
                 });

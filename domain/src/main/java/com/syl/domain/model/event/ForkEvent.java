@@ -1,9 +1,14 @@
-package com.syl.domain.model;
+package com.syl.domain.model.event;
+
+import com.syl.domain.model.Event;
+import com.syl.domain.model.Repository;
+import com.syl.domain.model.User;
 
 /**
  * Created by Shen YunLong on 2016/05/13.
  */
 public class ForkEvent extends Event {
+
     private PayloadBean payload;
 
     public PayloadBean getPayload() {
@@ -17,6 +22,8 @@ public class ForkEvent extends Event {
     public static class PayloadBean {
 
         private ForkeeBean forkee;
+        private Repository repository;
+        private User sender;
 
         public ForkeeBean getForkee() {
             return forkee;
@@ -26,12 +33,27 @@ public class ForkEvent extends Event {
             this.forkee = forkee;
         }
 
+        public Repository getRepository() {
+            return repository;
+        }
+
+        public void setRepository(Repository repository) {
+            this.repository = repository;
+        }
+
+        public User getSender() {
+            return sender;
+        }
+
+        public void setSender(User sender) {
+            this.sender = sender;
+        }
+
         public static class ForkeeBean {
             private int id;
             private String name;
             private String full_name;
-
-            private OwnerBean owner;
+            private User owner;
             private boolean privateX;
             private String html_url;
             private String description;
@@ -72,7 +94,6 @@ public class ForkEvent extends Event {
             private String notifications_url;
             private String labels_url;
             private String releases_url;
-            private String deployments_url;
             private String created_at;
             private String updated_at;
             private String pushed_at;
@@ -84,13 +105,13 @@ public class ForkEvent extends Event {
             private int size;
             private int stargazers_count;
             private int watchers_count;
-            private Object language;
+            private String language;
             private boolean has_issues;
             private boolean has_downloads;
             private boolean has_wiki;
             private boolean has_pages;
             private int forks_count;
-            private Object mirror_url;
+            private String mirror_url;
             private int open_issues_count;
             private int forks;
             private int open_issues;
@@ -122,11 +143,11 @@ public class ForkEvent extends Event {
                 this.full_name = full_name;
             }
 
-            public OwnerBean getOwner() {
+            public User getOwner() {
                 return owner;
             }
 
-            public void setOwner(OwnerBean owner) {
+            public void setOwner(User owner) {
                 this.owner = owner;
             }
 
@@ -450,14 +471,6 @@ public class ForkEvent extends Event {
                 this.releases_url = releases_url;
             }
 
-            public String getDeployments_url() {
-                return deployments_url;
-            }
-
-            public void setDeployments_url(String deployments_url) {
-                this.deployments_url = deployments_url;
-            }
-
             public String getCreated_at() {
                 return created_at;
             }
@@ -546,11 +559,11 @@ public class ForkEvent extends Event {
                 this.watchers_count = watchers_count;
             }
 
-            public Object getLanguage() {
+            public String getLanguage() {
                 return language;
             }
 
-            public void setLanguage(Object language) {
+            public void setLanguage(String language) {
                 this.language = language;
             }
 
@@ -594,11 +607,11 @@ public class ForkEvent extends Event {
                 this.forks_count = forks_count;
             }
 
-            public Object getMirror_url() {
+            public String getMirror_url() {
                 return mirror_url;
             }
 
-            public void setMirror_url(Object mirror_url) {
+            public void setMirror_url(String mirror_url) {
                 this.mirror_url = mirror_url;
             }
 
@@ -649,163 +662,6 @@ public class ForkEvent extends Event {
             public void setPublicX(boolean publicX) {
                 this.publicX = publicX;
             }
-
-            public static class OwnerBean {
-                private String login;
-                private int id;
-                private String avatar_url;
-                private String gravatar_id;
-                private String url;
-                private String html_url;
-                private String followers_url;
-                private String following_url;
-                private String gists_url;
-                private String starred_url;
-                private String subscriptions_url;
-                private String organizations_url;
-                private String repos_url;
-                private String events_url;
-                private String received_events_url;
-                private String type;
-                private boolean site_admin;
-
-                public String getLogin() {
-                    return login;
-                }
-
-                public void setLogin(String login) {
-                    this.login = login;
-                }
-
-                public int getId() {
-                    return id;
-                }
-
-                public void setId(int id) {
-                    this.id = id;
-                }
-
-                public String getAvatar_url() {
-                    return avatar_url;
-                }
-
-                public void setAvatar_url(String avatar_url) {
-                    this.avatar_url = avatar_url;
-                }
-
-                public String getGravatar_id() {
-                    return gravatar_id;
-                }
-
-                public void setGravatar_id(String gravatar_id) {
-                    this.gravatar_id = gravatar_id;
-                }
-
-                public String getUrl() {
-                    return url;
-                }
-
-                public void setUrl(String url) {
-                    this.url = url;
-                }
-
-                public String getHtml_url() {
-                    return html_url;
-                }
-
-                public void setHtml_url(String html_url) {
-                    this.html_url = html_url;
-                }
-
-                public String getFollowers_url() {
-                    return followers_url;
-                }
-
-                public void setFollowers_url(String followers_url) {
-                    this.followers_url = followers_url;
-                }
-
-                public String getFollowing_url() {
-                    return following_url;
-                }
-
-                public void setFollowing_url(String following_url) {
-                    this.following_url = following_url;
-                }
-
-                public String getGists_url() {
-                    return gists_url;
-                }
-
-                public void setGists_url(String gists_url) {
-                    this.gists_url = gists_url;
-                }
-
-                public String getStarred_url() {
-                    return starred_url;
-                }
-
-                public void setStarred_url(String starred_url) {
-                    this.starred_url = starred_url;
-                }
-
-                public String getSubscriptions_url() {
-                    return subscriptions_url;
-                }
-
-                public void setSubscriptions_url(String subscriptions_url) {
-                    this.subscriptions_url = subscriptions_url;
-                }
-
-                public String getOrganizations_url() {
-                    return organizations_url;
-                }
-
-                public void setOrganizations_url(String organizations_url) {
-                    this.organizations_url = organizations_url;
-                }
-
-                public String getRepos_url() {
-                    return repos_url;
-                }
-
-                public void setRepos_url(String repos_url) {
-                    this.repos_url = repos_url;
-                }
-
-                public String getEvents_url() {
-                    return events_url;
-                }
-
-                public void setEvents_url(String events_url) {
-                    this.events_url = events_url;
-                }
-
-                public String getReceived_events_url() {
-                    return received_events_url;
-                }
-
-                public void setReceived_events_url(String received_events_url) {
-                    this.received_events_url = received_events_url;
-                }
-
-                public String getType() {
-                    return type;
-                }
-
-                public void setType(String type) {
-                    this.type = type;
-                }
-
-                public boolean isSite_admin() {
-                    return site_admin;
-                }
-
-                public void setSite_admin(boolean site_admin) {
-                    this.site_admin = site_admin;
-                }
-            }
         }
     }
-
 }

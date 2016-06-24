@@ -1,6 +1,7 @@
-package com.syl.data.model;
+package com.syl.data.model.event;
 
 import com.syl.basecore.json.SugarJson;
+import com.syl.data.model.event.ForkEventEntity;
 import com.syl.domain.model.ForkEvent;
 
 import org.junit.Before;

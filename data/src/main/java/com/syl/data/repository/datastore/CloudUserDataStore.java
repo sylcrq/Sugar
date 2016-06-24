@@ -2,16 +2,11 @@ package com.syl.data.repository.datastore;
 
 import android.text.TextUtils;
 
-import com.syl.basecore.json.SugarJson;
-import com.syl.data.GitHubApi;
-import com.syl.data.http.HttpClient;
+import com.syl.basecore.logger.SugarLogger;
+import com.syl.data.http.GitHubApi;
+import com.syl.data.http.GitHubApiImpl;
 import com.syl.data.model.UserEntity;
 
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * Many of the resources on the users API provide a shortcut for getting information
@@ -23,94 +18,53 @@ import okhttp3.Response;
  * <p/>
  * Created by Shen YunLong on 4/7/16.
  */
-public class CloudUserDataStore {
+public class CloudUserDataStore implements UserDataStore {
 
-    // Get a single user
-    public static final String GET_SINGLE_USER = GitHubApi.GITHUB_HOST + "/users/%s";
-    // Get the authenticated user
-    public static final String GET_LOGGED_IN_USER = GitHubApi.GITHUB_HOST + "/user";
+    public static final String TAG = CloudUserDataStore.class.getSimpleName();
 
-    /**
-     * Get a single user
-     *
-     * @param userName
-     * @param callback
-     */
-    public void getSingleUser(String userName, final Callback callback) {
-        if (TextUtils.isEmpty(userName)) {
-            if (callback != null) {
-                callback.onError(new RuntimeException("Invalid UserName"));
-            }
+    private GitHubApi mNetApi = new GitHubApiImpl();
+
+    @Override
+    public void getUser(String username, final GetUserCallback callback) {
+        if (TextUtils.isEmpty(username)) {
+            SugarLogger.e(TAG, "invalid username");
             return;
         }
 
-        final String url = String.format(GET_SINGLE_USER, userName) +
-                "?access_token=" + GitHubApi.GITHUB_ACCESS_TOKEN;
-        final Request request = new Request.Builder().url(url).build();
-
-        HttpClient.getInstance().newCall(request).enqueue(new okhttp3.Callback() {
+        mNetApi.getUser(username, new GitHubApi.GetDataCallback<UserEntity>() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onSuccess(UserEntity entity) {
                 if (callback != null) {
-                    callback.onError(e);
+                    callback.onSuccess(entity);
                 }
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    if (callback != null) {
-                        callback.onError(new IOException("Unexpected code " + response));
-                    }
-                    return;
-                }
-
+            public void onError(Exception e) {
                 if (callback != null) {
-                    final UserEntity entity = SugarJson.fromJson(response.body().charStream(), UserEntity.class);
-                    callback.onSuccess(entity);
+                    callback.onError(e);
                 }
             }
         });
     }
 
-    /**
-     * Get the authenticated user
-     *
-     * @param callback
-     */
-    public void getCurrentUser(final Callback callback) {
-        final String url = GET_LOGGED_IN_USER +
-                "?access_token=" + GitHubApi.GITHUB_ACCESS_TOKEN;
-        final Request request = new Request.Builder().url(url).build();
-
-        HttpClient.getInstance().newCall(request).enqueue(new okhttp3.Callback() {
+    @Override
+    public void getCurrentUser(final GetUserCallback callback) {
+        mNetApi.getCurrentUser(new GitHubApi.GetDataCallback<UserEntity>() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onSuccess(UserEntity entity) {
                 if (callback != null) {
-                    callback.onError(e);
+                    callback.onSuccess(entity);
                 }
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    if (callback != null) {
-                        callback.onError(new IOException("Unexpected code " + response));
-                    }
-                    return;
-                }
-
+            public void onError(Exception e) {
                 if (callback != null) {
-                    final UserEntity entity = SugarJson.fromJson(response.body().charStream(), UserEntity.class);
-                    callback.onSuccess(entity);
+                    callback.onError(e);
                 }
             }
         });
     }
 
-    public interface Callback {
-        void onSuccess(UserEntity entity);
-
-        void onError(Exception e);
-    }
 }

@@ -2,6 +2,7 @@ package com.syl.domain.interactor;
 
 import com.syl.domain.executor.PostExecutionThread;
 import com.syl.domain.executor.ThreadExecutor;
+import com.syl.domain.model.Event;
 import com.syl.domain.repository.GitHubRepository;
 
 import java.util.List;
@@ -36,9 +37,9 @@ public class GetEventsUseCaseImpl implements GetEventsUseCase {
 
     @Override
     public void run() {
-        repository.getUserEvents(userName, page, new GitHubRepository.Callback() {
+        repository.getUserReceivedEvents(userName, new GitHubRepository.GetDataListCallback<Event>() {
             @Override
-            public void onSuccess(final List list) {
+            public void onSuccess(final List<Event> list) {
                 postExecutionThread.post(new Runnable() {
                     @Override
                     public void run() {

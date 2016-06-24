@@ -1,17 +1,29 @@
 package com.syl.data.repository.datastore;
 
 /**
- * Created by shenyunlong on 16/4/27.
+ * 工厂模式
+ * <p/>
+ * Created by Shen YunLong on 2016/04/27.
  */
 public class GitHubDataFactory {
 
-    public static CloudEventsDataStore createEventsDataStore() {
-        CloudEventsDataStore dataStore = new CloudEventsDataStore();
-        return dataStore;
+    public static EventsDataStore createEventsDataStore() {
+        return new CloudEventsDataStore();
     }
 
-    public static CloudUserDataStore createUserDataStore() {
-        CloudUserDataStore dataStore = new CloudUserDataStore();
-        return dataStore;
+    public static IssuesDataStore createIssuesDataStore() {
+        return new CloudIssuesDataStore();
+    }
+
+    public static UserDataStore createUserDataStore() {
+        return new CloudUserDataStore();
+    }
+
+    public static NotificationsDataStore createNotificationsDataStore() {
+        return new CloudNotificationsDataStore();
+    }
+
+    public static RepositoriesDataStore createRepositoriesDataStore() {
+        return new CloudRepositoriesDataStore();
     }
 }

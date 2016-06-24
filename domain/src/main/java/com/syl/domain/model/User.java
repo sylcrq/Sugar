@@ -1,7 +1,7 @@
 package com.syl.domain.model;
 
 /**
- * Domain层User对象
+ * Model User
  */
 public class User {
 
@@ -27,8 +27,8 @@ public class User {
     private String blog;
     private String location;
     private String email;
-    private Object hireable;
-    private Object bio;
+    private boolean hireable;
+    private String bio;
     private int public_repos;
     private int public_gists;
     private int followers;
@@ -212,19 +212,19 @@ public class User {
         this.email = email;
     }
 
-    public Object getHireable() {
+    public boolean isHireable() {
         return hireable;
     }
 
-    public void setHireable(Object hireable) {
+    public void setHireable(boolean hireable) {
         this.hireable = hireable;
     }
 
-    public Object getBio() {
+    public String getBio() {
         return bio;
     }
 
-    public void setBio(Object bio) {
+    public void setBio(String bio) {
         this.bio = bio;
     }
 

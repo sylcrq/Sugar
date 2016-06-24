@@ -2,27 +2,26 @@ package com.syl.data.repository.datastore;
 
 import com.syl.data.http.GitHubApi;
 import com.syl.data.http.GitHubApiImpl;
-import com.syl.data.model.IssueEntity;
+import com.syl.data.model.RepositoryEntity;
 
 import java.util.List;
 
-
 /**
- * @see <a href="https://developer.github.com/v3/issues/">Issues</a>
+ * Repositories
  * <p/>
- * Created by Shen YunLong on 2016/06/23.
+ * Created by Shen YunLong on 2016/06/24.
  */
-public class CloudIssuesDataStore implements IssuesDataStore {
+public class CloudRepositoriesDataStore implements RepositoriesDataStore {
 
-    public static final String TAG = CloudIssuesDataStore.class.getSimpleName();
+    public static final String TAG = CloudRepositoriesDataStore.class.getSimpleName();
 
     private GitHubApi mNetApi = new GitHubApiImpl();
 
     @Override
-    public void getUserIssues(final GetIssuesCallback callback) {
-        mNetApi.getUserIssues(new GitHubApi.GetDataListCallback<IssueEntity>() {
+    public void getMyRepos(final GetReposCallback callback) {
+        mNetApi.getMyRepos(new GitHubApi.GetDataListCallback<RepositoryEntity>() {
             @Override
-            public void onSuccess(List<IssueEntity> list) {
+            public void onSuccess(List<RepositoryEntity> list) {
                 if (callback != null) {
                     callback.onSuccess(list);
                 }
@@ -36,5 +35,4 @@ public class CloudIssuesDataStore implements IssuesDataStore {
             }
         });
     }
-
 }

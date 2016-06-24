@@ -5,7 +5,9 @@ import com.syl.domain.model.User;
 
 
 /**
- * Created by shenyunlong on 4/7/16.
+ * @see UserEntity
+ * @see User
+ * Created by Shen YunLong on 2016/04/07.
  */
 public class UserMapper {
 
@@ -34,7 +36,7 @@ public class UserMapper {
         user.setBlog(entity.getBlog());
         user.setLocation(entity.getLocation());
         user.setEmail(entity.getEmail());
-        user.setHireable(entity.getHireable());
+        user.setHireable(entity.isHireable());
         user.setBio(entity.getBio());
         user.setPublic_repos(entity.getPublic_repos());
         user.setPublic_gists(entity.getPublic_gists());
@@ -45,5 +47,4 @@ public class UserMapper {
 
         return user;
     }
-
 }

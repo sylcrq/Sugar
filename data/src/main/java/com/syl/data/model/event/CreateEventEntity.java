@@ -1,9 +1,17 @@
-package com.syl.domain.model;
+package com.syl.data.model.event;
+
+import com.syl.data.model.EventEntity;
+import com.syl.data.model.RepositoryEntity;
+import com.syl.data.model.UserEntity;
 
 /**
- * Created by Shen YunLong on 2016/05/13.
+ * Model CreateEvent
+ * <p/>
+ * Created by Shen YunLong on 2016/05/12.
  */
-public class CreateEvent extends Event {
+public class CreateEventEntity extends EventEntity {
+
+    public static final String TYPE = "CreateEvent";
 
     private PayloadBean payload;
 
@@ -16,17 +24,20 @@ public class CreateEvent extends Event {
     }
 
     public static class PayloadBean {
-        private Object ref;
+
+        private String ref;
         private String ref_type;
         private String master_branch;
         private String description;
         private String pusher_type;
+        private RepositoryEntity repository;
+        private UserEntity sender;
 
-        public Object getRef() {
+        public String getRef() {
             return ref;
         }
 
-        public void setRef(Object ref) {
+        public void setRef(String ref) {
             this.ref = ref;
         }
 
@@ -60,6 +71,22 @@ public class CreateEvent extends Event {
 
         public void setPusher_type(String pusher_type) {
             this.pusher_type = pusher_type;
+        }
+
+        public RepositoryEntity getRepository() {
+            return repository;
+        }
+
+        public void setRepository(RepositoryEntity repository) {
+            this.repository = repository;
+        }
+
+        public UserEntity getSender() {
+            return sender;
+        }
+
+        public void setSender(UserEntity sender) {
+            this.sender = sender;
         }
     }
 }
