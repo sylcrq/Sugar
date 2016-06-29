@@ -11,6 +11,10 @@ import com.syl.domain.model.Milestone;
 public class MilestoneMapper {
 
     public static Milestone transform(MilestoneEntity entity) {
+        if (entity == null) {
+            return null;
+        }
+
         Milestone milestone = new Milestone();
 
         milestone.setUrl(entity.getUrl());

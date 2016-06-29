@@ -27,6 +27,10 @@ public class RepositoryMapper {
     }
 
     public static Repository transform(RepositoryEntity entity) {
+        if (entity == null) {
+            return null;
+        }
+
         Repository repo = new Repository();
 
         repo.setId(entity.getId());
@@ -95,11 +99,13 @@ public class RepositoryMapper {
         repo.setCreated_at(entity.getCreated_at());
         repo.setUpdated_at(entity.getUpdated_at());
 
-        Repository.PermissionsBean permission = new Repository.PermissionsBean();
-        permission.setAdmin(entity.getPermissions().isAdmin());
-        permission.setPush(entity.getPermissions().isPush());
-        permission.setPull(entity.getPermissions().isPull());
-        repo.setPermissions(permission);
+        if (entity.getPermissions() != null) {
+            Repository.PermissionsBean permission = new Repository.PermissionsBean();
+            permission.setAdmin(entity.getPermissions().isAdmin());
+            permission.setPush(entity.getPermissions().isPush());
+            permission.setPull(entity.getPermissions().isPull());
+            repo.setPermissions(permission);
+        }
 
         return repo;
     }

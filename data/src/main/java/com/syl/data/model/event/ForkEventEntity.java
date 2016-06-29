@@ -7,7 +7,7 @@ import com.syl.data.model.UserEntity;
 
 /**
  * Model ForkEvent
- * <p>
+ * <p/>
  * Created by Shen YunLong on 2016/05/12.
  */
 public class ForkEventEntity extends EventEntity {

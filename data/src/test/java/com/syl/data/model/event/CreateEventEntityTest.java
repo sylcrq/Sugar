@@ -1,8 +1,6 @@
 package com.syl.data.model.event;
 
 import com.syl.basecore.json.SugarJson;
-import com.syl.data.model.event.CreateEventEntity;
-import com.syl.domain.model.CreateEvent;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +11,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * 单元测试代码
+ * JUnit
  * <p/>
  * Created by Shen YunLong on 2016/05/13.
  */
@@ -51,7 +49,7 @@ public class CreateEventEntityTest {
 
     @Test
     public void testConstructHappyCase() {
-        CreateEventEntity entity = SugarJson.fromJson(FAKE_CREATE_EVENT_JSON_DATA, CreateEventEntity.class);
+        CreateEventEntity entity = createCreateEventEntity();
 
         assertThat(entity.getId(), is(equalTo("4009709873")));
         assertThat(entity.getType(), is(equalTo("CreateEvent")));
@@ -64,20 +62,7 @@ public class CreateEventEntityTest {
         assertThat(entity.getOrg(), is(nullValue()));
     }
 
-    @Test
-    public void testTransformHappyCase() {
-        CreateEventEntity entity = SugarJson.fromJson(FAKE_CREATE_EVENT_JSON_DATA, CreateEventEntity.class);
-        CreateEvent event = new CreateEvent();
-        entity.transform(entity, event);
-
-        assertThat(event.getId(), is(equalTo("4009709873")));
-        assertThat(event.getType(), is(equalTo("CreateEvent")));
-        assertThat(event.getActor().getId(), is(1920564));
-        assertThat(event.getActor().getLogin(), is(equalTo("yeasy")));
-        assertThat(event.getRepo().getId(), is(58705635));
-        assertThat(event.getRepo().getName(), is(equalTo("yeasy/cmonit")));
-        assertThat(event.getPayload().getRef(), is(nullValue()));
-        assertThat(event.getPayload().getRef_type(), is(equalTo("repository")));
-        assertThat(event.getOrg(), is(nullValue()));
+    public static CreateEventEntity createCreateEventEntity() {
+        return SugarJson.fromJson(FAKE_CREATE_EVENT_JSON_DATA, CreateEventEntity.class);
     }
 }

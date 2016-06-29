@@ -10,12 +10,13 @@ import java.util.List;
 
 /**
  * GitHub API v3
- * <p>
+ * <p/>
  * Created by Shen YunLong on 2016/06/24.
  */
 public interface GitHubApi {
 
     public static final String HOST = "https://api.github.com";
+    public static final String ACCESS_TOKEN = "";
 
     interface GetDataCallback<T> {
         void onSuccess(T t);
@@ -66,7 +67,7 @@ public interface GitHubApi {
 
     /**
      * List events that a user has received
-     * <p>
+     * <p/>
      * These are events that you've received by watching repos and following users.
      * If you are authenticated as the given user, you will see private events.
      * Otherwise, you'll only see public events.
@@ -77,7 +78,7 @@ public interface GitHubApi {
 
     /**
      * List events performed by a user
-     * <p>
+     * <p/>
      * If you are authenticated as the given user, you will see your private events.
      * Otherwise, you'll only see public events.
      *
@@ -96,14 +97,14 @@ public interface GitHubApi {
 
     /**
      * List your notifications
-     * <p>
+     * <p/>
      * List all notifications for the current user, grouped by repository.
      */
     void getNotifications(GetDataListCallback<NotificationEntity> callback);
 
     /**
      * List your notifications in a repository
-     * <p>
+     * <p/>
      * List all notifications for the current user.
      *
      * @param owner
@@ -121,7 +122,7 @@ public interface GitHubApi {
 
     /**
      * List issues
-     * <p>
+     * <p/>
      * List all issues assigned to the authenticated user across all visible
      * repositories including owned repositories, member repositories, and organization repositories:
      *
@@ -132,7 +133,7 @@ public interface GitHubApi {
 
     /**
      * List issues
-     * <p>
+     * <p/>
      * List all issues across owned and member repositories assigned to the authenticated user:
      *
      * @param callback
@@ -142,7 +143,7 @@ public interface GitHubApi {
 
     /**
      * List issues
-     * <p>
+     * <p/>
      * List all issues for a given organization assigned to the authenticated user:
      *
      * @param org
@@ -166,7 +167,7 @@ public interface GitHubApi {
 
     /**
      * List your repositories
-     * <p>
+     * <p/>
      * List repositories that are accessible to the authenticated user.
      * This includes repositories owned by the authenticated user,
      * repositories where the authenticated user is a collaborator,
@@ -179,7 +180,7 @@ public interface GitHubApi {
 
     /**
      * List user repositories
-     * <p>
+     * <p/>
      * List public repositories for the specified user.
      *
      * @param username

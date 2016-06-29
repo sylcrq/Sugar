@@ -1,8 +1,6 @@
 package com.syl.data.model.event;
 
 import com.syl.basecore.json.SugarJson;
-import com.syl.data.model.event.WatchEventEntity;
-import com.syl.domain.model.WatchEvent;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +11,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * 单元测试代码
+ * JUnit
  * <p/>
  * Created by Shen YunLong on 2016/05/13.
  */
@@ -47,7 +45,7 @@ public class WatchEventEntityTest {
 
     @Test
     public void testConstructHappyCase() {
-        WatchEventEntity entity = SugarJson.fromJson(FAKE_WATCH_EVENT_JSON, WatchEventEntity.class);
+        WatchEventEntity entity = createWatchEventEntity();
 
         assertThat(entity.getId(), is(equalTo("4009883322")));
         assertThat(entity.getType(), is(equalTo("WatchEvent")));
@@ -58,18 +56,7 @@ public class WatchEventEntityTest {
         assertThat(entity.getOrg(), is(nullValue()));
     }
 
-    @Test
-    public void testTransformHappyCase() {
-        WatchEventEntity entity = SugarJson.fromJson(FAKE_WATCH_EVENT_JSON, WatchEventEntity.class);
-        WatchEvent event = new WatchEvent();
-        entity.transform(entity, event);
-
-        assertThat(event.getId(), is(equalTo("4009883322")));
-        assertThat(event.getType(), is(equalTo("WatchEvent")));
-        assertThat(event.getActor().getId(), is(1683811));
-        assertThat(event.getActor().getLogin(), is(equalTo("hehonghui")));
-        assertThat(event.getRepo().getName(), is(equalTo("waynell/VideoListPlayer")));
-        assertThat(event.getPayload().getAction(), is(equalTo("started")));
-        assertThat(event.getOrg(), is(nullValue()));
+    public static WatchEventEntity createWatchEventEntity() {
+        return SugarJson.fromJson(FAKE_WATCH_EVENT_JSON, WatchEventEntity.class);
     }
 }

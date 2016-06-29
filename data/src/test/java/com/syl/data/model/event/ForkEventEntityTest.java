@@ -1,8 +1,6 @@
 package com.syl.data.model.event;
 
 import com.syl.basecore.json.SugarJson;
-import com.syl.data.model.event.ForkEventEntity;
-import com.syl.domain.model.ForkEvent;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 /**
- * 单元测试代码
+ * JUnit
  * <p/>
  * Created by Shen YunLong on 2016/05/13.
  */
@@ -141,7 +139,7 @@ public class ForkEventEntityTest {
 
     @Test
     public void testConstructHappyCase() {
-        ForkEventEntity entity = SugarJson.fromJson(FAKE_FORK_EVENT_JSON, ForkEventEntity.class);
+        ForkEventEntity entity = createForkEventEntity();
 
         assertThat(entity.getId(), is(equalTo("3993508642")));
         assertThat(entity.getType(), is(equalTo("ForkEvent")));
@@ -158,24 +156,7 @@ public class ForkEventEntityTest {
         assertThat(entity.getOrg().getLogin(), is(equalTo("OkBuilds")));
     }
 
-    @Test
-    public void testTransformHappyCase() {
-        ForkEventEntity entity = SugarJson.fromJson(FAKE_FORK_EVENT_JSON, ForkEventEntity.class);
-        ForkEvent event = new ForkEvent();
-        entity.transform(entity, event);
-
-        assertThat(event.getId(), is(equalTo("3993508642")));
-        assertThat(event.getType(), is(equalTo("ForkEvent")));
-        assertThat(event.getActor().getId(), is(3098704));
-        assertThat(event.getActor().getLogin(), is(equalTo("Piasy")));
-        assertThat(event.getRepo().getId(), is(43598554));
-        assertThat(event.getRepo().getName(), is(equalTo("OkBuilds/OkBuck")));
-        assertThat(event.getPayload().getForkee().getId(), is(58443990));
-        assertThat(event.getPayload().getForkee().getName(), is(equalTo("OkBuck")));
-        assertThat(event.getPayload().getForkee().getCreated_at(), is(equalTo("2016-05-10T08:39:14Z")));
-        assertThat(event.getPayload().getForkee().getOwner().getLogin(), is(equalTo("Piasy")));
-        assertThat(event.getPayload().getForkee().getOwner().getUrl(), is(equalTo("https://api.github.com/users/Piasy")));
-        assertThat(event.getOrg().getId(), is(19268334));
-        assertThat(event.getOrg().getLogin(), is(equalTo("OkBuilds")));
+    public static ForkEventEntity createForkEventEntity() {
+        return SugarJson.fromJson(FAKE_FORK_EVENT_JSON, ForkEventEntity.class);
     }
 }

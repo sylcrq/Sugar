@@ -11,6 +11,10 @@ import com.syl.domain.model.Organization;
 public class OrganizationMapper {
 
     public static Organization transform(OrganizationEntity entity) {
+        if (entity == null) {
+            return null;
+        }
+
         Organization org = new Organization();
 
         org.setLogin(entity.getLogin());

@@ -12,6 +12,10 @@ import com.syl.domain.model.User;
 public class UserMapper {
 
     public static User transform(UserEntity entity) {
+        if (entity == null) {
+            return null;
+        }
+
         User user = new User();
 
         user.setLogin(entity.getLogin());

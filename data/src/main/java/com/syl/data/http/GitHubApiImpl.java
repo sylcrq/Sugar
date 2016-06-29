@@ -20,43 +20,50 @@ import okhttp3.Response;
 
 /**
  * GitHub API v3
- * <p>
+ * <p/>
  * Created by Shen YunLong on 2016/06/24.
  */
 public class GitHubApiImpl implements GitHubApi {
 
+    public static final String PARAM_ACCESS_TOKEN = "access_token=" + ACCESS_TOKEN;
+
     @Override
     public void getPublicEvents(GetDataListCallback<EventEntity> callback) {
         // GET /events
-        final String url = HOST + "/events";
+        final String url = HOST + "/events" +
+                "?" + PARAM_ACCESS_TOKEN;
         httpGet4Event(url, callback);
     }
 
     @Override
     public void getRepoEvents(String owner, String repo, GetDataListCallback<EventEntity> callback) {
         // GET /repos/:owner/:repo/events
-        final String url = HOST + String.format("/repos/%s/%s/events", owner, repo);
+        final String url = HOST + String.format("/repos/%s/%s/events", owner, repo) +
+                "?" + PARAM_ACCESS_TOKEN;
         httpGet4Event(url, callback);
     }
 
     @Override
     public void getPublicOrgEvents(String org, GetDataListCallback<EventEntity> callback) {
         // GET /orgs/:org/events
-        final String url = HOST + String.format("/orgs/%s/events", org);
+        final String url = HOST + String.format("/orgs/%s/events", org) +
+                "?" + PARAM_ACCESS_TOKEN;
         httpGet4Event(url, callback);
     }
 
     @Override
     public void getUserReceivedEvents(String username, GetDataListCallback<EventEntity> callback) {
         // GET /users/:username/received_events
-        final String url = HOST + String.format("/users/%s/received_events", username);
+        final String url = HOST + String.format("/users/%s/received_events", username) +
+                "?" + PARAM_ACCESS_TOKEN;
         httpGet4Event(url, callback);
     }
 
     @Override
     public void getUserPerformedEvents(String username, GetDataListCallback<EventEntity> callback) {
         // GET /users/:username/events
-        final String url = HOST + String.format("/users/%s/events", username);
+        final String url = HOST + String.format("/users/%s/events", username) +
+                "?" + PARAM_ACCESS_TOKEN;
         httpGet4Event(url, callback);
     }
 
@@ -119,18 +126,20 @@ public class GitHubApiImpl implements GitHubApi {
     @Override
     public void getUser(String username, GetDataCallback<UserEntity> callback) {
         // GET /users/:username
-        final String url = HOST + String.format("/users/%s", username);
-        httpGet(url, callback);
+        final String url = HOST + String.format("/users/%s", username) +
+                "?" + PARAM_ACCESS_TOKEN;
+        httpGet(url, callback, UserEntity.class);
     }
 
     @Override
     public void getCurrentUser(GetDataCallback<UserEntity> callback) {
         // GET /user
-        final String url = HOST + "/user";
-        httpGet(url, callback);
+        final String url = HOST + "/user" +
+                "?" + PARAM_ACCESS_TOKEN;
+        httpGet(url, callback, UserEntity.class);
     }
 
-    private <T> void httpGet(String url, final GetDataCallback<T> callback) {
+    private <T> void httpGet(String url, final GetDataCallback<T> callback, final Class<T> clazz) {
         final Request request = new Request.Builder().url(url).build();
 
         HttpClient.getInstance().newCall(request).enqueue(new Callback() {
@@ -151,9 +160,7 @@ public class GitHubApiImpl implements GitHubApi {
                 }
 
                 if (callback != null) {
-                    Type type = new TypeToken<T>() {
-                    }.getType();
-                    T t = SugarJson.fromJson(response.body().charStream(), type);
+                    T t = SugarJson.fromJson(response.body().charStream(), clazz);
                     callback.onSuccess(t);
                 }
             }

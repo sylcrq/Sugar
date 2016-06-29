@@ -11,6 +11,10 @@ import com.syl.domain.model.Label;
 public class LabelMapper {
 
     public static Label transform(LabelEntity entity) {
+        if (entity == null) {
+            return null;
+        }
+
         Label label = new Label();
 
         label.setUrl(entity.getUrl());
