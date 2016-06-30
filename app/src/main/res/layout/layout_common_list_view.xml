@@ -1,12 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".view.fragment.MyNewsFragment">
+                android:layout_height="match_parent">
 
+    <!--下拉刷新-->
     <in.srain.cube.views.ptr.PtrClassicFrameLayout
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/event_list_view_frame"
+        android:id="@+id/common_ptr_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/White"
@@ -18,24 +18,27 @@
         ptr:ptr_resistance="1.7">
 
         <ListView
-            android:id="@+id/event_list_view"
+            android:id="@+id/common_list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"/>
 
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 
+    <!--Loading View-->
     <com.wang.avi.AVLoadingIndicatorView
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/loading_view"
+        android:id="@+id/common_loading_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:visibility="gone"
         app:indicator="BallSpinFadeLoader"
         app:indicator_color="@color/loading_indicator_color"/>
 
+    <!--Empty View-->
     <TextView
-        android:id="@+id/empty_view"
+        android:id="@+id/common_empty_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -44,8 +47,9 @@
         android:textSize="20sp"
         android:visibility="gone"/>
 
+    <!--Error View-->
     <TextView
-        android:id="@+id/error_view"
+        android:id="@+id/common_error_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -53,4 +57,5 @@
         android:textColor="@color/text_color"
         android:textSize="20sp"
         android:visibility="gone"/>
+
 </RelativeLayout>

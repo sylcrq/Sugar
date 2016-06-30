@@ -11,14 +11,17 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
 import com.syl.aop.annotation.DebugTrace;
 import com.syl.sugar.R;
-import com.syl.sugar.view.fragment.MyMoreFragment;
-import com.syl.sugar.view.fragment.MyNotificationFragment;
-import com.syl.sugar.view.fragment.MyRepoFragment;
-import com.syl.sugar.view.fragment.MyNewsFragment;
-import com.syl.sugar.view.fragment.MyIssueFragment;
+import com.syl.sugar.view.fragment.MainMoreFragment;
+import com.syl.sugar.view.fragment.MainNotificationFragment;
+import com.syl.sugar.view.fragment.MainRepoFragment;
+import com.syl.sugar.view.fragment.MainFeedFragment;
+import com.syl.sugar.view.fragment.MainIssueFragment;
 
 import butterknife.ButterKnife;
 
+/**
+ * 首页: 包含Feed, Repo, Notification, Issue, More五个子页面
+ */
 public class MainActivity extends AppCompatActivity {
 
     public static final int MAIN_TAB_NEWS = 0;
@@ -87,19 +90,19 @@ public class MainActivity extends AppCompatActivity {
 
         switch (id) {
             case MAIN_TAB_NEWS:
-                transaction.replace(R.id.container, MyNewsFragment.newInstance("sylcrq"));
+                transaction.replace(R.id.container, MainFeedFragment.newInstance("sylcrq"));
                 break;
             case MAIN_TAB_REPO:
-                transaction.replace(R.id.container, MyRepoFragment.newInstance(""));
+                transaction.replace(R.id.container, MainRepoFragment.newInstance(""));
                 break;
             case MAIN_TAB_NOTIFICATION:
-                transaction.replace(R.id.container, MyNotificationFragment.newInstance(""));
+                transaction.replace(R.id.container, MainNotificationFragment.newInstance(""));
                 break;
             case MAIN_TAB_ISSUE:
-                transaction.replace(R.id.container, MyIssueFragment.newInstance(""));
+                transaction.replace(R.id.container, MainIssueFragment.newInstance(""));
                 break;
             case MAIN_TAB_MORE:
-                transaction.replace(R.id.container, MyMoreFragment.newInstance(""));
+                transaction.replace(R.id.container, MainMoreFragment.newInstance(""));
                 break;
         }
 

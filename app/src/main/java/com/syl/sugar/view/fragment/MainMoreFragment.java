@@ -10,19 +10,19 @@ import android.view.ViewGroup;
 import com.syl.sugar.R;
 
 /**
- * 首页Notifications页面
+ * 首页More页面
  */
-public class MyNotificationFragment extends Fragment {
+public class MainMoreFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
 
     private String mParam1;
 
-    public MyNotificationFragment() {
+    public MainMoreFragment() {
     }
 
-    public static MyNotificationFragment newInstance(String param1) {
-        MyNotificationFragment fragment = new MyNotificationFragment();
+    public static MainMoreFragment newInstance(String param1) {
+        MainMoreFragment fragment = new MainMoreFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
@@ -40,7 +40,7 @@ public class MyNotificationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_my_notification, container, false);
+        return inflater.inflate(R.layout.fragment_main_more, container, false);
     }
 
 }

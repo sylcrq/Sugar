@@ -1,9 +1,12 @@
 package com.syl.sugar.view.fragment;
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.syl.sugar.R;
 import com.syl.sugar.model.Course;
 import com.syl.sugar.model.Student;
+import com.syl.sugar.view.adapter.MainIssueTabAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,20 +37,28 @@ import rx.schedulers.Schedulers;
 /**
  * 首页Issues页面
  */
-public class MyIssueFragment extends Fragment {
+public class MainIssueFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
 
-    public static final String TAG = MyIssueFragment.class.getSimpleName();
+    public static final String TAG = MainIssueFragment.class.getSimpleName();
 
-    @Bind(R.id.button)
-    Button mRxButton;
+//    @Bind(R.id.button)
+//    Button mRxButton;
 
-    public MyIssueFragment() {
+    @Bind(R.id.common_pager_sliding_tab)
+    PagerSlidingTabStrip mPagerSlidingTab;
+    @Bind(R.id.common_view_pager)
+    ViewPager mViewPager;
+
+    private Context mContext;
+    private MainIssueTabAdapter mAdapter;
+
+    public MainIssueFragment() {
     }
 
-    public static MyIssueFragment newInstance(String param1) {
-        MyIssueFragment fragment = new MyIssueFragment();
+    public static MainIssueFragment newInstance(String param1) {
+        MainIssueFragment fragment = new MainIssueFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
@@ -55,20 +68,45 @@ public class MyIssueFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_issue, container, false);
+        View view = inflater.inflate(R.layout.fragment_main_issue, container, false);
         ButterKnife.bind(this, view);
 
         return view;
     }
 
-    @OnClick(R.id.button)
-    public void submit() {
-        observable.subscribe(subscriber);
+//    @OnClick(R.id.button)
+//    public void submit() {
+//        observable.subscribe(subscriber);
+//
+//        rxPrintArray(new String[]{"This", "is", "Rx", "Example"});
+//        rxScheduler();
+//        rxMap();
+//        rxFlatMap();
+//    }
 
-        rxPrintArray(new String[]{"This", "is", "Rx", "Example"});
-        rxScheduler();
-        rxMap();
-        rxFlatMap();
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mAdapter = new MainIssueTabAdapter(mContext, getFragmentManager());
+        mViewPager.setAdapter(mAdapter);
+        mPagerSlidingTab.setViewPager(mViewPager);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     /**

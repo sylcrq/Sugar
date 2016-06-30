@@ -6,42 +6,44 @@ import com.syl.domain.interactor.GetEventsUseCase;
 import com.syl.domain.interactor.GetEventsUseCaseImpl;
 import com.syl.domain.model.Event;
 import com.syl.sugar.UIThread;
-import com.syl.sugar.view.EventsView;
+import com.syl.sugar.view.MainFeedView;
+import com.syl.sugar.view.fragment.MainFeedFragment;
 
 import java.util.List;
 
 /**
- * 首页Timeline MVP
- * <p/>
- * Created by Shen YunLong on 2016/02/05.
+ * 首页Feed页面
+ *
+ * @see MainFeedFragment
+ * @see MainFeedView
  */
-public class EventsPresenter {
+public class MainFeedPresenter {
 
-    private EventsView mEventsView;
+    private MainFeedView mMainFeedView;
 
-    public EventsPresenter(EventsView eventsView) {
-        mEventsView = eventsView;
+    public MainFeedPresenter(MainFeedView mainFeedView) {
+        mMainFeedView = mainFeedView;
     }
 
     public void startLoadData(boolean showLoading) {
-        mEventsView.showEmptyView(false);
-        mEventsView.showErrorView(false);
-        mEventsView.showLoadingView(showLoading);
-        mEventsView.showDataView(!showLoading);
+        mMainFeedView.showEmptyView(false);
+        mMainFeedView.showErrorView(false);
+        mMainFeedView.showLoadingView(showLoading);
+        mMainFeedView.showContent(!showLoading);
     }
 
     public void onLoadOk(boolean showEmpty) {
-        mEventsView.showLoadingView(false);
-        mEventsView.showErrorView(false);
-        mEventsView.showEmptyView(showEmpty);
-        mEventsView.showDataView(!showEmpty);
+        mMainFeedView.showLoadingView(false);
+        mMainFeedView.showErrorView(false);
+        mMainFeedView.showEmptyView(showEmpty);
+        mMainFeedView.showContent(!showEmpty);
     }
 
     public void onLoadError(boolean showError) {
-        mEventsView.showLoadingView(false);
-        mEventsView.showEmptyView(false);
-        mEventsView.showErrorView(showError);
-        mEventsView.showDataView(!showError);
+        mMainFeedView.showLoadingView(false);
+        mMainFeedView.showEmptyView(false);
+        mMainFeedView.showErrorView(showError);
+        mMainFeedView.showContent(!showError);
     }
 
     /**
@@ -63,16 +65,16 @@ public class EventsPresenter {
         useCase.execute(userName, page, new GetEventsUseCase.Callback() {
             @Override
             public void onSuccess(List<Event> list) {
-                mEventsView.refreshComplete();
+                mMainFeedView.refreshComplete();
                 onLoadOk(!hasData && list.isEmpty());
-                mEventsView.bindData(list, isLoadMore);
+                mMainFeedView.render(list, isLoadMore);
             }
 
             @Override
             public void onError(Exception e) {
-                mEventsView.refreshComplete();
+                mMainFeedView.refreshComplete();
                 onLoadError(!hasData);
-                mEventsView.showToast("xxx");
+                mMainFeedView.showToast("xxx");
             }
         });
     }

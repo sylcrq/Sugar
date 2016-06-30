@@ -13,12 +13,13 @@ import android.widget.TextView;
 
 import com.syl.basecore.SugarTime;
 import com.syl.basecore.imageLoader.SugarLoader;
-import com.syl.domain.model.CreateEvent;
+import com.syl.domain.model.event.CreateEvent;
 import com.syl.domain.model.Event;
-import com.syl.domain.model.ForkEvent;
-import com.syl.domain.model.MemberEvent;
-import com.syl.domain.model.WatchEvent;
+import com.syl.domain.model.event.ForkEvent;
+import com.syl.domain.model.event.MemberEvent;
+import com.syl.domain.model.event.WatchEvent;
 import com.syl.sugar.R;
+import com.syl.sugar.view.fragment.MainFeedFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,18 +27,18 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * @see com.syl.sugar.view.fragment.EventsFragment
+ * @see MainFeedFragment
  * <p/>
  * Created by Shen YunLong on 2016/05/02.
  */
-public class EventListAdapter extends BaseAdapter {
+public class FeedListAdapter extends BaseAdapter {
 
     public static final String SPACE_CHARACTER = "\u00A0";
 
     private Context mContext;
     private List<Event> mEventList = new ArrayList<>();
 
-    public EventListAdapter(Context context) {
+    public FeedListAdapter(Context context) {
         mContext = context;
     }
 
@@ -81,7 +82,7 @@ public class EventListAdapter extends BaseAdapter {
 
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.event_list_adapter_item, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.feed_list_adapter_item, parent, false);
             viewHolder.mAvatar = (CircleImageView) convertView.findViewById(R.id.event_user_avatar);
             viewHolder.mContent = (TextView) convertView.findViewById(R.id.event_content);
             viewHolder.mTime = (TextView) convertView.findViewById(R.id.event_time);

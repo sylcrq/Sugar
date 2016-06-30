@@ -16,9 +16,9 @@ import android.widget.Toast;
 import com.syl.domain.model.Event;
 import com.syl.sugar.NavigationTool;
 import com.syl.sugar.R;
-import com.syl.sugar.view.EventsView;
-import com.syl.sugar.view.adapter.EventListAdapter;
-import com.syl.sugar.presenter.EventsPresenter;
+import com.syl.sugar.view.MainFeedView;
+import com.syl.sugar.view.adapter.FeedListAdapter;
+import com.syl.sugar.presenter.MainFeedPresenter;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.List;
@@ -31,34 +31,36 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 
 /**
- * 首页News页面
+ * 首页Feed页面
+ *
+ * @see MainFeedView
+ * @see MainFeedPresenter
  */
-public class MyNewsFragment extends Fragment implements EventsView, AdapterView.OnItemClickListener {
+public class MainFeedFragment extends Fragment implements MainFeedView, AdapterView.OnItemClickListener {
 
     private static final String ARG_USER_NAME = "ARG_USER_NAME";
 
-    @Bind(R.id.event_list_view_frame)
+    @Bind(R.id.common_ptr_layout)
     PtrClassicFrameLayout mPtrFrame;
-    @Bind(R.id.event_list_view)
+    @Bind(R.id.common_list_view)
     ListView mListView;
-    @Bind(R.id.loading_view)
+    @Bind(R.id.common_loading_view)
     AVLoadingIndicatorView mLoadingView;
-    @Bind(R.id.empty_view)
+    @Bind(R.id.common_empty_view)
     View mEmptyView;
-    @Bind(R.id.error_view)
+    @Bind(R.id.common_error_view)
     View mErrorView;
 
     private String mUserName;
     private Context mContext;
-    private EventListAdapter mAdapter;
-    private EventsPresenter mEventsPresenter;
-//    private OnFragmentInteractionListener mListener;
+    private FeedListAdapter mAdapter;
+    private MainFeedPresenter mMainFeedPresenter;
 
-    public MyNewsFragment() {
+    public MainFeedFragment() {
     }
 
-    public static MyNewsFragment newInstance(String userName) {
-        MyNewsFragment fragment = new MyNewsFragment();
+    public static MainFeedFragment newInstance(String userName) {
+        MainFeedFragment fragment = new MainFeedFragment();
         Bundle args = new Bundle();
         args.putString(ARG_USER_NAME, userName);
         fragment.setArguments(args);
@@ -69,13 +71,6 @@ public class MyNewsFragment extends Fragment implements EventsView, AdapterView.
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
-
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
     }
 
     @Override
@@ -85,13 +80,13 @@ public class MyNewsFragment extends Fragment implements EventsView, AdapterView.
             mUserName = getArguments().getString(ARG_USER_NAME);
         }
 
-        mAdapter = new EventListAdapter(mContext);
+        mAdapter = new FeedListAdapter(mContext);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_news, container, false);
+        View view = inflater.inflate(R.layout.fragment_main_feed, container, false);
         ButterKnife.bind(this, view);
 
         return view;
@@ -110,16 +105,14 @@ public class MyNewsFragment extends Fragment implements EventsView, AdapterView.
 
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                mEventsPresenter.loadData(mUserName, 1, hasData());
+                mMainFeedPresenter.loadData(mUserName, 1, hasData());
             }
         });
 
-//        mUserDataList.addHeaderView(initHeaderView());
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
 
-        mEventsPresenter = new EventsPresenter(this);
-//        mEventsPresenter.loadData(mUserName, 1, hasData());
+        mMainFeedPresenter = new MainFeedPresenter(this);
     }
 
     @Override
@@ -127,17 +120,10 @@ public class MyNewsFragment extends Fragment implements EventsView, AdapterView.
         super.onActivityCreated(savedInstanceState);
     }
 
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
-
     @Override
     public void onDetach() {
         super.onDetach();
         mContext = null;
-//        mListener = null;
     }
 
     @Override
@@ -164,10 +150,6 @@ public class MyNewsFragment extends Fragment implements EventsView, AdapterView.
 
         return false;
     }
-//    private View initHeaderView() {
-//        View view = LayoutInflater.from(getActivity()).inflate(R.layout.main_listview_header, null);
-//        return view;
-//    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -191,14 +173,9 @@ public class MyNewsFragment extends Fragment implements EventsView, AdapterView.
     }
 
     @Override
-    public void showDataView(boolean show) {
+    public void showContent(boolean show) {
         mPtrFrame.setVisibility(show ? View.VISIBLE : View.GONE);
     }
-
-//    @Override
-//    public void autoRefresh() {
-//        mPtrFrame.autoRefresh();
-//    }
 
     @Override
     public void refreshComplete() {
@@ -206,7 +183,7 @@ public class MyNewsFragment extends Fragment implements EventsView, AdapterView.
     }
 
     @Override
-    public void bindData(List<Event> events, boolean isLoadMore) {
+    public void render(List<Event> events, boolean isLoadMore) {
         if (isLoadMore) {
             mAdapter.addData(events);
         } else {
@@ -220,7 +197,4 @@ public class MyNewsFragment extends Fragment implements EventsView, AdapterView.
         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
     }
 
-//    public interface OnFragmentInteractionListener {
-//        void onFragmentInteraction(Uri uri);
-//    }
 }

@@ -13,8 +13,6 @@
     <!--Gank Page-->
     <string name="gank_page_empty_hint">数据加载出错啦~</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <!--底部导航栏Bottom Bar-->
     <string name="bottom_bar_item_name_1">News</string>
     <string name="bottom_bar_item_name_2">Repositories</string>
@@ -29,7 +27,17 @@
     <string name="user_following">Following</string>
     <string name="user_joined_on">Joined on %1$s</string>
 
-    <string name="my_repo_tab_1">Owned</string>
-    <string name="my_repo_tab_2">Starred</string>
-    <string name="my_repo_tab_3">Trending</string>
+    <!--首页Repo页面-->
+    <string name="main_repo_tab_owned">Owned</string>
+    <string name="main_repo_tab_starred">Starred</string>
+    <string name="main_repo_tab_trending">Trending</string>
+
+    <!--首页Notification页面-->
+    <string name="main_notification_tab_unread">Unread</string>
+    <string name="main_notification_tab_all">All</string>
+
+    <!--首页Issue页面-->
+    <string name="main_issue_tab_open">Open</string>
+    <string name="main_issue_tab_closed">Closed</string>
+
 </resources>
