@@ -1,6 +1,8 @@
 package com.syl.sugar;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.multidex.MultiDex;
 
 import com.facebook.stetho.Stetho;
@@ -56,5 +58,50 @@ public class SugarApplication extends com.activeandroid.app.Application {
 //                .build();
 //
 //        ImageLoader.getInstance().init(config);
+
+        registerActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
     }
+
+    /**
+     * 获取目前在前台的Activity数量
+     *
+     * @return
+     */
+    public int getActivityCount() {
+        return mActivityCount;
+    }
+
+    private int mActivityCount = 0;
+
+    private ActivityLifecycleCallbacks mActivityLifecycleCallbacks = new ActivityLifecycleCallbacks() {
+        @Override
+        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        }
+
+        @Override
+        public void onActivityStarted(Activity activity) {
+            mActivityCount++;
+        }
+
+        @Override
+        public void onActivityResumed(Activity activity) {
+        }
+
+        @Override
+        public void onActivityPaused(Activity activity) {
+        }
+
+        @Override
+        public void onActivityStopped(Activity activity) {
+            mActivityCount--;
+        }
+
+        @Override
+        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+        }
+
+        @Override
+        public void onActivityDestroyed(Activity activity) {
+        }
+    };
 }
