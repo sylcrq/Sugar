@@ -4,8 +4,8 @@ package com.syl.basecore.logger;
 import com.orhanobut.logger.Logger;
 
 /**
- * 封装Log接口
- * <p>
+ * 日志工具类
+ * <p/>
  * Created by Shen YunLong on 2016/05/12.
  */
 public class SugarLogger {

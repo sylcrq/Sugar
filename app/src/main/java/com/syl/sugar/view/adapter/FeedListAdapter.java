@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.syl.basecore.SugarTime;
+import com.syl.basecore.utils.SugarTime;
 import com.syl.basecore.imageLoader.SugarLoader;
 import com.syl.domain.model.event.CreateEvent;
 import com.syl.domain.model.Event;

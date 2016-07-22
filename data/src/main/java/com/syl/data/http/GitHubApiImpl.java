@@ -1,6 +1,7 @@
 package com.syl.data.http;
 
 import com.google.gson.reflect.TypeToken;
+import com.syl.basecore.http.SugarHttpClient;
 import com.syl.basecore.json.SugarJson;
 import com.syl.data.model.EventEntity;
 import com.syl.data.model.IssueEntity;
@@ -13,10 +14,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * GitHub API v3
@@ -140,57 +137,40 @@ public class GitHubApiImpl implements GitHubApi {
     }
 
     private <T> void httpGet(String url, final GetDataCallback<T> callback, final Class<T> clazz) {
-        final Request request = new Request.Builder().url(url).build();
-
-        HttpClient.getInstance().newCall(request).enqueue(new Callback() {
+        SugarHttpClient.getInstance().doHttpGet(url, new SugarHttpClient.HttpCallback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onError(IOException e) {
                 if (callback != null) {
                     callback.onError(e);
                 }
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    if (callback != null) {
-                        callback.onError(new IOException("Unexpected code " + response));
-                    }
-                    return;
-                }
-
+            public void onSuccess(String response) {
                 if (callback != null) {
-                    T t = SugarJson.fromJson(response.body().charStream(), clazz);
+                    T t = SugarJson.fromJson(response, clazz);
                     callback.onSuccess(t);
                 }
+
             }
         });
     }
 
     private <T> void httpGet(String url, final GetDataListCallback<T> callback) {
-        final Request request = new Request.Builder().url(url).build();
-
-        HttpClient.getInstance().newCall(request).enqueue(new Callback() {
+        SugarHttpClient.getInstance().doHttpGet(url, new SugarHttpClient.HttpCallback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onError(IOException e) {
                 if (callback != null) {
                     callback.onError(e);
                 }
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    if (callback != null) {
-                        callback.onError(new IOException("Unexpected code " + response));
-                    }
-                    return;
-                }
-
+            public void onSuccess(String response) {
                 if (callback != null) {
                     Type type = new TypeToken<List<T>>() {
                     }.getType();
-                    List<T> list = SugarJson.fromJson(response.body().charStream(), type);
+                    List<T> list = SugarJson.fromJson(response, type);
                     callback.onSuccess(list);
                 }
             }
@@ -198,27 +178,18 @@ public class GitHubApiImpl implements GitHubApi {
     }
 
     private void httpGet4Event(String url, final GetDataListCallback<EventEntity> callback) {
-        final Request request = new Request.Builder().url(url).build();
-
-        HttpClient.getInstance().newCall(request).enqueue(new Callback() {
+        SugarHttpClient.getInstance().doHttpGet(url, new SugarHttpClient.HttpCallback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onError(IOException e) {
                 if (callback != null) {
                     callback.onError(e);
                 }
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    if (callback != null) {
-                        callback.onError(new IOException("Unexpected code " + response));
-                    }
-                    return;
-                }
-
+            public void onSuccess(String response) {
                 if (callback != null) {
-                    List<EventEntity> list = GitHubJson.parseEventList(response.body().string());
+                    List<EventEntity> list = GitHubJson.parseEventList(response);
                     callback.onSuccess(list);
                 }
             }

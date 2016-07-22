@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 
 /**
- * 封装图片加载接口
+ * 图片加载工具类
  * <p/>
  * Created by Shen YunLong on 2016/05/12.
  */

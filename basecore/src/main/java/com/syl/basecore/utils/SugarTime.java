@@ -1,4 +1,4 @@
-package com.syl.basecore;
+package com.syl.basecore.utils;
 
 import android.text.format.DateUtils;
 
@@ -9,7 +9,7 @@ import java.util.TimeZone;
 
 /**
  * 时间戳处理工具类
- * <p>
+ * <p/>
  * Created by Shen YunLong on 2016/05/16.
  */
 public class SugarTime {

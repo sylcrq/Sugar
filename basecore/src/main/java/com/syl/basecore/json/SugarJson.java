@@ -7,8 +7,8 @@ import java.io.Reader;
 import java.lang.reflect.Type;
 
 /**
- * 封装JSON和Java对象转换接口
- * <p>
+ * Json序列化工具类
+ * <p/>
  * Created by Shen YunLong on 2016/05/12.
  */
 public class SugarJson {
