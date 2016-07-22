@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.syl.sugar.EndlessRecyclerViewScrollListener;
 import com.syl.sugar.NavigationTool;
 import com.syl.sugar.R;
@@ -17,13 +18,17 @@ import com.syl.sugar.view.adapter.GankAdapter;
 import com.syl.sugar.presenter.GankPresenter;
 import com.syl.sugar.event.MessageEvent;
 import com.syl.sugar.model.WelfareResponse;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+@Deprecated
 public class GankActivity extends SwipeBackAppCompatActivity implements GankView {
 
     @Bind(R.id.swipe_refresh)

@@ -5,10 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.syl.basecore.utils.SugarTime;
@@ -21,9 +18,6 @@ import com.syl.domain.model.event.WatchEvent;
 import com.syl.sugar.R;
 import com.syl.sugar.view.fragment.MainFeedFragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -31,81 +25,46 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * <p/>
  * Created by Shen YunLong on 2016/05/02.
  */
-public class FeedListAdapter extends BaseAdapter {
+public class FeedListAdapter extends BaseListAdapter<Event> {
 
     public static final String SPACE_CHARACTER = "\u00A0";
-
-    private Context mContext;
-    private List<Event> mEventList = new ArrayList<>();
 
     public FeedListAdapter(Context context) {
         mContext = context;
     }
 
-    /**
-     * 追加数据
-     *
-     * @param list
-     */
-    public void addData(List<Event> list) {
-        mEventList.addAll(list);
-    }
-
-    /**
-     * 重置数据
-     *
-     * @param list
-     */
-    public void setData(List<Event> list) {
-        mEventList.clear();
-        mEventList.addAll(list);
+    @Override
+    public int getLayoutId() {
+        return R.layout.feed_list_adapter_item;
     }
 
     @Override
-    public int getCount() {
-        return (mEventList == null) ? 0 : mEventList.size();
+    public BaseViewHolder createViewHolder() {
+        return new ViewHolder();
     }
 
     @Override
-    public Object getItem(int position) {
-        return (mEventList == null) ? null : mEventList.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
-
-        if (convertView == null) {
-            viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.feed_list_adapter_item, parent, false);
-            viewHolder.mAvatar = (CircleImageView) convertView.findViewById(R.id.event_user_avatar);
-            viewHolder.mContent = (TextView) convertView.findViewById(R.id.event_content);
-            viewHolder.mTime = (TextView) convertView.findViewById(R.id.event_time);
-
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+    public void initView(View view, BaseViewHolder viewHolder) {
+        if (viewHolder instanceof ViewHolder) {
+            ((ViewHolder) viewHolder).mAvatar = (CircleImageView) view.findViewById(R.id.event_user_avatar);
+            ((ViewHolder) viewHolder).mContent = (TextView) view.findViewById(R.id.event_content);
+            ((ViewHolder) viewHolder).mTime = (TextView) view.findViewById(R.id.event_time);
         }
-
-        bindData(viewHolder, position);
-
-        return convertView;
     }
 
-    public void bindData(ViewHolder viewHolder, int position) {
-        Event event = (Event) getItem(position);
+    @Override
+    public void bindData(BaseViewHolder viewHolder, int position) {
+        Event event = getItem(position);
 
-        SugarLoader.loadImage(mContext, event.getActor().getAvatar_url(), viewHolder.mAvatar, R.drawable.github_mark_120px);
-        viewHolder.mTime.setText(SugarTime.convertTimeAgo(event.getCreated_at()));
-        viewHolder.mContent.setText(setUpContent(event));
+        if (viewHolder instanceof ViewHolder) {
+            SugarLoader.loadImage(mContext, event.getActor().getAvatar_url(),
+                    ((ViewHolder) viewHolder).mAvatar, R.drawable.github_mark_120px);
+            ((ViewHolder) viewHolder).mTime.setText(SugarTime.convertTimeAgo(event.getCreated_at()));
+            ((ViewHolder) viewHolder).mContent.setText(setUpContent(event));
+        }
     }
 
-    public SpannableStringBuilder setUpContent(Event event) {
+    private SpannableStringBuilder setUpContent(Event event) {
         final String actor;
         final String action;
         final String var_1;
@@ -197,7 +156,7 @@ public class FeedListAdapter extends BaseAdapter {
     /**
      * ViewHolder
      */
-    public static class ViewHolder {
+    public static class ViewHolder extends BaseViewHolder {
         public CircleImageView mAvatar;
         public TextView mContent;
         public TextView mTime;

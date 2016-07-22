@@ -4,9 +4,7 @@ package com.syl.sugar.presenter;
 import com.syl.sugar.view.GankView;
 
 
-/**
- * Created by shenyunlong on 3/1/16.
- */
+@Deprecated
 public class GankPresenter {
 
     private GankView mGankView;

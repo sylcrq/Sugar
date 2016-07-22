@@ -2,27 +2,28 @@ package com.syl.sugar.view.fragment;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.AdapterView;
+import android.widget.ListAdapter;
+import android.widget.Toast;
 
-import com.syl.sugar.R;
+import com.syl.domain.model.Repository;
+import com.syl.sugar.presenter.BaseListPresenter;
+import com.syl.sugar.presenter.MainRepoPresenter;
+import com.syl.sugar.view.MainRepoView;
+import com.syl.sugar.view.adapter.RepoListAdapter;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
+import java.util.List;
+
 
 /**
- * Repo列表页面(Owned / Starred / Trending)
+ * Repo列表Fragment
+ * <p/>
+ * Created by Shen YunLong on 2016/05/05
  */
-public class RepoListFragment extends Fragment {
+public class RepoListFragment extends BaseListFragment implements MainRepoView {
     private static final String ARG_PAGE = "PAGE";
     private static final String ARG_TITLE = "TITLE";
-
-    @Bind(R.id.repo_list_view)
-    ListView mListView;
 
     private int mPage;
     private String mTitle;
@@ -49,30 +50,41 @@ public class RepoListFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_repo_list, container, false);
-        ButterKnife.bind(this, view);
-
-        return view;
+    public ListAdapter initAdapter() {
+        return new RepoListAdapter();
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public BaseListPresenter initPresenter() {
+        return new MainRepoPresenter(this);
+    }
 
-//        mContent.setText(mTitle);
-//
-//        switch (mPage) {
-//            case 0:
-//                mPageLayout.setBackgroundColor(getResources().getColor(R.color.LightBlue));
-//                break;
-//            case 1:
-//                mPageLayout.setBackgroundColor(getResources().getColor(R.color.Gold));
-//                break;
-//            case 2:
-//                mPageLayout.setBackgroundColor(getResources().getColor(R.color.SpringGreen));
-//                break;
-//        }
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        showToast("repo");
+    }
+
+    @Override
+    public void refreshComplete() {
+        mPtrFrame.refreshComplete();
+    }
+
+    @Override
+    public void render(List<Repository> repositories, boolean isLoadMore) {
+        if (mListAdapter != null && mListAdapter instanceof RepoListAdapter) {
+
+            if (isLoadMore) {
+                ((RepoListAdapter) mListAdapter).addData(repositories);
+            } else {
+                ((RepoListAdapter) mListAdapter).setData(repositories);
+            }
+
+            ((RepoListAdapter) mListAdapter).notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void showToast(String message) {
+        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -17,7 +17,7 @@ import java.util.List;
  * @see MainFeedFragment
  * @see MainFeedView
  */
-public class MainFeedPresenter {
+public class MainFeedPresenter extends BaseListPresenter {
 
     private MainFeedView mMainFeedView;
 
@@ -46,36 +46,36 @@ public class MainFeedPresenter {
         mMainFeedView.showContent(!showError);
     }
 
-    /**
-     * 加载数据
-     *
-     * @param userName
-     * @param page
-     * @param hasData
-     */
-    public void loadData(String userName, int page, final boolean hasData) {
-        final boolean isLoadMore = page > 1;
-        startLoadData(!hasData);
+    @Override
+    public void loadData(int page) {
+        if (mMainFeedView instanceof MainFeedFragment) {
+            final MainFeedFragment fragment = (MainFeedFragment) mMainFeedView;
+            final boolean hasData = fragment.hasData();
+            String username = fragment.getUserName();
 
-        GetEventsUseCase useCase =
-                new GetEventsUseCaseImpl(GitHubDataRepository.getInstance(),
-                        JobExecutor.getInstance(),
-                        UIThread.getInstance());
+            final boolean isLoadMore = page > 1;
+            startLoadData(!hasData);
 
-        useCase.execute(userName, page, new GetEventsUseCase.Callback() {
-            @Override
-            public void onSuccess(List<Event> list) {
-                mMainFeedView.refreshComplete();
-                onLoadOk(!hasData && list.isEmpty());
-                mMainFeedView.render(list, isLoadMore);
-            }
+            GetEventsUseCase useCase =
+                    new GetEventsUseCaseImpl(GitHubDataRepository.getInstance(),
+                            JobExecutor.getInstance(),
+                            UIThread.getInstance());
 
-            @Override
-            public void onError(Exception e) {
-                mMainFeedView.refreshComplete();
-                onLoadError(!hasData);
-                mMainFeedView.showToast("xxx");
-            }
-        });
+            useCase.execute(username, page, new GetEventsUseCase.Callback() {
+                @Override
+                public void onSuccess(List<Event> list) {
+                    mMainFeedView.refreshComplete();
+                    onLoadOk(!hasData && list.isEmpty());
+                    mMainFeedView.render(list, isLoadMore);
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    mMainFeedView.refreshComplete();
+                    onLoadError(!hasData);
+                    mMainFeedView.showToast("xxx");
+                }
+            });
+        }
     }
 }

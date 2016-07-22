@@ -1,6 +1,8 @@
 package com.syl.basecore.http;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -21,6 +23,7 @@ public class SugarHttpClient {
     private static final int DEFAULT_HTTP_READ_TIMEOUT = 5;
 
     private OkHttpClient mOkHttpClient;
+    private Map<String, Call> mHttpCallMap;
 
     private static SugarHttpClient sInstance;
 
@@ -30,6 +33,7 @@ public class SugarHttpClient {
                 .writeTimeout(DEFAULT_HTTP_WRITE_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(DEFAULT_HTTP_READ_TIMEOUT, TimeUnit.SECONDS)
                 .build();
+        mHttpCallMap = new WeakHashMap<>();
     }
 
     public synchronized static SugarHttpClient getInstance() {
@@ -50,7 +54,9 @@ public class SugarHttpClient {
     public void doHttpGet(String url, final HttpCallback callback) {
         Request request = new Request.Builder().url(url).build();
 
-        mOkHttpClient.newCall(request).enqueue(new Callback() {
+        Call call = mOkHttpClient.newCall(request);
+        mHttpCallMap.put(url, call);
+        call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (callback != null) {
@@ -69,6 +75,13 @@ public class SugarHttpClient {
                 }
             }
         });
+    }
+
+    public void cancel(String url) {
+        Call call = mHttpCallMap.get(url);
+        if (call != null) {
+            call.cancel();
+        }
     }
 
     public interface HttpCallback {

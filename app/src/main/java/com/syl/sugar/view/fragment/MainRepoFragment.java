@@ -1,36 +1,21 @@
 package com.syl.sugar.view.fragment;
 
-
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.astuetz.PagerSlidingTabStrip;
-import com.syl.sugar.R;
 import com.syl.sugar.view.adapter.MainRepoTabAdapter;
+import com.syl.sugar.view.adapter.SmartFragmentStatePagerAdapter;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
- * 首页Repositories页面
+ * 首页Repo Tab页面
+ * <p/>
+ * Created by Shen YunLong on 2016/07/26
  */
-public class MainRepoFragment extends Fragment {
+public class MainRepoFragment extends BaseTabFragment {
 
-    private static final String ARG_PARAM1 = "param1";
+    public static final String ARG_PARAM1 = "param1";
 
-    @Bind(R.id.common_pager_sliding_tab)
-    PagerSlidingTabStrip mPagerSlidingTab;
-    @Bind(R.id.common_view_pager)
-    ViewPager mViewPager;
-
-    private Context mContext;
-    private MainRepoTabAdapter mAdapter;
+    private String mParam1;
 
     public MainRepoFragment() {
     }
@@ -44,47 +29,15 @@ public class MainRepoFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mContext = context;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main_repo, container, false);
-        ButterKnife.bind(this, view);
-
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        mAdapter = new MainRepoTabAdapter(mContext, getFragmentManager());
-        mViewPager.setAdapter(mAdapter);
-
-        mPagerSlidingTab.setViewPager(mViewPager);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
+    public SmartFragmentStatePagerAdapter initAdapter() {
+        return new MainRepoTabAdapter(mContext, getFragmentManager());
     }
 }

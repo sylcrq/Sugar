@@ -3,12 +3,15 @@ package com.syl.sugar.view.activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.ImageView;
+
 import com.squareup.picasso.Picasso;
 import com.syl.sugar.NavigationTool;
 import com.syl.sugar.R;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+@Deprecated
 public class MeiziActivity extends SwipeBackAppCompatActivity {
 
     @Bind(R.id.meizi)
@@ -29,7 +32,7 @@ public class MeiziActivity extends SwipeBackAppCompatActivity {
     }
 
     private void showMeizi() {
-        if(!TextUtils.isEmpty(mImageUrl)) {
+        if (!TextUtils.isEmpty(mImageUrl)) {
             Picasso.with(this).load(mImageUrl)
                     .placeholder(R.drawable.placeholder_image)
                     .into(mMeizi);

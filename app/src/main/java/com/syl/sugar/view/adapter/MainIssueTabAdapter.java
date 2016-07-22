@@ -8,29 +8,28 @@ import com.syl.sugar.R;
 import com.syl.sugar.view.fragment.IssueListFragment;
 
 /**
+ * 首页Issue Tab页面Adapter
+ * <p/>
  * Created by Shen YunLong on 2016/06/30.
  */
 public class MainIssueTabAdapter extends SmartFragmentStatePagerAdapter {
 
-    public static final int[] MAIN_ISSUE_TABS = new int[]{
-            R.string.main_issue_tab_open,
-            R.string.main_issue_tab_closed
-    };
-
     private Context mContext;
     private FragmentManager mFragmentManager;
+    private String[] mTabs;
 
     public MainIssueTabAdapter(Context context, FragmentManager fm) {
         super(fm);
 
         this.mContext = context;
         this.mFragmentManager = fm;
+        this.mTabs = context.getResources().getStringArray(R.array.issue_tab_array);
     }
 
     @Override
     public Fragment getItem(int position) {
         if (position >= 0 && position < getCount()) {
-            return IssueListFragment.newInstance("", "");
+            return IssueListFragment.newInstance("");
         }
 
         return null;
@@ -38,13 +37,13 @@ public class MainIssueTabAdapter extends SmartFragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return MAIN_ISSUE_TABS.length;
+        return (mTabs != null) ? mTabs.length : 0;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         if (position >= 0 && position < getCount()) {
-            return mContext.getString(MAIN_ISSUE_TABS[position]);
+            return mTabs[position];
         }
 
         return null;

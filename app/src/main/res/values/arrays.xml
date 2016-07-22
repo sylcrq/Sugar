@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="repo_tab_array">
+        <item>Owned</item>
+        <item>Starred</item>
+        <item>Trending</item>
+    </string-array>
+
+    <string-array name="notification_tab_array">
+        <item>Unread</item>
+        <item>All</item>
+    </string-array>
+
+    <string-array name="issue_tab_array">
+        <item>open</item>
+        <item>closed</item>
+    </string-array>
+
+</resources>
