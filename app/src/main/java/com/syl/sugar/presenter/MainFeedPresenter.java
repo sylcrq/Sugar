@@ -19,37 +19,14 @@ import java.util.List;
  */
 public class MainFeedPresenter extends BaseListPresenter {
 
-    private MainFeedView mMainFeedView;
-
-    public MainFeedPresenter(MainFeedView mainFeedView) {
-        mMainFeedView = mainFeedView;
-    }
-
-    public void startLoadData(boolean showLoading) {
-        mMainFeedView.showEmptyView(false);
-        mMainFeedView.showErrorView(false);
-        mMainFeedView.showLoadingView(showLoading);
-        mMainFeedView.showContent(!showLoading);
-    }
-
-    public void onLoadOk(boolean showEmpty) {
-        mMainFeedView.showLoadingView(false);
-        mMainFeedView.showErrorView(false);
-        mMainFeedView.showEmptyView(showEmpty);
-        mMainFeedView.showContent(!showEmpty);
-    }
-
-    public void onLoadError(boolean showError) {
-        mMainFeedView.showLoadingView(false);
-        mMainFeedView.showEmptyView(false);
-        mMainFeedView.showErrorView(showError);
-        mMainFeedView.showContent(!showError);
+    public MainFeedPresenter(MainFeedView view) {
+        super(view);
     }
 
     @Override
     public void loadData(int page) {
-        if (mMainFeedView instanceof MainFeedFragment) {
-            final MainFeedFragment fragment = (MainFeedFragment) mMainFeedView;
+        if (mView != null && mView instanceof MainFeedFragment) {
+            final MainFeedFragment fragment = (MainFeedFragment) mView;
             final boolean hasData = fragment.hasData();
             String username = fragment.getUserName();
 
@@ -64,16 +41,16 @@ public class MainFeedPresenter extends BaseListPresenter {
             useCase.execute(username, page, new GetEventsUseCase.Callback() {
                 @Override
                 public void onSuccess(List<Event> list) {
-                    mMainFeedView.refreshComplete();
+                    ((MainFeedFragment) mView).refreshComplete();
                     onLoadOk(!hasData && list.isEmpty());
-                    mMainFeedView.render(list, isLoadMore);
+                    ((MainFeedFragment) mView).render(list, isLoadMore);
                 }
 
                 @Override
                 public void onError(Exception e) {
-                    mMainFeedView.refreshComplete();
+                    ((MainFeedFragment) mView).refreshComplete();
                     onLoadError(!hasData);
-                    mMainFeedView.showToast("xxx");
+                    ((MainFeedFragment) mView).showToast("" + e);
                 }
             });
         }

@@ -13,6 +13,8 @@ public interface RepositoriesDataStore {
 
     void getMyRepos(GetReposCallback callback);
 
+    void getStarredRepos(GetReposCallback callback);
+
     interface GetReposCallback {
         void onSuccess(List<RepositoryEntity> list);
 

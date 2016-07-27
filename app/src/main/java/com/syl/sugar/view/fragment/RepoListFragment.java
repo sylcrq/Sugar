@@ -22,20 +22,18 @@ import java.util.List;
  * Created by Shen YunLong on 2016/05/05
  */
 public class RepoListFragment extends BaseListFragment implements MainRepoView {
-    private static final String ARG_PAGE = "PAGE";
-    private static final String ARG_TITLE = "TITLE";
 
-    private int mPage;
-    private String mTitle;
+    private static final String ARG_PAGE_TYPE = "ARG_PAGE_TYPE";
+
+    private int mType;
 
     public RepoListFragment() {
     }
 
-    public static RepoListFragment newInstance(int page, String title) {
+    public static RepoListFragment newInstance(int type) {
         RepoListFragment fragment = new RepoListFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_PAGE, page);
-        args.putString(ARG_TITLE, title);
+        args.putInt(ARG_PAGE_TYPE, type);
         fragment.setArguments(args);
         return fragment;
     }
@@ -44,14 +42,13 @@ public class RepoListFragment extends BaseListFragment implements MainRepoView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mPage = getArguments().getInt(ARG_PAGE);
-            mTitle = getArguments().getString(ARG_TITLE);
+            mType = getArguments().getInt(ARG_PAGE_TYPE);
         }
     }
 
     @Override
     public ListAdapter initAdapter() {
-        return new RepoListAdapter();
+        return new RepoListAdapter(mContext);
     }
 
     @Override
@@ -86,5 +83,9 @@ public class RepoListFragment extends BaseListFragment implements MainRepoView {
     @Override
     public void showToast(String message) {
         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public int getType() {
+        return mType;
     }
 }

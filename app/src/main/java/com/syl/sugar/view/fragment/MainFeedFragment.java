@@ -87,14 +87,6 @@ public class MainFeedFragment extends BaseListFragment implements MainFeedView {
         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
     }
 
-    public boolean hasData() {
-        if (mListAdapter != null && mListAdapter.getCount() > 0) {
-            return true;
-        }
-
-        return false;
-    }
-
     public String getUserName() {
         return mUserName;
     }

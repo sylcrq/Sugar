@@ -50,7 +50,7 @@ public class NotificationListFragment extends BaseListFragment implements MainNo
 
     @Override
     public BaseListPresenter initPresenter() {
-        return new MainNotificationPresenter();
+        return new MainNotificationPresenter(this);
     }
 
     @Override

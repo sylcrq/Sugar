@@ -1,8 +1,8 @@
 package com.syl.data.http;
 
-import com.google.gson.reflect.TypeToken;
 import com.syl.basecore.http.SugarHttpClient;
 import com.syl.basecore.json.SugarJson;
+import com.syl.data.ListOfSomething;
 import com.syl.data.model.EventEntity;
 import com.syl.data.model.IssueEntity;
 import com.syl.data.model.NotificationEntity;
@@ -11,7 +11,6 @@ import com.syl.data.model.UserEntity;
 import com.syl.data.utils.GitHubJson;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.List;
 
 
@@ -68,56 +67,65 @@ public class GitHubApiImpl implements GitHubApi {
     public void getNotifications(GetDataListCallback<NotificationEntity> callback) {
         // GET /notifications
         final String url = HOST + "/notifications";
-        httpGet(url, callback);
+        httpGet(url, callback, NotificationEntity.class);
     }
 
     @Override
     public void getRepoNotifications(String owner, String repo, GetDataListCallback<NotificationEntity> callback) {
         // GET /repos/:owner/:repo/notifications
         final String url = HOST + String.format("/repos/%s/%s/notifications", owner, repo);
-        httpGet(url, callback);
+        httpGet(url, callback, NotificationEntity.class);
     }
 
     @Override
     public void getIssues(GetDataListCallback<IssueEntity> callback) {
         // GET /issues
         final String url = HOST + "/issues";
-        httpGet(url, callback);
+        httpGet(url, callback, IssueEntity.class);
     }
 
     @Override
     public void getUserIssues(GetDataListCallback<IssueEntity> callback) {
         // GET /user/issues
         final String url = HOST + "/user/issues";
-        httpGet(url, callback);
+        httpGet(url, callback, IssueEntity.class);
     }
 
     @Override
     public void getOrgIssues(String org, GetDataListCallback<IssueEntity> callback) {
         // GET /orgs/:org/issues
         final String url = HOST + String.format("/orgs/%s/issues", org);
-        httpGet(url, callback);
+        httpGet(url, callback, IssueEntity.class);
     }
 
     @Override
     public void getRepoIssues(String owner, String repo, GetDataListCallback<IssueEntity> callback) {
         // GET /repos/:owner/:repo/issues
         final String url = HOST + String.format("/repos/%s/%s/issues", owner, repo);
-        httpGet(url, callback);
+        httpGet(url, callback, IssueEntity.class);
     }
 
     @Override
     public void getMyRepos(GetDataListCallback<RepositoryEntity> callback) {
         // GET /user/repos
-        final String url = HOST + "/user/repos";
-        httpGet(url, callback);
+        final String url = HOST + "/user/repos" +
+                "?" + PARAM_ACCESS_TOKEN;
+        httpGet(url, callback, RepositoryEntity.class);
+    }
+
+    @Override
+    public void getStarredRepos(GetDataListCallback<RepositoryEntity> callback) {
+        // GET /user/starred
+        final String url = HOST + "/user/starred" +
+                "?" + PARAM_ACCESS_TOKEN;
+        httpGet(url, callback, RepositoryEntity.class);
     }
 
     @Override
     public void getUserRepos(String username, GetDataListCallback<RepositoryEntity> callback) {
         // GET /users/:username/repos
         final String url = HOST + String.format("/users/%s/repos", username);
-        httpGet(url, callback);
+        httpGet(url, callback, RepositoryEntity.class);
     }
 
     @Override
@@ -156,7 +164,7 @@ public class GitHubApiImpl implements GitHubApi {
         });
     }
 
-    private <T> void httpGet(String url, final GetDataListCallback<T> callback) {
+    private <T> void httpGet(String url, final GetDataListCallback<T> callback, final Class<T> clazz) {
         SugarHttpClient.getInstance().doHttpGet(url, new SugarHttpClient.HttpCallback() {
             @Override
             public void onError(IOException e) {
@@ -168,9 +176,7 @@ public class GitHubApiImpl implements GitHubApi {
             @Override
             public void onSuccess(String response) {
                 if (callback != null) {
-                    Type type = new TypeToken<List<T>>() {
-                    }.getType();
-                    List<T> list = SugarJson.fromJson(response, type);
+                    List<T> list = SugarJson.fromJson(response, new ListOfSomething<T>(clazz));
                     callback.onSuccess(list);
                 }
             }

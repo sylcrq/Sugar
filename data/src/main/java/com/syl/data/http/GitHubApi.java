@@ -177,6 +177,12 @@ public interface GitHubApi {
      */
     void getMyRepos(GetDataListCallback<RepositoryEntity> callback);
 
+    /**
+     * List repositories being starred by the authenticated user.
+     *
+     * @param callback
+     */
+    void getStarredRepos(GetDataListCallback<RepositoryEntity> callback);
 
     /**
      * List user repositories

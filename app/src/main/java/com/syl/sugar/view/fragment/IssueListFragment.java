@@ -49,7 +49,7 @@ public class IssueListFragment extends BaseListFragment implements MainIssueView
 
     @Override
     public BaseListPresenter initPresenter() {
-        return new MainIssuePresenter();
+        return new MainIssuePresenter(this);
     }
 
     @Override

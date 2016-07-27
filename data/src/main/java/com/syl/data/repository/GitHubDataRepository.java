@@ -167,4 +167,24 @@ public class GitHubDataRepository implements GitHubRepository {
             }
         });
     }
+
+    @Override
+    public void getStarredRepos(final GetDataListCallback<Repository> callback) {
+        RepositoriesDataStore dataStore = GitHubDataFactory.createRepositoriesDataStore();
+        dataStore.getStarredRepos(new RepositoriesDataStore.GetReposCallback() {
+            @Override
+            public void onSuccess(List<RepositoryEntity> list) {
+                if (callback != null) {
+                    callback.onSuccess(RepositoryMapper.transform(list));
+                }
+            }
+
+            @Override
+            public void onError(Exception e) {
+                if (callback != null) {
+                    callback.onError(e);
+                }
+            }
+        });
+    }
 }

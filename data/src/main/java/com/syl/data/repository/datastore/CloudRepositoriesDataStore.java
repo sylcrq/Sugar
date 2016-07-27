@@ -13,13 +13,32 @@ import java.util.List;
  */
 public class CloudRepositoriesDataStore implements RepositoriesDataStore {
 
-    public static final String TAG = CloudRepositoriesDataStore.class.getSimpleName();
+//    public static final String TAG = CloudRepositoriesDataStore.class.getSimpleName();
 
     private GitHubApi mNetApi = new GitHubApiImpl();
 
     @Override
     public void getMyRepos(final GetReposCallback callback) {
         mNetApi.getMyRepos(new GitHubApi.GetDataListCallback<RepositoryEntity>() {
+            @Override
+            public void onSuccess(List<RepositoryEntity> list) {
+                if (callback != null) {
+                    callback.onSuccess(list);
+                }
+            }
+
+            @Override
+            public void onError(Exception e) {
+                if (callback != null) {
+                    callback.onError(e);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getStarredRepos(final GetReposCallback callback) {
+        mNetApi.getStarredRepos(new GitHubApi.GetDataListCallback<RepositoryEntity>() {
             @Override
             public void onSuccess(List<RepositoryEntity> list) {
                 if (callback != null) {

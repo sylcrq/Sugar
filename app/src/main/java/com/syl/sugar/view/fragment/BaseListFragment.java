@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.syl.basecore.http.SugarHttpClient;
 import com.syl.sugar.R;
 import com.syl.sugar.presenter.BaseListPresenter;
 import com.syl.sugar.view.BaseView;
@@ -81,7 +82,7 @@ public abstract class BaseListFragment extends Fragment implements BaseView, Ada
     public void onPause() {
         super.onPause();
 
-        // cancel
+        SugarHttpClient.getInstance().cancel("");
     }
 
     @Override
@@ -145,5 +146,14 @@ public abstract class BaseListFragment extends Fragment implements BaseView, Ada
     public abstract ListAdapter initAdapter();
 
     public abstract BaseListPresenter initPresenter();
+
+
+    public boolean hasData() {
+        if (mListAdapter != null && mListAdapter.getCount() > 0) {
+            return true;
+        }
+
+        return false;
+    }
 
 }

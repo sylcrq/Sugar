@@ -29,7 +29,7 @@ public class MainRepoTabAdapter extends SmartFragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position >= 0 && position < getCount()) {
-            return RepoListFragment.newInstance(position, "");
+            return RepoListFragment.newInstance(position);
         }
 
         return null;

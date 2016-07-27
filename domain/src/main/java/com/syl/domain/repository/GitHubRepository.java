@@ -61,6 +61,8 @@ public interface GitHubRepository {
      */
     void getMyRepos(GetDataListCallback<Repository> callback);
 
+    void getStarredRepos(GetDataListCallback<Repository> callback);
+
     interface GetDataListCallback<T> {
         void onSuccess(List<T> list);
 
