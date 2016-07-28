@@ -40,4 +40,8 @@
     <string name="main_issue_tab_open">Open</string>
     <string name="main_issue_tab_closed">Closed</string>
 
+    <string name="main_more_feedback">帮助反馈</string>
+    <string name="main_more_night_mode">夜间模式</string>
+    <string name="main_more_settings">设置</string>
+    <string name="main_more_logout">退出登录</string>
 </resources>
