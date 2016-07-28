@@ -6,11 +6,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
 import com.syl.aop.annotation.DebugTrace;
+import com.syl.sugar.Constants;
 import com.syl.sugar.R;
+import com.syl.sugar.view.fragment.BaseListFragment;
 import com.syl.sugar.view.fragment.MainMoreFragment;
 import com.syl.sugar.view.fragment.MainNotificationFragment;
 import com.syl.sugar.view.fragment.MainRepoFragment;
@@ -49,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         mBottomBar = BottomBar.attach(this, savedInstanceState);
 //        mBottomBar.useFixedMode();
         mBottomBar.noNavBarGoodness();
+        mBottomBar.noTopOffset();
+        mBottomBar.noTabletGoodness();
 
         mBottomBar.setItems(R.menu.bottombar_menu);
         mBottomBar.setOnMenuTabClickListener(new OnMenuTabClickListener() {
@@ -90,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (id) {
             case MAIN_TAB_NEWS:
-                transaction.replace(R.id.container, MainFeedFragment.newInstance("sylcrq"));
+                transaction.replace(R.id.container, MainFeedFragment.newInstance("sylcrq"), Constants.TAG_LIST_FRAGMENT);
                 break;
             case MAIN_TAB_REPO:
                 transaction.replace(R.id.container, MainRepoFragment.newInstance(""));
@@ -114,5 +119,16 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
 
         mBottomBar.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        BaseListFragment fragment = (BaseListFragment) getSupportFragmentManager()
+                .findFragmentByTag(Constants.TAG_LIST_FRAGMENT);
+        if (fragment != null && fragment.isVisible()) {
+            fragment.dispatchTouchEvent(ev);
+        }
+
+        return super.dispatchTouchEvent(ev);
     }
 }

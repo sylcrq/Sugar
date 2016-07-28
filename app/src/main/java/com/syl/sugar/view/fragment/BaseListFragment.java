@@ -4,8 +4,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
@@ -25,7 +28,9 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 
 /**
- * 支持下拉刷新/加载更多的列表视图Fragment基类
+ * 支持下拉刷新/加载更多的ListView Fragment基类
+ * <p/>
+ * 上滑/下滑时显示/隐藏顶部ActionBar
  * <p/>
  * Created by Shen YunLong on 2016/07/22.
  */
@@ -34,6 +39,9 @@ public abstract class BaseListFragment extends Fragment implements BaseView, Ada
     protected Context mContext;
     protected ListAdapter mListAdapter;
     protected BaseListPresenter mListPresenter;
+    private float mLastX;
+    private float mLastY;
+    private int mTouchSlop;
 
     @Bind(R.id.common_ptr_layout)
     PtrClassicFrameLayout mPtrFrame;
@@ -53,6 +61,7 @@ public abstract class BaseListFragment extends Fragment implements BaseView, Ada
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mTouchSlop = ViewConfiguration.get(mContext).getScaledTouchSlop();
         mListAdapter = initAdapter();
         mListPresenter = initPresenter();
     }
@@ -147,7 +156,6 @@ public abstract class BaseListFragment extends Fragment implements BaseView, Ada
 
     public abstract BaseListPresenter initPresenter();
 
-
     public boolean hasData() {
         if (mListAdapter != null && mListAdapter.getCount() > 0) {
             return true;
@@ -156,4 +164,36 @@ public abstract class BaseListFragment extends Fragment implements BaseView, Ada
         return false;
     }
 
+    public void dispatchTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_MOVE:
+                float dx = (ev.getRawX() - mLastX) / 2;
+                float dy = (ev.getRawY() - mLastY) / 2;
+
+                if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > mTouchSlop) {
+                    AppCompatActivity activity = (AppCompatActivity) getActivity();
+                    if (activity != null) {
+                        if (dy > 0) {
+                            // 下滑
+                            if (activity.getSupportActionBar() != null) {
+                                activity.getSupportActionBar().show();
+                            }
+                        } else {
+                            // 上滑
+                            if (activity.getSupportActionBar() != null) {
+                                activity.getSupportActionBar().hide();
+                            }
+                        }
+                    }
+                }
+                break;
+            case MotionEvent.ACTION_DOWN:
+                mLastX = ev.getRawX();
+                mLastY = ev.getRawY();
+                break;
+            default:
+                break;
+        }
+
+    }
 }
