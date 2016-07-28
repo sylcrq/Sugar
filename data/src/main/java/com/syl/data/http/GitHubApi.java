@@ -100,7 +100,7 @@ public interface GitHubApi {
      * <p/>
      * List all notifications for the current user, grouped by repository.
      */
-    void getNotifications(GetDataListCallback<NotificationEntity> callback);
+    void getNotifications(boolean all, boolean participating, GetDataListCallback<NotificationEntity> callback);
 
     /**
      * List your notifications in a repository

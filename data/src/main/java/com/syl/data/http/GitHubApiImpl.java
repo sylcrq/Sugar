@@ -64,9 +64,12 @@ public class GitHubApiImpl implements GitHubApi {
     }
 
     @Override
-    public void getNotifications(GetDataListCallback<NotificationEntity> callback) {
+    public void getNotifications(boolean all, boolean participating, GetDataListCallback<NotificationEntity> callback) {
         // GET /notifications
-        final String url = HOST + "/notifications";
+        final String url = HOST + "/notifications" +
+                "?" + PARAM_ACCESS_TOKEN +
+                "&" + "all=" + all +
+                "&" + "participating=" + participating;
         httpGet(url, callback, NotificationEntity.class);
     }
 

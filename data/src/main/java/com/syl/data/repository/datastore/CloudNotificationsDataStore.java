@@ -19,8 +19,8 @@ public class CloudNotificationsDataStore implements NotificationsDataStore {
     private GitHubApi mNetApi = new GitHubApiImpl();
 
     @Override
-    public void getNotifications(final GetNotificationsCallback callback) {
-        mNetApi.getNotifications(new GitHubApi.GetDataListCallback<NotificationEntity>() {
+    public void getNotifications(boolean all, boolean participating, final GetNotificationsCallback callback) {
+        mNetApi.getNotifications(all, participating, new GitHubApi.GetDataListCallback<NotificationEntity>() {
             @Override
             public void onSuccess(List<NotificationEntity> list) {
                 if (callback != null) {

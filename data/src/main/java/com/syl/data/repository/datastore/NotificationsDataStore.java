@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface NotificationsDataStore {
 
-    void getNotifications(GetNotificationsCallback callback);
+    void getNotifications(boolean all, boolean participating, GetNotificationsCallback callback);
 
     interface GetNotificationsCallback {
         void onSuccess(List<NotificationEntity> list);

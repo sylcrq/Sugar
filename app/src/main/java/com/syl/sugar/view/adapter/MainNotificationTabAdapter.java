@@ -29,7 +29,13 @@ public class MainNotificationTabAdapter extends SmartFragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position >= 0 && position < getCount()) {
-            return NotificationListFragment.newInstance("");
+            if (position == 0) {
+                // Unread Notification
+                return NotificationListFragment.newInstance(false, false);
+            } else if (position == 1) {
+                // All Notification
+                return NotificationListFragment.newInstance(true, false);
+            }
         }
 
         return null;

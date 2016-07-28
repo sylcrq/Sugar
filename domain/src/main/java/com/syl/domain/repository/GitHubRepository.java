@@ -52,7 +52,7 @@ public interface GitHubRepository {
      *
      * @param callback
      */
-    void getNotifications(GetDataListCallback<Notification> callback);
+    void getNotifications(boolean all, boolean participating, GetDataListCallback<Notification> callback);
 
     /**
      * 获取当前授权用户的Repo

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
+import android.widget.Toast;
 
 import com.syl.domain.model.Notification;
 import com.syl.sugar.presenter.BaseListPresenter;
@@ -20,17 +21,20 @@ import java.util.List;
  * Created by Shen YunLong on 2016/05/05
  */
 public class NotificationListFragment extends BaseListFragment implements MainNotificationView {
-    private static final String ARG_PARAM1 = "param1";
+    public static final String ARG_SHOW_ALL = "ARG_SHOW_ALL";
+    public static final String ARG_SHOW_PARTICIPATING = "ARG_SHOW_PARTICIPATING";
 
-    private String mParam1;
+    private boolean mAll;
+    private boolean mParticipating;
 
     public NotificationListFragment() {
     }
 
-    public static NotificationListFragment newInstance(String param1) {
+    public static NotificationListFragment newInstance(boolean all, boolean participating) {
         NotificationListFragment fragment = new NotificationListFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putBoolean(ARG_SHOW_ALL, all);
+        args.putBoolean(ARG_SHOW_PARTICIPATING, participating);
         fragment.setArguments(args);
         return fragment;
     }
@@ -39,13 +43,14 @@ public class NotificationListFragment extends BaseListFragment implements MainNo
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            mAll = getArguments().getBoolean(ARG_SHOW_ALL);
+            mParticipating = getArguments().getBoolean(ARG_SHOW_PARTICIPATING);
         }
     }
 
     @Override
     public ListAdapter initAdapter() {
-        return new NotificationListAdapter();
+        return new NotificationListAdapter(mContext);
     }
 
     @Override
@@ -55,21 +60,37 @@ public class NotificationListFragment extends BaseListFragment implements MainNo
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        showToast("notification");
     }
 
     @Override
     public void refreshComplete() {
-
+        mPtrFrame.refreshComplete();
     }
 
     @Override
     public void render(List<Notification> notifications, boolean isLoadMore) {
+        if (mListAdapter != null && mListAdapter instanceof NotificationListAdapter) {
+            if (isLoadMore) {
+                ((NotificationListAdapter) mListAdapter).addData(notifications);
+            } else {
+                ((NotificationListAdapter) mListAdapter).setData(notifications);
+            }
 
+            ((NotificationListAdapter) mListAdapter).notifyDataSetInvalidated();
+        }
     }
 
     @Override
     public void showToast(String message) {
+        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+    }
 
+    public boolean isAll() {
+        return mAll;
+    }
+
+    public boolean isParticipating() {
+        return mParticipating;
     }
 }

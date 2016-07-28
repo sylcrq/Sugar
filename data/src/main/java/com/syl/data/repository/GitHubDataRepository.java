@@ -129,9 +129,9 @@ public class GitHubDataRepository implements GitHubRepository {
     }
 
     @Override
-    public void getNotifications(final GetDataListCallback<Notification> callback) {
+    public void getNotifications(boolean all, boolean participating, final GetDataListCallback<Notification> callback) {
         NotificationsDataStore dataStore = GitHubDataFactory.createNotificationsDataStore();
-        dataStore.getNotifications(new NotificationsDataStore.GetNotificationsCallback() {
+        dataStore.getNotifications(all, participating, new NotificationsDataStore.GetNotificationsCallback() {
             @Override
             public void onSuccess(List<NotificationEntity> list) {
                 if (callback != null) {
